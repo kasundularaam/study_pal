@@ -33,7 +33,7 @@ class _SubjectScreenState extends State<SubjectScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.screenBgDarkColor,
+      backgroundColor: MyColors.homeScrnBgClr,
       body: SafeArea(
         child: LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
@@ -69,76 +69,92 @@ class _SubjectScreenState extends State<SubjectScreen> {
                   ],
                 ),
               ),
-              Container(
-                height: (constraints.maxHeight * 90) / 100,
-                decoration: BoxDecoration(
-                  color: MyColors.screenBgColor,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(8.w),
-                    topRight: Radius.circular(8.w),
-                  ),
+              ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8.w),
+                  topRight: Radius.circular(8.w),
                 ),
-                child: ListView(
-                  physics: BouncingScrollPhysics(),
-                  padding: EdgeInsets.symmetric(horizontal: 5.w),
+                child: Stack(
                   children: [
-                    SizedBox(
-                      height: 3.h,
+                    Image.asset(
+                      "assets/images/bg_bottom_art.png",
+                      width: constraints.maxWidth,
+                      height: (constraints.maxHeight * 90) / 100,
+                      fit: BoxFit.cover,
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 5.w),
-                      child: MyTextField(
-                          onChanged: (text) =>
-                              BlocProvider.of<SubjectScreenCubit>(context)
-                                  .loadSearchList(searchTxt: text),
-                          onSubmitted: (text) {},
-                          textInputAction: TextInputAction.search,
-                          isPassword: false,
-                          hintText: "Search modules..."),
-                    ),
-                    SizedBox(
-                      height: 3.h,
-                    ),
-                    BlocBuilder<SubjectScreenCubit, SubjectScreenState>(
-                      builder: (context, state) {
-                        if (state is SubjectScreenInitial) {
-                          return Text("Initial State");
-                        } else if (state is SubjectScreenLoading) {
-                          return Center(
-                              child: CircularProgressIndicator(
-                            color: MyColors.progressColor,
-                          ));
-                        } else if (state is SubjectScreenLoaded) {
-                          return ListView.builder(
-                            padding: EdgeInsets.all(0),
-                            shrinkWrap: true,
-                            physics: BouncingScrollPhysics(),
-                            itemCount: state.moduleList.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              Module module = state.moduleList[index];
-                              return BlocProvider(
-                                create: (context) => ModuleCardCubit(),
-                                child: ModuleCard(
-                                  args: ModuleScreenArgs(
-                                    moduleId: module.id,
-                                    moduleName: module.moduleName,
-                                    subjectId: widget.args.subjectId,
-                                    subjectName: widget.args.subjectName,
-                                  ),
-                                ),
-                              );
+                    Container(
+                      height: (constraints.maxHeight * 90) / 100,
+                      decoration: BoxDecoration(),
+                      child: ListView(
+                        physics: BouncingScrollPhysics(),
+                        padding: EdgeInsets.symmetric(horizontal: 5.w),
+                        children: [
+                          SizedBox(
+                            height: 3.h,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 5.w),
+                            child: MyTextField(
+                              onChanged: (text) =>
+                                  BlocProvider.of<SubjectScreenCubit>(context)
+                                      .loadSearchList(searchTxt: text),
+                              onSubmitted: (text) {},
+                              textInputAction: TextInputAction.search,
+                              isPassword: false,
+                              hintText: "Search modules...",
+                              textColor: MyColors.textColorDark,
+                              bgColor: MyColors.white.withOpacity(0.7),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 3.h,
+                          ),
+                          BlocBuilder<SubjectScreenCubit, SubjectScreenState>(
+                            builder: (context, state) {
+                              if (state is SubjectScreenInitial) {
+                                return Text("Initial State");
+                              } else if (state is SubjectScreenLoading) {
+                                return Center(
+                                    child: CircularProgressIndicator(
+                                  color: MyColors.progressColor,
+                                ));
+                              } else if (state is SubjectScreenLoaded) {
+                                return ListView.builder(
+                                  padding: EdgeInsets.all(0),
+                                  shrinkWrap: true,
+                                  physics: BouncingScrollPhysics(),
+                                  itemCount: state.moduleList.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    Module module = state.moduleList[index];
+                                    return BlocProvider(
+                                      create: (context) => ModuleCardCubit(),
+                                      child: ModuleCard(
+                                        args: ModuleScreenArgs(
+                                          moduleId: module.id,
+                                          moduleName: module.moduleName,
+                                          subjectId: widget.args.subjectId,
+                                          subjectName: widget.args.subjectName,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              } else if (state is SubjectScreenNoResult) {
+                                return Center(
+                                    child:
+                                        ErrorMsgBox(errorMsg: state.message));
+                              } else if (state is SubjectScreenFailed) {
+                                return Center(
+                                    child:
+                                        ErrorMsgBox(errorMsg: state.errorMsg));
+                              } else {
+                                return Text("unhandled state excecuted!");
+                              }
                             },
-                          );
-                        } else if (state is SubjectScreenNoResult) {
-                          return Center(
-                              child: ErrorMsgBox(errorMsg: state.message));
-                        } else if (state is SubjectScreenFailed) {
-                          return Center(
-                              child: ErrorMsgBox(errorMsg: state.errorMsg));
-                        } else {
-                          return Text("unhandled state excecuted!");
-                        }
-                      },
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),

@@ -159,7 +159,7 @@ class CheckIconBtn extends StatelessWidget {
         child: Icon(
           Icons.check_circle,
           size: 8.h,
-          color: MyColors.progressColor,
+          color: MyColors.textColorLight,
         ),
       ),
     );

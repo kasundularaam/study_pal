@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+
 import 'package:study_pal/core/constants/my_colors.dart';
 
 class MyTextField extends StatelessWidget {
@@ -9,7 +10,8 @@ class MyTextField extends StatelessWidget {
   final TextInputAction textInputAction;
   final bool isPassword;
   final String hintText;
-
+  final Color bgColor;
+  final Color textColor;
   const MyTextField({
     Key? key,
     required this.onChanged,
@@ -18,13 +20,15 @@ class MyTextField extends StatelessWidget {
     required this.textInputAction,
     required this.isPassword,
     required this.hintText,
+    required this.bgColor,
+    required this.textColor,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: MyColors.white,
+        color: bgColor,
         borderRadius: BorderRadius.circular(2.w),
       ),
       child: TextField(
@@ -35,10 +39,14 @@ class MyTextField extends StatelessWidget {
         autofocus: false,
         style: TextStyle(
           fontSize: 14.sp,
-          color: MyColors.shadedBlack,
+          color: textColor,
         ),
         decoration: InputDecoration(
           hintText: hintText,
+          hintStyle: TextStyle(
+            fontSize: 14.sp,
+            color: textColor.withOpacity(0.7),
+          ),
           contentPadding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 5.w),
           border: InputBorder.none,
         ),

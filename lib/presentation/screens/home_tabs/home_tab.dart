@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
@@ -33,139 +35,152 @@ class _HomeTabState extends State<HomeTab> {
         bottomLeft: Radius.circular(10.w),
         bottomRight: Radius.circular(10.w),
       ),
-      child: Container(
-        color: MyColors.screenBgColor,
-        child: BlocBuilder<HomeTabCubit, HomeTabState>(
-          builder: (context, state) {
-            if (state is HomeTabInitial) {
-              return Center(child: Text("Initial State"));
-            } else if (state is HomeTabLoading) {
-              return ListView(
-                children: [
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  Row(
+      child: Stack(
+        children: [
+          Image.asset(
+            "assets/images/bg_art.png",
+            width: 100.w,
+            height: 100.h,
+            fit: BoxFit.cover,
+          ),
+          BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
+            child: Container(),
+          ),
+          Container(
+            child: BlocBuilder<HomeTabCubit, HomeTabState>(
+              builder: (context, state) {
+                if (state is HomeTabInitial) {
+                  return Center(child: Text("Initial State"));
+                } else if (state is HomeTabLoading) {
+                  return ListView(
                     children: [
                       SizedBox(
-                        width: 5.w,
+                        height: 2.h,
                       ),
-                      Text(
-                        "Home",
-                        style: TextStyle(
-                            color: MyColors.textColorLight,
-                            fontSize: 26.sp,
-                            fontWeight: FontWeight.w600),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 5.w,
+                          ),
+                          Text(
+                            "Home",
+                            style: TextStyle(
+                                color: MyColors.homeTitleClr,
+                                fontSize: 26.sp,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ],
                       ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 5.w,
+                          ),
+                          HTCLoading(),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 3.h,
+                      ),
+                      Center(
+                          child: CircularProgressIndicator(
+                        color: MyColors.progressColor,
+                      )),
                     ],
-                  ),
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  Row(
+                  );
+                } else if (state is HomeTabLoaded) {
+                  return ListView(
+                    physics: BouncingScrollPhysics(),
                     children: [
                       SizedBox(
-                        width: 5.w,
+                        height: 2.h,
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 5.w,
+                          ),
+                          Text(
+                            "Home",
+                            style: TextStyle(
+                                color: MyColors.homeTitleClr,
+                                fontSize: 26.sp,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 5.w,
+                          ),
+                          HomeTopCard(
+                            subjectList: state.subjectList,
+                          ),
+                        ],
+                      ),
+                      ListView.builder(
+                          padding: EdgeInsets.all(0),
+                          physics: BouncingScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: state.subjectList.length,
+                          itemBuilder: (context, index) {
+                            Subject subject = state.subjectList[index];
+                            Color color = MyColors.subjectColors[index];
+                            return BlocProvider(
+                              create: (context) => SubjectCardCubit(),
+                              child: SubjectCard(
+                                subject: subject,
+                                color: color,
+                              ),
+                            );
+                          })
+                    ],
+                  );
+                } else if (state is HomeTabFailed) {
+                  return ListView(
+                    children: [
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 5.w,
+                          ),
+                          Text(
+                            "Home",
+                            style: TextStyle(
+                                color: MyColors.homeTitleClr,
+                                fontSize: 26.sp,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 2.h,
                       ),
                       HTCLoading(),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 3.h,
-                  ),
-                  Center(
-                      child: CircularProgressIndicator(
-                    color: MyColors.progressColor,
-                  )),
-                ],
-              );
-            } else if (state is HomeTabLoaded) {
-              return ListView(
-                physics: BouncingScrollPhysics(),
-                children: [
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  Row(
-                    children: [
                       SizedBox(
-                        width: 5.w,
+                        height: 3.h,
                       ),
-                      Text(
-                        "Home",
-                        style: TextStyle(
-                            color: MyColors.textColorLight,
-                            fontSize: 26.sp,
-                            fontWeight: FontWeight.w600),
-                      ),
+                      Center(child: ErrorMsgBox(errorMsg: state.errorMsg))
                     ],
-                  ),
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 5.w,
-                      ),
-                      HomeTopCard(
-                        subjectList: state.subjectList,
-                      ),
-                    ],
-                  ),
-                  ListView.builder(
-                      padding: EdgeInsets.all(0),
-                      physics: BouncingScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: state.subjectList.length,
-                      itemBuilder: (context, index) {
-                        Subject subject = state.subjectList[index];
-                        Color color = MyColors.subjectColors[index];
-                        return BlocProvider(
-                          create: (context) => SubjectCardCubit(),
-                          child: SubjectCard(
-                            subject: subject,
-                            color: color,
-                          ),
-                        );
-                      })
-                ],
-              );
-            } else if (state is HomeTabFailed) {
-              return ListView(
-                children: [
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 5.w,
-                      ),
-                      Text(
-                        "Home",
-                        style: TextStyle(
-                            color: MyColors.textColorLight,
-                            fontSize: 26.sp,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  HTCLoading(),
-                  SizedBox(
-                    height: 3.h,
-                  ),
-                  Center(child: ErrorMsgBox(errorMsg: state.errorMsg))
-                ],
-              );
-            } else {
-              return Center(child: Text("unhandled state excecuted!"));
-            }
-          },
-        ),
+                  );
+                } else {
+                  return Center(child: Text("unhandled state excecuted!"));
+                }
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

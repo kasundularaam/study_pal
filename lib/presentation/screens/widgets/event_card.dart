@@ -1,8 +1,11 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 import 'package:study_pal/core/constants/my_colors.dart';
 import 'package:study_pal/data/models/cal_event_modle.dart';
+import 'package:study_pal/presentation/screens/widgets/blur_bg.dart';
 
 class EventCard extends StatelessWidget {
   final CalEvent calEvent;
@@ -30,52 +33,61 @@ class EventCard extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    padding: EdgeInsets.all(2.w),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white,
-                    ),
-                    child: Text(
-                      day,
-                      style: TextStyle(
-                          color: MyColors.textColorDark, fontSize: 20.sp),
+                  ClipOval(
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                      child: Container(
+                        padding: EdgeInsets.all(2.w),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white.withOpacity(0.8),
+                        ),
+                        child: Text(
+                          day,
+                          style: TextStyle(
+                              color: MyColors.textColorDark, fontSize: 20.sp),
+                        ),
+                      ),
                     ),
                   ),
                   SizedBox(
                     width: 2.w,
                   ),
                   Expanded(
-                    child: Container(
-                      padding: EdgeInsets.all(2.w),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(3.w),
-                        color: Colors.white,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(2.w),
-                            decoration: BoxDecoration(
-                                color: MyColors.primaryLight,
-                                borderRadius: BorderRadius.circular(1.w)),
-                            child: Text(
-                              calEvent.title,
+                    child: BlurBg(
+                      borderRadius: BorderRadius.circular(3.w),
+                      child: Container(
+                        padding: EdgeInsets.all(2.w),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.8),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(2.w),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(1.w),
+                                color: MyColors.white,
+                              ),
+                              child: Text(
+                                calEvent.title,
+                                style: TextStyle(
+                                    color: MyColors.textColorDark,
+                                    fontSize: 14.sp),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 1.h,
+                            ),
+                            Text(
+                              "$monYear at $formattedTime",
                               style: TextStyle(
                                   color: MyColors.textColorDark,
-                                  fontSize: 14.sp),
+                                  fontSize: 12.sp),
                             ),
-                          ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          Text(
-                            "$monYear at $formattedTime",
-                            style: TextStyle(
-                                color: MyColors.textColorDark, fontSize: 12.sp),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),

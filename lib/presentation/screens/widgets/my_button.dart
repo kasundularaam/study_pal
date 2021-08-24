@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:study_pal/core/constants/my_colors.dart';
 
 class MyButton extends StatelessWidget {
   final String btnText;
   final Function onPressed;
+  final Color bgColor;
+  final Color txtColor;
   const MyButton({
     Key? key,
     required this.btnText,
     required this.onPressed,
+    required this.bgColor,
+    required this.txtColor,
   }) : super(key: key);
 
   @override
@@ -21,14 +24,12 @@ class MyButton extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 1.5.h, horizontal: 10.w),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(2.w),
-          color: MyColors.progressColor,
+          color: bgColor,
         ),
         child: Text(
           btnText,
           style: TextStyle(
-              fontSize: 18.sp,
-              color: MyColors.textColorDark,
-              fontWeight: FontWeight.w600),
+              fontSize: 18.sp, color: txtColor, fontWeight: FontWeight.w600),
         ),
       ),
     );

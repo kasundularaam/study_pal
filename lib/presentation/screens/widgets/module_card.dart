@@ -47,12 +47,12 @@ class ModuleCard extends StatelessWidget {
                 Text(
                   args.moduleName,
                   style: TextStyle(
-                      color: MyColors.textColorDark,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w600),
+                    color: MyColors.textColorDark,
+                    fontSize: 16.sp,
+                  ),
                 ),
                 SizedBox(
-                  height: 5.w,
+                  height: 2.h,
                 ),
                 BlocBuilder<ModuleCardCubit, ModuleCardState>(
                   builder: (context, state) {
@@ -62,8 +62,8 @@ class ModuleCard extends StatelessWidget {
                       return Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          LoadingContainer(width: 30.w, height: 2.h),
-                          LoadingContainer(width: 15.w, height: 2.h),
+                          LoadingContainer(width: 30.w, height: 1.4.h),
+                          LoadingContainer(width: 15.w, height: 1.4.h),
                         ],
                       );
                     } else if (state is ModuleCardLoaded) {
@@ -74,14 +74,14 @@ class ModuleCard extends StatelessWidget {
                             "Contents: ${state.contentCount}",
                             style: TextStyle(
                               color: MyColors.textColorDark,
-                              fontSize: 16.sp,
+                              fontSize: 14.sp,
                             ),
                           ),
                           Text(
                             "Quiz: ${state.quizCount}",
                             style: TextStyle(
                               color: MyColors.textColorDark,
-                              fontSize: 16.sp,
+                              fontSize: 14.sp,
                             ),
                           ),
                         ],

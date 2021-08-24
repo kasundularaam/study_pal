@@ -14,7 +14,7 @@ class HTCItemLoadingW extends StatelessWidget {
           width: 10.w,
           height: 4.w,
           decoration: BoxDecoration(
-            color: MyColors.backgroundWhite,
+            color: MyColors.white,
             borderRadius: BorderRadius.circular(1.w),
           ),
         ),
@@ -25,7 +25,7 @@ class HTCItemLoadingW extends StatelessWidget {
           width: 50.w,
           height: 4.w,
           decoration: BoxDecoration(
-            color: MyColors.backgroundWhite,
+            color: MyColors.white,
             borderRadius: BorderRadius.circular(1.w),
           ),
         ),

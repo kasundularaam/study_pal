@@ -28,17 +28,17 @@ class _BottomTabState extends State<BottomTab> {
             return buildInitState();
           } else if (state is HomeScreenNavigate) {
             if (state.homeNav == HomeNav.toHome) {
-              return buildNavState(MyColors.white, MyColors.lightGray,
-                  MyColors.lightGray, MyColors.lightGray);
+              return buildNavState(MyColors.navBtnSelctdClr, MyColors.navBtnClr,
+                  MyColors.navBtnClr, MyColors.navBtnClr);
             } else if (state.homeNav == HomeNav.toProfile) {
-              return buildNavState(MyColors.lightGray, MyColors.lightGray,
-                  MyColors.lightGray, MyColors.white);
+              return buildNavState(MyColors.navBtnClr, MyColors.navBtnClr,
+                  MyColors.navBtnClr, MyColors.navBtnSelctdClr);
             } else if (state.homeNav == HomeNav.toEvents) {
-              return buildNavState(MyColors.lightGray, MyColors.white,
-                  MyColors.lightGray, MyColors.lightGray);
+              return buildNavState(MyColors.navBtnClr, MyColors.navBtnSelctdClr,
+                  MyColors.navBtnClr, MyColors.navBtnClr);
             } else if (state.homeNav == HomeNav.toCountDown) {
-              return buildNavState(MyColors.lightGray, MyColors.lightGray,
-                  MyColors.white, MyColors.lightGray);
+              return buildNavState(MyColors.navBtnClr, MyColors.navBtnClr,
+                  MyColors.navBtnSelctdClr, MyColors.navBtnClr);
             } else {
               return buildInitState();
             }
@@ -56,25 +56,25 @@ class _BottomTabState extends State<BottomTab> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         BottomTabButton(
-          color: MyColors.white,
+          color: MyColors.navBtnSelctdClr,
           btnIcon: Icons.home_rounded,
           onPressed: () => BlocProvider.of<HomeNavCubit>(context)
               .homeNavigate(homeNav: HomeNav.toHome),
         ),
         BottomTabButton(
-          color: MyColors.lightGray,
+          color: MyColors.navBtnClr,
           btnIcon: Icons.event_rounded,
           onPressed: () => BlocProvider.of<HomeNavCubit>(context)
               .homeNavigate(homeNav: HomeNav.toEvents),
         ),
         BottomTabButton(
-          color: MyColors.lightGray,
+          color: MyColors.navBtnClr,
           btnIcon: Icons.alarm_rounded,
           onPressed: () => BlocProvider.of<HomeNavCubit>(context)
               .homeNavigate(homeNav: HomeNav.toCountDown),
         ),
         BottomTabButton(
-          color: MyColors.lightGray,
+          color: MyColors.navBtnClr,
           btnIcon: Icons.person_rounded,
           onPressed: () => BlocProvider.of<HomeNavCubit>(context)
               .homeNavigate(homeNav: HomeNav.toProfile),

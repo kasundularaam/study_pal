@@ -141,19 +141,21 @@ class _NewEventScreenState extends State<NewEventScreen> {
                         if (state is NewEventInitial) {
                           return Center(
                             child: MyButton(
-                                btnText: "Add",
-                                onPressed: () {
-                                  if (pickedDate != null &&
-                                      pickedTime != null) {
-                                    BlocProvider.of<NewEventCubit>(context)
-                                        .addNewEvent(
-                                            date: pickedDate!,
-                                            time: pickedTime!,
-                                            title: title);
-                                  } else {
-                                    print("date or time not picked");
-                                  }
-                                }),
+                              btnText: "Add",
+                              onPressed: () {
+                                if (pickedDate != null && pickedTime != null) {
+                                  BlocProvider.of<NewEventCubit>(context)
+                                      .addNewEvent(
+                                          date: pickedDate!,
+                                          time: pickedTime!,
+                                          title: title);
+                                } else {
+                                  print("date or time not picked");
+                                }
+                              },
+                              bgColor: MyColors.hpTopCardBgColor,
+                              txtColor: MyColors.textColorLight,
+                            ),
                           );
                         } else if (state is NewEventLoading) {
                           return Center(child: CircularProgressIndicator());

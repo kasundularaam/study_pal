@@ -27,9 +27,15 @@ class ExamCountdownCubit extends Cubit<ExamCountdownState> {
     int exameDateTimeStmp = DateTime(dateTime.year, dateTime.month,
             dateTime.day, timeOfDay.hour, timeOfDay.minute)
         .millisecondsSinceEpoch;
-    print("EXAM TIME STMPFF: $exameDateTimeStmp");
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setInt(SharedPrefsKeys.examTimeStampKey, exameDateTimeStmp);
+    await loadCountDown();
+  }
+
+  Future<void> deleteCurrentContdown() async {
+    emit(ExamCountdownLoading());
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setInt(SharedPrefsKeys.examTimeStampKey, 0);
     await loadCountDown();
   }
 }

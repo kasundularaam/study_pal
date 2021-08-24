@@ -33,7 +33,7 @@ class _QuizScreenState extends State<QuizScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: MyColors.screenBgDarkColor,
+        backgroundColor: MyColors.homeScrnBgClr,
         body: SafeArea(
           child: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
@@ -81,66 +81,79 @@ class _QuizScreenState extends State<QuizScreen> {
                     ],
                   ),
                 ),
-                Container(
-                  height: (constraints.maxHeight * 85) / 100,
-                  decoration: BoxDecoration(
-                    color: MyColors.screenBgColor,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(8.w),
-                      topRight: Radius.circular(8.w),
-                    ),
+                ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(8.w),
+                    topRight: Radius.circular(8.w),
                   ),
-                  child: ListView(
-                    padding: EdgeInsets.symmetric(horizontal: 5.w),
-                    physics: BouncingScrollPhysics(),
+                  child: Stack(
                     children: [
-                      SizedBox(
-                        height: 3.h,
+                      Image.asset(
+                        "assets/images/bg_bottom_art.png",
+                        width: constraints.maxWidth,
+                        height: (constraints.maxHeight * 85) / 100,
+                        fit: BoxFit.cover,
                       ),
-                      BlocBuilder<QuizScreenCubit, QuizScreenState>(
-                        builder: (context, state) {
-                          if (state is QuizScreenInitial) {
-                            return Text("Initial State");
-                          } else if (state is QuizScreenLoading) {
-                            return Center(child: CircularProgressIndicator());
-                          } else if (state is QuizScreenLoaded) {
-                            return ListView.builder(
-                                padding: EdgeInsets.all(0),
-                                physics: BouncingScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: state.quizList.length,
-                                itemBuilder: (context, index) {
-                                  Question question = state.quizList[index];
-                                  return MultiBlocProvider(
-                                    providers: [
-                                      BlocProvider(
-                                        create: (context) => QuizCardCubit(),
-                                      ),
-                                      BlocProvider(
-                                        create: (context) =>
-                                            SelectAnswerCubit(),
-                                      )
-                                    ],
-                                    child: QuizCard(
-                                      index: index + 1,
-                                      question: question,
-                                    ),
+                      Container(
+                        height: (constraints.maxHeight * 85) / 100,
+                        child: ListView(
+                          padding: EdgeInsets.symmetric(horizontal: 5.w),
+                          physics: BouncingScrollPhysics(),
+                          children: [
+                            SizedBox(
+                              height: 3.h,
+                            ),
+                            BlocBuilder<QuizScreenCubit, QuizScreenState>(
+                              builder: (context, state) {
+                                if (state is QuizScreenInitial) {
+                                  return Text("Initial State");
+                                } else if (state is QuizScreenLoading) {
+                                  return Center(
+                                      child: CircularProgressIndicator());
+                                } else if (state is QuizScreenLoaded) {
+                                  return ListView.builder(
+                                      padding: EdgeInsets.all(0),
+                                      physics: BouncingScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemCount: state.quizList.length,
+                                      itemBuilder: (context, index) {
+                                        Question question =
+                                            state.quizList[index];
+                                        return MultiBlocProvider(
+                                          providers: [
+                                            BlocProvider(
+                                              create: (context) =>
+                                                  QuizCardCubit(),
+                                            ),
+                                            BlocProvider(
+                                              create: (context) =>
+                                                  SelectAnswerCubit(),
+                                            )
+                                          ],
+                                          child: QuizCard(
+                                            index: index + 1,
+                                            question: question,
+                                          ),
+                                        );
+                                      });
+                                } else if (state is QuizScreenNoResults) {
+                                  return Center(
+                                      child:
+                                          ErrorMsgBox(errorMsg: state.message));
+                                } else if (state is QuizScreenFailed) {
+                                  return Center(
+                                      child: ErrorMsgBox(
+                                          errorMsg: state.errorMessage));
+                                } else {
+                                  return Center(
+                                    child: ErrorMsgBox(
+                                        errorMsg: "unhandled state excecuted!"),
                                   );
-                                });
-                          } else if (state is QuizScreenNoResults) {
-                            return Center(
-                                child: ErrorMsgBox(errorMsg: state.message));
-                          } else if (state is QuizScreenFailed) {
-                            return Center(
-                                child:
-                                    ErrorMsgBox(errorMsg: state.errorMessage));
-                          } else {
-                            return Center(
-                              child: ErrorMsgBox(
-                                  errorMsg: "unhandled state excecuted!"),
-                            );
-                          }
-                        },
+                                }
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),

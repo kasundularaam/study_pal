@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
@@ -44,76 +46,93 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
-          Container(
-            height: (constraints.maxHeight * 90) / 100,
-            decoration: BoxDecoration(
-              color: MyColors.loginScrnMainClr,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(8.w),
-                topRight: Radius.circular(8.w),
-              ),
+          ClipRRect(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(8.w),
+              topRight: Radius.circular(8.w),
             ),
-            child: ListView(
-              padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 0),
-              physics: BouncingScrollPhysics(),
+            child: Stack(
               children: [
-                SizedBox(
-                  height: 3.h,
+                Image.asset(
+                  "assets/images/bg_top_art.png",
+                  width: constraints.maxWidth,
+                  height: (constraints.maxHeight * 90) / 100,
+                  fit: BoxFit.cover,
                 ),
-                ClipRRect(
-                    borderRadius: BorderRadius.circular(5.w),
-                    child: Image.asset("assets/images/auth.jpeg")),
-                SizedBox(
-                  height: 3.h,
-                ),
-                MyTextField(
-                  onChanged: (email) => _email = email,
-                  onSubmitted: (_) {
-                    _passwordFocusNode.requestFocus();
-                  },
-                  textInputAction: TextInputAction.next,
-                  isPassword: false,
-                  hintText: "Email",
-                ),
-                SizedBox(
-                  height: 2.h,
-                ),
-                MyTextField(
-                  onChanged: (password) => _password = password,
-                  onSubmitted: (_) {},
-                  textInputAction: TextInputAction.next,
-                  isPassword: true,
-                  focusNode: _passwordFocusNode,
-                  hintText: "Password",
-                ),
-                SizedBox(
-                  height: 3.h,
-                ),
-                BlocConsumer<LoginCubit, LoginState>(
-                  listener: (context, state) {
-                    if (state is LoginSucceed) {
-                      BlocProvider.of<AuthscreenNavCubit>(context)
-                          .authNavigate(authNav: AuthNav.toAuthPage);
-                    }
-                  },
-                  builder: (context, state) {
-                    if (state is LoginInitial) {
-                      return buildInitialState();
-                    } else if (state is LoginLoading) {
-                      return buildLoadingState();
-                    } else if (state is LoginFailed) {
-                      return buildFailedState(state.errorMsg);
-                    } else if (state is LoginWithInvalidValue) {
-                      return buildInvalidValueState(state.errorMsg);
-                    } else {
-                      return Center(
-                          child: ErrorMsgBox(
-                              errorMsg: "unhandled state excecuted!"));
-                    }
-                  },
-                ),
-                SizedBox(
-                  height: 5.h,
+                Container(
+                  height: (constraints.maxHeight * 90) / 100,
+                  child: ListView(
+                    padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 0),
+                    physics: BouncingScrollPhysics(),
+                    children: [
+                      SizedBox(
+                        height: 3.h,
+                      ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(5.w),
+                        child: Image.asset(
+                          "assets/images/stu_text.png",
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 3.h,
+                      ),
+                      MyTextField(
+                        onChanged: (email) => _email = email,
+                        onSubmitted: (_) {
+                          _passwordFocusNode.requestFocus();
+                        },
+                        textInputAction: TextInputAction.next,
+                        isPassword: false,
+                        hintText: "Email",
+                        textColor: MyColors.white,
+                        bgColor: MyColors.black.withOpacity(0.3),
+                      ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      MyTextField(
+                        onChanged: (password) => _password = password,
+                        onSubmitted: (_) {},
+                        textInputAction: TextInputAction.next,
+                        isPassword: true,
+                        focusNode: _passwordFocusNode,
+                        hintText: "Password",
+                        textColor: MyColors.white,
+                        bgColor: MyColors.black.withOpacity(0.3),
+                      ),
+                      SizedBox(
+                        height: 3.h,
+                      ),
+                      BlocConsumer<LoginCubit, LoginState>(
+                        listener: (context, state) {
+                          if (state is LoginSucceed) {
+                            BlocProvider.of<AuthscreenNavCubit>(context)
+                                .authNavigate(authNav: AuthNav.toAuthPage);
+                          }
+                        },
+                        builder: (context, state) {
+                          if (state is LoginInitial) {
+                            return buildInitialState();
+                          } else if (state is LoginLoading) {
+                            return buildLoadingState();
+                          } else if (state is LoginFailed) {
+                            return buildFailedState(state.errorMsg);
+                          } else if (state is LoginWithInvalidValue) {
+                            return buildInvalidValueState(state.errorMsg);
+                          } else {
+                            return Center(
+                                child: ErrorMsgBox(
+                                    errorMsg: "unhandled state excecuted!"));
+                          }
+                        },
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -171,6 +190,8 @@ class _LoginPageState extends State<LoginPage> {
             email: _email,
             password: _password,
           ),
+          bgColor: MyColors.loginBtnClr,
+          txtColor: MyColors.loginBtnTxtClr,
         ),
         SizedBox(
           height: 3.h,
@@ -190,6 +211,8 @@ class _LoginPageState extends State<LoginPage> {
             email: _email,
             password: _password,
           ),
+          bgColor: MyColors.loginBtnClr,
+          txtColor: MyColors.loginBtnTxtClr,
         ),
         SizedBox(
           height: 3.h,

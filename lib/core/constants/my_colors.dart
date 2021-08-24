@@ -53,11 +53,19 @@ class MyColors {
   ];
 
   static const Color loginScrnMainClr = Color(0xffeeeeff);
-  static const Color signScrnMainClr = Color(0xffeeeeff);
-  static const Color loginBtnClr = Color(0xfff8f8ff);
-  static const Color signBtnClr = Color(0xfff8f8ff);
+  static const Color loginBtnClr = Color(0xff8C33FF);
+  static const Color loginBtnTxtClr = Color(0xffffffff);
   static const Color goToSignClr = Color(0xff800080);
   static const Color loginTitleBarClr = Color(0xff301934);
-  static const Color authScrnBgClr = Color(0xff301934);
+  static const Color authScrnBgClr = Color(0xff8C33FF);
+  static const Color homeScrnBgClr = Color(0xff8C33FF);
   static const Color tryAgainClr = Color(0xff7F00FF);
+
+  static const Color tabItmSelectdClr = Color(0xff7F00FF);
+  static const Color tabItmNotSelectdClr = Color(0xff7F00FF);
+
+  static const Color homeTitleClr = Color(0xff7F00FF);
+
+  static const Color navBtnClr = Color(0xff444444);
+  static const Color navBtnSelctdClr = Color(0xffffffff);
 }

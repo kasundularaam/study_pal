@@ -26,12 +26,23 @@ class SubProgCardItem extends StatelessWidget {
           BlocBuilder<SubProgCubit, SubProgState>(
             builder: (context, state) {
               if (state is SubProgInitial) {
-                return MyPrograssBar(
-                  width: 75.w,
-                  max: 100,
-                  progress: 0,
-                  backgroundColor: MyColors.progressBgColor,
-                  progressColor: MyColors.progressColor,
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        subject.name,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            color: MyColors.textColorDark, fontSize: 16.sp),
+                      ),
+                    ),
+                    Text(
+                      "0%",
+                      style: TextStyle(
+                          color: MyColors.textColorDark, fontSize: 16.sp),
+                    ),
+                  ],
                 );
               } else if (state is SubProgLoading) {
                 return Row(
@@ -125,7 +136,7 @@ class SubProgCardItem extends StatelessWidget {
                   width: 75.w,
                   max: 100,
                   progress: 0,
-                  backgroundColor: MyColors.progressBgColor,
+                  backgroundColor: MyColors.white,
                   progressColor: MyColors.progressColor,
                 );
               } else if (state is SubProgLoading) {
@@ -133,29 +144,30 @@ class SubProgCardItem extends StatelessWidget {
                     width: 75.w,
                     max: 100,
                     progress: 0,
-                    backgroundColor: MyColors.progressBgColor,
+                    backgroundColor: MyColors.white,
                     progressColor: MyColors.progressColor);
               } else if (state is SubProgLoaded) {
                 return MyPrograssBar(
                     width: 75.w,
                     max: state.contentCount,
                     progress: state.fireContentCount,
-                    backgroundColor: MyColors.progressBgColor,
+                    backgroundColor: MyColors.white,
                     progressColor: MyColors.progressColor);
               } else if (state is SubProgFailed) {
                 return MyPrograssBar(
                     width: 75.w,
                     max: 100,
                     progress: 0,
-                    backgroundColor: MyColors.progressBgColor,
+                    backgroundColor: MyColors.white,
                     progressColor: MyColors.progressColor);
               } else {
                 return MyPrograssBar(
-                    width: 75.w,
-                    max: 100,
-                    progress: 0,
-                    backgroundColor: MyColors.progressBgColor,
-                    progressColor: MyColors.progressColor);
+                  width: 75.w,
+                  max: 100,
+                  progress: 0,
+                  backgroundColor: MyColors.white,
+                  progressColor: MyColors.progressColor,
+                );
               }
             },
           ),

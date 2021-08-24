@@ -28,76 +28,91 @@ class _ProfileTabState extends State<ProfileTab> {
         bottomLeft: Radius.circular(10.w),
         bottomRight: Radius.circular(10.w),
       ),
-      child: Container(
-        color: MyColors.screenBgColor,
-        child: ListView(physics: BouncingScrollPhysics(), children: [
-          SizedBox(height: 2.h),
-          Row(
-            children: [
-              SizedBox(width: 5.w),
-              Text(
-                "Profile",
-                style: TextStyle(
-                    color: MyColors.textColorLight,
-                    fontSize: 26.sp,
-                    fontWeight: FontWeight.w600),
-              ),
-            ],
+      child: Stack(
+        children: [
+          Image.asset(
+            "assets/images/bg_art.png",
+            width: 100.w,
+            height: 100.h,
+            fit: BoxFit.cover,
           ),
-          SizedBox(
-            height: 2.h,
+          BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
+            child: Container(),
           ),
-          Row(
-            children: [
-              SizedBox(
-                width: 5.w,
-              ),
-              BlocProvider(
-                create: (context) => ProfileTopCardCubit(),
-                child: ProfileTopCard(),
-              ),
-            ],
-          ),
-          ListView(
-            physics: BouncingScrollPhysics(),
-            shrinkWrap: true,
-            padding: EdgeInsets.symmetric(horizontal: 5.w),
-            children: [
-              Container(
-                child: BlocProvider(
-                  create: (context) => TodayWorksCubit(),
-                  child: TodayWorkedDetails(),
-                ),
-              ),
-              BlocProvider(
-                create: (context) => SubProgCardCubit(),
-                child: SubProgCard(),
-              ),
-              Divider(
-                thickness: 0.2.w,
-                color: MyColors.textColorLight,
+          Container(
+            child: ListView(physics: BouncingScrollPhysics(), children: [
+              SizedBox(height: 2.h),
+              Row(
+                children: [
+                  SizedBox(width: 5.w),
+                  Text(
+                    "Profile",
+                    style: TextStyle(
+                        color: MyColors.homeTitleClr,
+                        fontSize: 26.sp,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ],
               ),
               SizedBox(
-                height: 3.h,
+                height: 2.h,
               ),
-              Text(
-                "Your activities",
-                style: TextStyle(
-                  color: MyColors.textColorLight,
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w600,
-                ),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                  BlocProvider(
+                    create: (context) => ProfileTopCardCubit(),
+                    child: ProfileTopCard(),
+                  ),
+                ],
               ),
-              SizedBox(
-                height: 3.h,
+              ListView(
+                physics: BouncingScrollPhysics(),
+                shrinkWrap: true,
+                padding: EdgeInsets.symmetric(horizontal: 5.w),
+                children: [
+                  Container(
+                    child: BlocProvider(
+                      create: (context) => TodayWorksCubit(),
+                      child: TodayWorkedDetails(),
+                    ),
+                  ),
+                  BlocProvider(
+                    create: (context) => SubProgCardCubit(),
+                    child: SubProgCard(),
+                  ),
+                  Divider(
+                    thickness: 0.2.w,
+                    color: MyColors.textColorDark,
+                  ),
+                  SizedBox(
+                    height: 3.h,
+                  ),
+                  Container(
+                    child: Text(
+                      "Your activities",
+                      style: TextStyle(
+                        color: MyColors.textColorDark,
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 3.h,
+                  ),
+                  BlocProvider(
+                    create: (context) => WorkCardListCubit(),
+                    child: WorkCardList(),
+                  ),
+                ],
               ),
-              BlocProvider(
-                create: (context) => WorkCardListCubit(),
-                child: WorkCardList(),
-              ),
-            ],
+            ]),
           ),
-        ]),
+        ],
       ),
     );
   }

@@ -28,7 +28,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.screenBgDarkColor,
+      backgroundColor: MyColors.homeScrnBgClr,
       body: SafeArea(
         child: LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
@@ -64,219 +64,245 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ],
                 ),
               ),
-              Container(
-                height: (constraints.maxHeight * 90) / 100,
-                decoration: BoxDecoration(
-                  color: MyColors.screenBgColor,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(8.w),
-                    topRight: Radius.circular(8.w),
-                  ),
+              ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8.w),
+                  topRight: Radius.circular(8.w),
                 ),
-                child: ListView(
-                  physics: BouncingScrollPhysics(),
-                  padding: EdgeInsets.symmetric(horizontal: 5.w),
+                child: Stack(
                   children: [
-                    SizedBox(
-                      height: 3.h,
+                    Image.asset(
+                      "assets/images/bg_bottom_art.png",
+                      width: constraints.maxWidth,
+                      height: (constraints.maxHeight * 90) / 100,
+                      fit: BoxFit.cover,
                     ),
-                    BlocBuilder<SettingCubit, SettingState>(
-                      builder: (context, state) {
-                        if (state is SettingInitial) {
-                          return Center(child: Text("Initial State"));
-                        } else if (state is SettingLoading) {
-                          return Center(
-                              child: CircularProgressIndicator(
-                            color: MyColors.progressColor,
-                          ));
-                        } else if (state is SettingLoaded) {
-                          return Column(
-                            children: [
-                              BlocProvider(
-                                create: (context) => EditNameCubit(),
-                                child: EditNameCard(
-                                    fireUser: state.fireUser,
-                                    onSucceed: (message) {
-                                      SnackBar succeedSnack =
-                                          SnackBar(content: Text(message));
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(succeedSnack);
-                                    },
-                                    onError: (error) {
-                                      SnackBar errorSnack =
-                                          SnackBar(content: Text(error));
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(errorSnack);
-                                    }),
-                              ),
-                              SizedBox(
-                                height: 2.h,
-                              ),
-                              BlocProvider(
-                                create: (context) => ChangePasswordCubit(),
-                                child: ChangePasswordCard(onSucceed: (message) {
-                                  SnackBar succeedSnack =
-                                      SnackBar(content: Text(message));
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(succeedSnack);
-                                }, onFailed: (errorMsg) {
-                                  SnackBar errorSnack =
-                                      SnackBar(content: Text(errorMsg));
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(errorSnack);
-                                }),
-                              ),
-                              SizedBox(
-                                height: 2.h,
-                              ),
-                              ChangeSubjectsCard(
-                                screenContext: context,
-                                fireSubjects: state.fireSubjects,
-                                subjects: state.subjects,
-                              ),
-                              SizedBox(
-                                height: 4.h,
-                              ),
-                              BlocProvider(
-                                create: (context) => LogoutCubit(),
-                                child: Center(
-                                  child: BlocConsumer<LogoutCubit, LogoutState>(
-                                    listener: (context, state) {
-                                      if (state is LogoutSucceed) {
-                                        Navigator.pushNamedAndRemoveUntil(
-                                            context,
-                                            AppRouter.authScreen,
-                                            (Route<dynamic> route) => false);
-                                      }
-                                    },
-                                    builder: (context, state) {
-                                      if (state is LogoutInitial) {
-                                        return GestureDetector(
-                                          onTap: () =>
-                                              BlocProvider.of<LogoutCubit>(
-                                                      context)
-                                                  .logOut(),
-                                          child: Container(
-                                            child: Padding(
-                                              padding: EdgeInsets.all(2.w),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Icon(
-                                                    Icons.logout_rounded,
-                                                    size: 14.sp,
-                                                    color:
-                                                        MyColors.textColorLight,
-                                                  ),
-                                                  SizedBox(
-                                                    width: 1.w,
-                                                  ),
-                                                  Text(
-                                                    "Log out",
-                                                    style: TextStyle(
-                                                      color: MyColors.white,
-                                                      fontSize: 12.sp,
+                    Container(
+                      height: (constraints.maxHeight * 90) / 100,
+                      child: ListView(
+                        physics: BouncingScrollPhysics(),
+                        padding: EdgeInsets.symmetric(horizontal: 5.w),
+                        children: [
+                          SizedBox(
+                            height: 3.h,
+                          ),
+                          BlocBuilder<SettingCubit, SettingState>(
+                            builder: (context, state) {
+                              if (state is SettingInitial) {
+                                return Center(child: Text("Initial State"));
+                              } else if (state is SettingLoading) {
+                                return Center(
+                                    child: CircularProgressIndicator(
+                                  color: MyColors.progressColor,
+                                ));
+                              } else if (state is SettingLoaded) {
+                                return Column(
+                                  children: [
+                                    BlocProvider(
+                                      create: (context) => EditNameCubit(),
+                                      child: EditNameCard(
+                                          fireUser: state.fireUser,
+                                          onSucceed: (message) {
+                                            SnackBar succeedSnack = SnackBar(
+                                                content: Text(message));
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(succeedSnack);
+                                          },
+                                          onError: (error) {
+                                            SnackBar errorSnack =
+                                                SnackBar(content: Text(error));
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(errorSnack);
+                                          }),
+                                    ),
+                                    SizedBox(
+                                      height: 2.h,
+                                    ),
+                                    BlocProvider(
+                                      create: (context) =>
+                                          ChangePasswordCubit(),
+                                      child: ChangePasswordCard(
+                                          onSucceed: (message) {
+                                        SnackBar succeedSnack =
+                                            SnackBar(content: Text(message));
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(succeedSnack);
+                                      }, onFailed: (errorMsg) {
+                                        SnackBar errorSnack =
+                                            SnackBar(content: Text(errorMsg));
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(errorSnack);
+                                      }),
+                                    ),
+                                    SizedBox(
+                                      height: 2.h,
+                                    ),
+                                    ChangeSubjectsCard(
+                                      screenContext: context,
+                                      fireSubjects: state.fireSubjects,
+                                      subjects: state.subjects,
+                                    ),
+                                    SizedBox(
+                                      height: 4.h,
+                                    ),
+                                    BlocProvider(
+                                      create: (context) => LogoutCubit(),
+                                      child: Center(
+                                        child: BlocConsumer<LogoutCubit,
+                                            LogoutState>(
+                                          listener: (context, state) {
+                                            if (state is LogoutSucceed) {
+                                              Navigator.pushNamedAndRemoveUntil(
+                                                  context,
+                                                  AppRouter.authScreen,
+                                                  (Route<dynamic> route) =>
+                                                      false);
+                                            }
+                                          },
+                                          builder: (context, state) {
+                                            if (state is LogoutInitial) {
+                                              return GestureDetector(
+                                                onTap: () => BlocProvider.of<
+                                                        LogoutCubit>(context)
+                                                    .logOut(),
+                                                child: Container(
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsets.all(2.w),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Icon(
+                                                          Icons.logout_rounded,
+                                                          size: 14.sp,
+                                                          color: MyColors
+                                                              .textColorDark,
+                                                        ),
+                                                        SizedBox(
+                                                          width: 1.w,
+                                                        ),
+                                                        Text(
+                                                          "Log out",
+                                                          style: TextStyle(
+                                                              color: MyColors
+                                                                  .textColorDark,
+                                                              fontSize: 12.sp,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      } else if (state is LogoutLoading) {
-                                        return Center(
-                                          child: CircularProgressIndicator(
-                                            color: MyColors.progressColor,
-                                          ),
-                                        );
-                                      } else if (state is LogoutSucceed) {
-                                        return Icon(
-                                          Icons.check_rounded,
-                                          size: 14.sp,
-                                          color: MyColors.textColorLight,
-                                        );
-                                      } else if (state is LogoutFailed) {
-                                        return GestureDetector(
-                                          onTap: () =>
-                                              BlocProvider.of<LogoutCubit>(
-                                                      context)
-                                                  .logOut(),
-                                          child: Container(
-                                            child: Padding(
-                                              padding: EdgeInsets.all(2.w),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Icon(
-                                                    Icons.logout_rounded,
-                                                    size: 14.sp,
-                                                    color:
-                                                        MyColors.textColorLight,
-                                                  ),
-                                                  SizedBox(
-                                                    width: 1.w,
-                                                  ),
-                                                  Text(
-                                                    "Log out",
-                                                    style: TextStyle(
-                                                      color: MyColors.white,
-                                                      fontSize: 12.sp,
+                                                ),
+                                              );
+                                            } else if (state is LogoutLoading) {
+                                              return Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  color: MyColors.progressColor,
+                                                ),
+                                              );
+                                            } else if (state is LogoutSucceed) {
+                                              return Icon(
+                                                Icons.check_rounded,
+                                                size: 14.sp,
+                                                color: MyColors.textColorDark,
+                                              );
+                                            } else if (state is LogoutFailed) {
+                                              return GestureDetector(
+                                                onTap: () => BlocProvider.of<
+                                                        LogoutCubit>(context)
+                                                    .logOut(),
+                                                child: Container(
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsets.all(2.w),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Icon(
+                                                          Icons.logout_rounded,
+                                                          size: 14.sp,
+                                                          color: MyColors
+                                                              .textColorDark,
+                                                        ),
+                                                        SizedBox(
+                                                          width: 1.w,
+                                                        ),
+                                                        Text(
+                                                          "Log out",
+                                                          style: TextStyle(
+                                                              color: MyColors
+                                                                  .textColorDark,
+                                                              fontSize: 12.sp,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      } else {
-                                        return GestureDetector(
-                                          onTap: () =>
-                                              BlocProvider.of<LogoutCubit>(
-                                                      context)
-                                                  .logOut(),
-                                          child: Container(
-                                            child: Padding(
-                                              padding: EdgeInsets.all(2.w),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Icon(
-                                                    Icons.logout_rounded,
-                                                    size: 14.sp,
-                                                    color:
-                                                        MyColors.textColorLight,
-                                                  ),
-                                                  SizedBox(
-                                                    width: 1.w,
-                                                  ),
-                                                  Text(
-                                                    "Log out",
-                                                    style: TextStyle(
-                                                      color: MyColors.white,
-                                                      fontSize: 12.sp,
+                                                ),
+                                              );
+                                            } else {
+                                              return GestureDetector(
+                                                onTap: () => BlocProvider.of<
+                                                        LogoutCubit>(context)
+                                                    .logOut(),
+                                                child: Container(
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsets.all(2.w),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Icon(
+                                                          Icons.logout_rounded,
+                                                          size: 14.sp,
+                                                          color: MyColors
+                                                              .textColorDark,
+                                                        ),
+                                                        SizedBox(
+                                                          width: 1.w,
+                                                        ),
+                                                        Text(
+                                                          "Log out",
+                                                          style: TextStyle(
+                                                              color: MyColors
+                                                                  .textColorDark,
+                                                              fontSize: 12.sp,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ],
-                          );
-                        } else if (state is SettingFailed) {}
-                        return Container();
-                      },
-                    ),
-                    SizedBox(
-                      height: 5.h,
+                                                ),
+                                              );
+                                            }
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              } else if (state is SettingFailed) {}
+                              return Container();
+                            },
+                          ),
+                          SizedBox(
+                            height: 5.h,
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
