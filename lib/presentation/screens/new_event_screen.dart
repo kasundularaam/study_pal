@@ -162,7 +162,7 @@ class _NewEventScreenState extends State<NewEventScreen> {
                         } else if (state is NewEventSucceed) {
                           return Center(
                               child:
-                                  SuccessMsgBox(successMsg: "Remainder added"));
+                                  SuccessMsgBox(successMsg: "Reminder added"));
                         } else if (state is NewEventFailed) {
                           return Center(
                               child: ErrorMsgBox(errorMsg: state.errorMsg));
