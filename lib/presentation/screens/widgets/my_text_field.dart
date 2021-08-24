@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-import 'package:study_pal/core/constants/my_colors.dart';
-
 class MyTextField extends StatelessWidget {
   final Function(String) onChanged;
   final Function(String) onSubmitted;

@@ -5,9 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 import 'package:study_pal/core/constants/my_colors.dart';
 import 'package:study_pal/core/my_enums.dart';
+import 'package:study_pal/data/repositories/firebase_repo/firebase_auth_repo.dart';
 import 'package:study_pal/logic/cubit/auth_nav_cubit/authscreen_nav_cubit.dart';
 import 'package:study_pal/logic/cubit/login_cubit/login_cubit.dart';
-import 'package:study_pal/presentation/screens/widgets/error_msg_box.dart';
 import 'package:study_pal/presentation/screens/widgets/my_button.dart';
 import 'package:study_pal/presentation/screens/widgets/my_text_field.dart';
 
@@ -110,26 +110,85 @@ class _LoginPageState extends State<LoginPage> {
                           if (state is LoginSucceed) {
                             BlocProvider.of<AuthscreenNavCubit>(context)
                                 .authNavigate(authNav: AuthNav.toAuthPage);
+                          } else if (state is LoginFailed) {
+                            SnackBar snackBar =
+                                SnackBar(content: Text(state.errorMsg));
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          } else if (state is LoginWithInvalidValue) {
+                            SnackBar snackBar =
+                                SnackBar(content: Text(state.errorMsg));
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
                           }
                         },
                         builder: (context, state) {
-                          if (state is LoginInitial) {
-                            return buildInitialState();
-                          } else if (state is LoginLoading) {
-                            return buildLoadingState();
-                          } else if (state is LoginFailed) {
-                            return buildFailedState(state.errorMsg);
-                          } else if (state is LoginWithInvalidValue) {
-                            return buildInvalidValueState(state.errorMsg);
+                          if (state is LoginLoading) {
+                            return Center(
+                              child: CircularProgressIndicator(
+                                color: MyColors.progressColor,
+                              ),
+                            );
                           } else {
                             return Center(
-                                child: ErrorMsgBox(
-                                    errorMsg: "unhandled state excecuted!"));
+                              child: MyButton(
+                                btnText: "Log In",
+                                onPressed: () =>
+                                    BlocProvider.of<LoginCubit>(context)
+                                        .loginWithEmailAndpswd(
+                                  email: _email,
+                                  password: _password,
+                                ),
+                                bgColor: MyColors.loginBtnClr,
+                                txtColor: MyColors.loginBtnTxtClr,
+                              ),
+                            );
                           }
                         },
                       ),
                       SizedBox(
-                        height: 5.h,
+                        height: 3.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Don\'t you have an account yet? ",
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              color: MyColors.goToSignClr,
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () =>
+                                BlocProvider.of<AuthscreenNavCubit>(context)
+                                    .authNavigate(
+                              authNav: AuthNav.toSignUp,
+                            ),
+                            child: Text(
+                              "Sign Up",
+                              style: TextStyle(
+                                  fontSize: 14.sp,
+                                  color: MyColors.goToSignClr,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 3.h,
+                      ),
+                      Center(
+                        child: GestureDetector(
+                          onTap: () => showFpwDialog(),
+                          child: Text(
+                            "Forgot Password?",
+                            style: TextStyle(
+                                fontSize: 14.sp,
+                                color: MyColors.goToSignClr,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -142,111 +201,62 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  Widget buildLoadingState() {
-    return Center(
-      child: CircularProgressIndicator(
-        color: MyColors.progressColor,
-      ),
-    );
+  Future<void> sendEmail(
+      {required String rpEmail, required BuildContext dialogContext}) async {
+    try {
+      await FirebaseAuthRepo.resetPassword(rpEmail);
+      Navigator.pop(dialogContext);
+    } catch (e) {
+      print(e.toString());
+      SnackBar snackBar = SnackBar(content: Text(e.toString()));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 
-  Widget buildFailedState(String errorMsg) {
-    return Column(children: [
-      ErrorMsgBox(errorMsg: errorMsg),
-      SizedBox(
-        height: 3.h,
-      ),
-      GestureDetector(
-        onTap: () => BlocProvider.of<LoginCubit>(context).emit(LoginInitial()),
-        child: Padding(
-          padding: EdgeInsets.all(5.w),
-          child: Text(
-            "Try again",
-            style: TextStyle(
-                fontSize: 14.sp,
-                color: MyColors.tryAgainClr,
-                fontWeight: FontWeight.w600),
-          ),
-        ),
-      ),
-      SizedBox(
-        height: 3.h,
-      ),
-      goToSignUp(),
-    ]);
-  }
-
-  Widget buildInvalidValueState(String errorMsg) {
-    return Column(
-      children: [
-        ErrorMsgBox(errorMsg: errorMsg),
-        SizedBox(
-          height: 3.h,
-        ),
-        MyButton(
-          btnText: "Log In",
-          onPressed: () =>
-              BlocProvider.of<LoginCubit>(context).loginWithEmailAndpswd(
-            email: _email,
-            password: _password,
-          ),
-          bgColor: MyColors.loginBtnClr,
-          txtColor: MyColors.loginBtnTxtClr,
-        ),
-        SizedBox(
-          height: 3.h,
-        ),
-        goToSignUp(),
-      ],
-    );
-  }
-
-  Widget buildInitialState() {
-    return Column(
-      children: [
-        MyButton(
-          btnText: "Log In",
-          onPressed: () =>
-              BlocProvider.of<LoginCubit>(context).loginWithEmailAndpswd(
-            email: _email,
-            password: _password,
-          ),
-          bgColor: MyColors.loginBtnClr,
-          txtColor: MyColors.loginBtnTxtClr,
-        ),
-        SizedBox(
-          height: 3.h,
-        ),
-        goToSignUp(),
-      ],
-    );
-  }
-
-  Widget goToSignUp() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          "Don\'t you have an account yet? ",
-          style: TextStyle(
-            fontSize: 14.sp,
-            color: MyColors.goToSignClr,
-          ),
-        ),
-        GestureDetector(
-          onTap: () =>
-              BlocProvider.of<AuthscreenNavCubit>(context).authNavigate(
-            authNav: AuthNav.toSignUp,
-          ),
-          child: Text(
-            "Sign Up",
-            style: TextStyle(
-                fontSize: 14.sp,
-                color: MyColors.goToSignClr,
-                fontWeight: FontWeight.bold),
-          ),
-        ),
-      ],
-    );
+  showFpwDialog() {
+    String resetPwEmail = "";
+    showDialog(
+        context: context,
+        builder: (dialogContext) {
+          return AlertDialog(
+            title: Text("Reset password"),
+            contentPadding: EdgeInsets.all(5.w),
+            content: Container(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text("Please send Your email to get password reset link.."),
+                  SizedBox(
+                    height: 2.h,
+                  ),
+                  MyTextField(
+                    onChanged: (rpEmail) => resetPwEmail = rpEmail,
+                    onSubmitted: (_) {},
+                    textInputAction: TextInputAction.next,
+                    isPassword: false,
+                    hintText: "Email...",
+                    textColor: MyColors.textColorDark,
+                    bgColor: MyColors.homeScrnBgClr.withOpacity(0.2),
+                  ),
+                  SizedBox(
+                    height: 2.h,
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: TextButton(
+                      onPressed: () => sendEmail(
+                          rpEmail: resetPwEmail, dialogContext: dialogContext),
+                      child: Text(
+                        "Send",
+                        style:
+                            TextStyle(color: MyColors.green, fontSize: 14.sp),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
   }
 }

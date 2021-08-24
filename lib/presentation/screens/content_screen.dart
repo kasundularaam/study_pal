@@ -6,7 +6,6 @@ import 'package:study_pal/core/screen_arguments/add_eve_to_con_scrn_args.dart';
 import 'package:study_pal/core/screen_arguments/content_screen_args.dart';
 import 'package:study_pal/logic/cubit/download_pdf_cubit/download_pdf_cubit.dart';
 import 'package:study_pal/presentation/router/app_router.dart';
-import 'package:study_pal/presentation/screens/widgets/error_msg_box.dart';
 
 class ContentScreen extends StatefulWidget {
   final ContentScreenArgs args;

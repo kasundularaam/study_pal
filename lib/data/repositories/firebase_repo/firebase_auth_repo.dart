@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:study_pal/data/models/fire_user_model.dart';
+import 'package:study_pal/data/value%20validator/auth_value_validator.dart';
 
 class FirebaseAuthRepo {
   static Future<void> loginWithEmailAndpswd(
@@ -152,6 +153,20 @@ class FirebaseAuthRepo {
       }
     } catch (e) {
       throw e;
+    }
+  }
+
+  static Future<void> resetPassword(String email) async {
+    try {
+      String validatedEmail = ValueValidator.validateEmail(email: email);
+
+      if (validatedEmail == ValueValidator.validEmail) {
+        await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      } else {
+        throw validatedEmail;
+      }
+    } catch (e) {
+      throw e.toString();
     }
   }
 }
