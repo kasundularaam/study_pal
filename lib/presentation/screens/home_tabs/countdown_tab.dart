@@ -79,108 +79,109 @@ class _CountDownTabState extends State<CountDownTab> {
                             height: 4.h,
                           ),
                           CountdownTimer(
-                              endTime: state.examTimeStamp,
-                              widgetBuilder: (context, time) {
-                                String days =
-                                    time!.days.toString().padLeft(2, '0');
-                                String hours =
-                                    time.hours.toString().padLeft(2, '0');
-                                String minutes =
-                                    time.min.toString().padLeft(2, '0');
-                                String seconds =
-                                    time.sec.toString().padLeft(2, '0');
-                                // String miliSec =
-                                //     time.milliseconds.toString().padLeft(2, '0');
-                                return BlurBg(
-                                  borderRadius: BorderRadius.circular(3.w),
-                                  child: Container(
-                                    padding: EdgeInsets.all(5.w),
-                                    color: MyColors.white.withOpacity(0.8),
-                                    child: Column(
-                                      children: [
-                                        Align(
-                                            alignment: Alignment.centerRight,
-                                            child: GestureDetector(
-                                              onTap: () => BlocProvider.of<
-                                                          ExamCountdownCubit>(
-                                                      context)
-                                                  .deleteCurrentContdown(),
-                                              child: Icon(
-                                                Icons.delete_rounded,
-                                                size: 24.sp,
-                                                color: MyColors.red,
-                                              ),
-                                            )),
-                                        Text(
-                                          days,
-                                          style: TextStyle(
-                                            color: MyColors.homeTitleClr,
-                                            fontSize: 40.sp,
-                                          ),
+                            endTime: state.examTimeStamp,
+                            widgetBuilder: (context, time) {
+                              String days =
+                                  time!.days.toString().padLeft(2, '0');
+                              String hours =
+                                  time.hours.toString().padLeft(2, '0');
+                              String minutes =
+                                  time.min.toString().padLeft(2, '0');
+                              String seconds =
+                                  time.sec.toString().padLeft(2, '0');
+                              // String miliSec =
+                              //     time.milliseconds.toString().padLeft(2, '0');
+                              return BlurBg(
+                                borderRadius: BorderRadius.circular(3.w),
+                                child: Container(
+                                  padding: EdgeInsets.all(5.w),
+                                  color: MyColors.white.withOpacity(0.8),
+                                  child: Column(
+                                    children: [
+                                      Align(
+                                          alignment: Alignment.centerRight,
+                                          child: GestureDetector(
+                                            onTap: () => BlocProvider.of<
+                                                    ExamCountdownCubit>(context)
+                                                .deleteCurrentContdown(),
+                                            child: Icon(
+                                              Icons.delete_rounded,
+                                              size: 24.sp,
+                                              color: MyColors.red,
+                                            ),
+                                          )),
+                                      Text(
+                                        days,
+                                        style: TextStyle(
+                                          color: MyColors.homeTitleClr,
+                                          fontSize: 40.sp,
                                         ),
-                                        Text(
-                                          "days",
-                                          style: TextStyle(
-                                            color: MyColors.textColorDark,
-                                            fontSize: 18.sp,
-                                          ),
+                                      ),
+                                      Text(
+                                        "days",
+                                        style: TextStyle(
+                                          color: MyColors.textColorDark,
+                                          fontSize: 18.sp,
                                         ),
-                                        SizedBox(
-                                          height: 3.h,
+                                      ),
+                                      SizedBox(
+                                        height: 3.h,
+                                      ),
+                                      Text(
+                                        hours,
+                                        style: TextStyle(
+                                          color: MyColors.homeTitleClr,
+                                          fontSize: 40.sp,
                                         ),
-                                        Text(
-                                          hours,
-                                          style: TextStyle(
-                                            color: MyColors.homeTitleClr,
-                                            fontSize: 40.sp,
-                                          ),
+                                      ),
+                                      Text(
+                                        "hours",
+                                        style: TextStyle(
+                                          color: MyColors.textColorDark,
+                                          fontSize: 18.sp,
                                         ),
-                                        Text(
-                                          "hours",
-                                          style: TextStyle(
-                                            color: MyColors.textColorDark,
-                                            fontSize: 18.sp,
-                                          ),
+                                      ),
+                                      SizedBox(
+                                        height: 3.h,
+                                      ),
+                                      Text(
+                                        minutes,
+                                        style: TextStyle(
+                                          color: MyColors.homeTitleClr,
+                                          fontSize: 40.sp,
                                         ),
-                                        SizedBox(
-                                          height: 3.h,
+                                      ),
+                                      Text(
+                                        "minutes",
+                                        style: TextStyle(
+                                          color: MyColors.textColorDark,
+                                          fontSize: 18.sp,
                                         ),
-                                        Text(
-                                          minutes,
-                                          style: TextStyle(
-                                            color: MyColors.homeTitleClr,
-                                            fontSize: 40.sp,
-                                          ),
+                                      ),
+                                      SizedBox(
+                                        height: 3.h,
+                                      ),
+                                      Text(
+                                        seconds,
+                                        style: TextStyle(
+                                          color: MyColors.homeTitleClr,
+                                          fontSize: 40.sp,
                                         ),
-                                        Text(
-                                          "minutes",
-                                          style: TextStyle(
-                                            color: MyColors.textColorDark,
-                                            fontSize: 18.sp,
-                                          ),
+                                      ),
+                                      Text(
+                                        "seconds",
+                                        style: TextStyle(
+                                          color: MyColors.textColorDark,
+                                          fontSize: 18.sp,
                                         ),
-                                        SizedBox(
-                                          height: 3.h,
-                                        ),
-                                        Text(
-                                          seconds,
-                                          style: TextStyle(
-                                            color: MyColors.homeTitleClr,
-                                            fontSize: 40.sp,
-                                          ),
-                                        ),
-                                        Text(
-                                          "seconds",
-                                          style: TextStyle(
-                                            color: MyColors.textColorDark,
-                                            fontSize: 18.sp,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
-                                );
-                              }),
+                                ),
+                              );
+                            },
+                            onEnd: () {},
+                          ),
                         ],
                       ),
                       Align(

@@ -152,14 +152,12 @@ class _ContentScreenState extends State<ContentScreen> {
                                       ));
                                     } else {
                                       return GestureDetector(
-                                        onTap: () =>
-                                            BlocProvider.of<DownloadPdfCubit>(
-                                                    context)
-                                                .downloadPdf(
-                                                    moduleId:
-                                                        widget.args.moduleName,
-                                                    contentId:
-                                                        widget.args.contentId),
+                                        onTap: () => BlocProvider.of<
+                                                DownloadPdfCubit>(context)
+                                            .downloadPdf(
+                                                moduleId: widget.args.moduleId,
+                                                contentId:
+                                                    widget.args.contentId),
                                         child: Container(
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 3.w, vertical: 1.4.h),
