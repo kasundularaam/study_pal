@@ -64,7 +64,7 @@ class MyColors {
   static const Color tabItmSelectdClr = Color(0xff7F00FF);
   static const Color tabItmNotSelectdClr = Color(0xff7F00FF);
 
-  static const Color homeTitleClr = Color(0xff7F00FF);
+  static const Color titleClr = Color(0xff7F00FF);
 
   static const Color navBtnClr = Color(0xff444444);
   static const Color navBtnSelctdClr = Color(0xffffffff);

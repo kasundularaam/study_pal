@@ -44,6 +44,20 @@ class _CountDownTabState extends State<CountDownTab> {
             height: 100.h,
             fit: BoxFit.cover,
           ),
+          Container(
+            width: 100.w,
+            height: 100.h,
+            decoration: BoxDecoration(
+              color: MyColors.white.withOpacity(0.5),
+            ),
+          ),
+          Container(
+            width: 100.w,
+            height: 100.h,
+            decoration: BoxDecoration(
+              color: MyColors.rPerple.withOpacity(0.2),
+            ),
+          ),
           BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
             child: Container(),
@@ -71,7 +85,7 @@ class _CountDownTabState extends State<CountDownTab> {
                           Text(
                             "Exam Countdown",
                             style: TextStyle(
-                                color: MyColors.homeTitleClr,
+                                color: MyColors.titleClr,
                                 fontSize: 26.sp,
                                 fontWeight: FontWeight.w600),
                           ),
@@ -111,9 +125,9 @@ class _CountDownTabState extends State<CountDownTab> {
                                             ),
                                           )),
                                       Text(
-                                        days,
+                                        days != "null" ? days : "00",
                                         style: TextStyle(
-                                          color: MyColors.homeTitleClr,
+                                          color: MyColors.titleClr,
                                           fontSize: 40.sp,
                                         ),
                                       ),
@@ -128,9 +142,9 @@ class _CountDownTabState extends State<CountDownTab> {
                                         height: 3.h,
                                       ),
                                       Text(
-                                        hours,
+                                        hours != "null" ? hours : "00",
                                         style: TextStyle(
-                                          color: MyColors.homeTitleClr,
+                                          color: MyColors.titleClr,
                                           fontSize: 40.sp,
                                         ),
                                       ),
@@ -145,9 +159,9 @@ class _CountDownTabState extends State<CountDownTab> {
                                         height: 3.h,
                                       ),
                                       Text(
-                                        minutes,
+                                        minutes != "null" ? minutes : "00",
                                         style: TextStyle(
-                                          color: MyColors.homeTitleClr,
+                                          color: MyColors.titleClr,
                                           fontSize: 40.sp,
                                         ),
                                       ),
@@ -162,9 +176,9 @@ class _CountDownTabState extends State<CountDownTab> {
                                         height: 3.h,
                                       ),
                                       Text(
-                                        seconds,
+                                        seconds != "null" ? seconds : "00",
                                         style: TextStyle(
-                                          color: MyColors.homeTitleClr,
+                                          color: MyColors.titleClr,
                                           fontSize: 40.sp,
                                         ),
                                       ),
@@ -180,7 +194,9 @@ class _CountDownTabState extends State<CountDownTab> {
                                 ),
                               );
                             },
-                            onEnd: () {},
+                            onEnd: () =>
+                                BlocProvider.of<ExamCountdownCubit>(context)
+                                    .emit(ExamCountdownEnded()),
                           ),
                         ],
                       ),
@@ -220,7 +236,7 @@ class _CountDownTabState extends State<CountDownTab> {
                           Text(
                             "Exam Countdown",
                             style: TextStyle(
-                                color: MyColors.homeTitleClr,
+                                color: MyColors.titleClr,
                                 fontSize: 26.sp,
                                 fontWeight: FontWeight.w600),
                           ),
@@ -327,6 +343,8 @@ class _CountDownTabState extends State<CountDownTab> {
                       ),
                     ],
                   );
+                } else if (state is ExamCountdownEnded) {
+                  return Container();
                 } else {
                   return Align(
                     alignment: Alignment.bottomCenter,

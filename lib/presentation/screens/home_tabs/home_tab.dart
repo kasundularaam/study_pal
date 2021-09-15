@@ -43,6 +43,13 @@ class _HomeTabState extends State<HomeTab> {
             height: 100.h,
             fit: BoxFit.cover,
           ),
+          Container(
+            width: 100.w,
+            height: 100.h,
+            decoration: BoxDecoration(
+              color: MyColors.white.withOpacity(0.8),
+            ),
+          ),
           BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
             child: Container(),
@@ -66,7 +73,7 @@ class _HomeTabState extends State<HomeTab> {
                           Text(
                             "Home",
                             style: TextStyle(
-                                color: MyColors.homeTitleClr,
+                                color: MyColors.titleClr,
                                 fontSize: 26.sp,
                                 fontWeight: FontWeight.w600),
                           ),
@@ -107,7 +114,7 @@ class _HomeTabState extends State<HomeTab> {
                           Text(
                             "Home",
                             style: TextStyle(
-                                color: MyColors.homeTitleClr,
+                                color: MyColors.titleClr,
                                 fontSize: 26.sp,
                                 fontWeight: FontWeight.w600),
                           ),
@@ -158,7 +165,7 @@ class _HomeTabState extends State<HomeTab> {
                           Text(
                             "Home",
                             style: TextStyle(
-                                color: MyColors.homeTitleClr,
+                                color: MyColors.titleClr,
                                 fontSize: 26.sp,
                                 fontWeight: FontWeight.w600),
                           ),

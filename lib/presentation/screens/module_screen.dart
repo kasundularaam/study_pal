@@ -135,7 +135,7 @@ class _ModuleScreenState extends State<ModuleScreen> {
                                             Text(
                                               "See All",
                                               style: TextStyle(
-                                                color: MyColors.homeTitleClr,
+                                                color: MyColors.titleClr,
                                                 fontSize: 14.sp,
                                                 fontWeight: FontWeight.w600,
                                               ),
@@ -145,7 +145,7 @@ class _ModuleScreenState extends State<ModuleScreen> {
                                             ),
                                             Icon(
                                               Icons.arrow_forward_rounded,
-                                              color: MyColors.homeTitleClr,
+                                              color: MyColors.titleClr,
                                             ),
                                             SizedBox(
                                               width: 5.w,

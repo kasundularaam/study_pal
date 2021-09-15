@@ -26,12 +26,12 @@ class _AuthPageState extends State<AuthPage> {
   }
 
   Future<void> goToHome() async {
-    await Future.delayed(Duration(milliseconds: 300));
+    await Future.delayed(Duration(milliseconds: 500));
     Navigator.popAndPushNamed(context, AppRouter.home);
   }
 
   Future<void> navigateToLogin() async {
-    await Future.delayed(Duration(milliseconds: 300));
+    await Future.delayed(Duration(milliseconds: 500));
     BlocProvider.of<AuthscreenNavCubit>(context)
         .authNavigate(authNav: AuthNav.toLogin);
   }
@@ -63,41 +63,63 @@ class _AuthPageState extends State<AuthPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthCubit, AuthState>(
-      builder: (context, state) {
-        if (state is AuthFailed) {
-          return buildFailedState(state.errorMsg);
-        } else if (state is AuthCheckUserStatus) {
-          if (state.userStatus) {
-            checkSP();
-          } else {
-            navigateToLogin();
-          }
-          return Container(
-            child: Center(
-              child: Text(
+    return Column(
+      children: [
+        SizedBox(
+          height: 3.h,
+        ),
+        Image.asset(
+          "assets/images/autht.png",
+        ),
+        BlocBuilder<AuthCubit, AuthState>(
+          builder: (context, state) {
+            if (state is AuthFailed) {
+              return buildFailedState(state.errorMsg);
+            } else if (state is AuthCheckUserStatus) {
+              if (state.userStatus) {
+                checkSP();
+              } else {
+                navigateToLogin();
+              }
+              return Text(
                 state.statusMsg,
                 style: TextStyle(
-                  color: MyColors.progressColor,
-                  fontSize: 10.sp,
+                  color: MyColors.textColorDark,
+                  fontSize: 12.sp,
                 ),
-              ),
-            ),
-          );
-        } else {
-          return Center(
-              child: ErrorMsgBox(errorMsg: "unhandled state excecuted!"));
-        }
-      },
+              );
+            } else if (state is AuthLoading) {
+              return Text(
+                state.loadingMsg,
+                style: TextStyle(
+                  color: MyColors.textColorDark,
+                  fontSize: 12.sp,
+                ),
+              );
+            } else {
+              return SizedBox();
+            }
+          },
+        ),
+        SizedBox(
+          height: 3.h,
+        ),
+      ],
     );
   }
 
   Widget buildFailedState(String errorMsg) {
     return Center(
       child: Column(children: [
-        ErrorMsgBox(errorMsg: errorMsg),
+        Text(
+          errorMsg,
+          style: TextStyle(
+            color: MyColors.textColorDark,
+            fontSize: 12,
+          ),
+        ),
         SizedBox(
-          height: 15.w,
+          height: 3.h,
         ),
         TextButton(
           onPressed: () =>

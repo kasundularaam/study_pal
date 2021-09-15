@@ -28,139 +28,132 @@ class _SelectSubjectPageState extends State<SelectSubjectPage> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-      return Column(
-        children: [
-          Container(
-            height: (constraints.maxHeight * 10) / 100,
-            child: Center(
-              child: Text(
-                "Select your subjects",
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: 2.h,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 5.w),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Subjects",
                 style: TextStyle(
-                    color: MyColors.textColorLight,
+                    color: MyColors.titleClr,
                     fontSize: 26.sp,
                     fontWeight: FontWeight.w600),
               ),
-            ),
-          ),
-          Container(
-            height: (constraints.maxHeight * 75) / 100,
-            decoration: BoxDecoration(
-              color: MyColors.loginScrnMainClr,
-              borderRadius: BorderRadius.circular(8.w),
-            ),
-            child: ListView(
-              padding: EdgeInsets.symmetric(horizontal: 5.w),
-              physics: BouncingScrollPhysics(),
-              children: [
-                SizedBox(
-                  height: 3.h,
-                ),
-                BlocBuilder<SelectSubListCubit, SelectSubListState>(builder: (
-                  context,
-                  state,
-                ) {
-                  if (state is SelectSubjectLoading) {
-                    return buildLoadingState();
-                  } else if (state is SelectSubjectLoaded) {
-                    return ListView.builder(
-                        physics: BouncingScrollPhysics(),
-                        padding: EdgeInsets.all(0),
-                        shrinkWrap: true,
-                        itemCount: state.subjectList.length,
-                        itemBuilder: (context, index) {
-                          Subject subject = state.subjectList[index];
-                          return SelectSubjectCard(
-                              isSelected: false,
-                              subject: subject,
-                              onSelected: (sub) {
-                                if (selectedList.contains(sub)) {
-                                  selectedList.remove(sub);
-                                } else {
-                                  selectedList.add(sub);
-                                }
-                              });
-                        });
-                  } else if (state is SelectSubjectFailed) {
-                    return Center(child: ErrorMsgBox(errorMsg: state.errorMsg));
-                  } else {
-                    return Center(
-                        child: ErrorMsgBox(
-                            errorMsg: "unhandled state excecuted!"));
+              BlocConsumer<SelectSubjectCubit, SelectSubjectState>(
+                listener: (context, state) {
+                  if (state is SelectedSubjectSucceed) {
+                    BlocProvider.of<AuthscreenNavCubit>(context)
+                        .authNavigate(authNav: AuthNav.toAuthPage);
+                  } else if (state is SelectedSubjectFailed) {
+                    SnackBar snackBar = SnackBar(content: Text(state.errorMsg));
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   }
-                }),
-              ],
-            ),
+                },
+                builder: (context, state) {
+                  if (state is SelectedSubjectLoading) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        color: MyColors.progressColor,
+                      ),
+                    );
+                  } else {
+                    return OkButton(
+                      onPressed: () =>
+                          BlocProvider.of<SelectSubjectCubit>(context)
+                              .updateSubjectList(subjectList: selectedList),
+                    );
+                  }
+                },
+              ),
+            ],
           ),
-          Container(
-            height: (constraints.maxHeight * 15) / 100,
-            child: BlocConsumer<SelectSubjectCubit, SelectSubjectState>(
-              listener: (context, state) {
-                if (state is SelectedSubjectSucceed) {
-                  BlocProvider.of<AuthscreenNavCubit>(context)
-                      .authNavigate(authNav: AuthNav.toAuthPage);
-                }
-              },
-              builder: (context, state) {
-                if (state is SelectSubjectInitial) {
-                  return buildInitialState();
-                } else if (state is SelectedSubjectLoading) {
-                  return buildLoadingState();
-                } else if (state is SelectedSubjectFailed) {
-                  return buildFailedState(errorMsg: state.errorMsg);
-                } else {
-                  return Center(
-                      child:
-                          ErrorMsgBox(errorMsg: "unhandled state excecuted!"));
-                }
-              },
-            ),
-          )
-        ],
-      );
-    });
-  }
-
-  Widget buildInitialState() {
-    return CheckIconBtn(
-      onPressed: () => BlocProvider.of<SelectSubjectCubit>(context)
-          .updateSubjectList(subjectList: selectedList),
-    );
-  }
-
-  Widget buildLoadingState() {
-    return Center(
-      child: CircularProgressIndicator(
-        color: MyColors.progressColor,
-      ),
-    );
-  }
-
-  Widget buildFailedState({required String errorMsg}) {
-    return CheckIconBtn(
-      onPressed: () => BlocProvider.of<SelectSubjectCubit>(context)
-          .updateSubjectList(subjectList: selectedList),
+        ),
+        Divider(
+          thickness: 1,
+          color: MyColors.titleClr,
+        ),
+        SizedBox(
+          height: 2.h,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 5.w),
+          child: Text(
+            "Select your subjects from here",
+            style: TextStyle(
+                color: MyColors.textColorDark,
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w600),
+          ),
+        ),
+        SizedBox(
+          height: 3.h,
+        ),
+        BlocBuilder<SelectSubListCubit, SelectSubListState>(
+            builder: (context, state) {
+          if (state is SelectSubjectLoading) {
+            return Center(
+              child: CircularProgressIndicator(
+                color: MyColors.progressColor,
+              ),
+            );
+          } else if (state is SelectSubjectLoaded) {
+            return Container(
+              padding: EdgeInsets.only(top: 4.h, bottom: 2.h),
+              color: MyColors.black.withOpacity(0.07),
+              child: ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  padding: EdgeInsets.symmetric(horizontal: 5.w),
+                  shrinkWrap: true,
+                  itemCount: state.subjectList.length,
+                  itemBuilder: (context, index) {
+                    Subject subject = state.subjectList[index];
+                    return SelectSubjectCard(
+                        isSelected: false,
+                        subject: subject,
+                        onSelected: (sub) {
+                          if (selectedList.contains(sub)) {
+                            selectedList.remove(sub);
+                          } else {
+                            selectedList.add(sub);
+                          }
+                        });
+                  }),
+            );
+          } else if (state is SelectSubjectFailed) {
+            return Center(child: ErrorMsgBox(errorMsg: state.errorMsg));
+          } else {
+            return Center(
+                child: ErrorMsgBox(errorMsg: "unhandled state excecuted!"));
+          }
+        }),
+      ],
     );
   }
 }
 
-class CheckIconBtn extends StatelessWidget {
+class OkButton extends StatelessWidget {
   final Function onPressed;
-  const CheckIconBtn({
+  const OkButton({
     Key? key,
     required this.onPressed,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: GestureDetector(
-        onTap: () => onPressed(),
-        child: Icon(
-          Icons.check_circle,
-          size: 8.h,
-          color: MyColors.textColorLight,
-        ),
+    return GestureDetector(
+      onTap: () => onPressed(),
+      child: Text(
+        "Ok",
+        style: TextStyle(
+            color: MyColors.titleClr,
+            fontSize: 18.sp,
+            fontWeight: FontWeight.w600),
       ),
     );
   }

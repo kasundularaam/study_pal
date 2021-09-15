@@ -30,175 +30,127 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-      return Column(
-        children: [
-          Container(
-            height: (constraints.maxHeight * 10) / 100,
-            child: Center(
-              child: Text(
-                "Log In",
-                style: TextStyle(
-                    color: MyColors.textColorLight,
-                    fontSize: 26.sp,
-                    fontWeight: FontWeight.w600),
+    return ListView(
+      padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 0),
+      physics: BouncingScrollPhysics(),
+      children: [
+        SizedBox(
+          height: 2.h,
+        ),
+        Image.asset(
+          "assets/images/autht.png",
+        ),
+        SizedBox(
+          height: 3.h,
+        ),
+        MyTextField(
+          onChanged: (email) => _email = email,
+          onSubmitted: (_) {
+            _passwordFocusNode.requestFocus();
+          },
+          textInputAction: TextInputAction.next,
+          isPassword: false,
+          hintText: "Email",
+          textColor: MyColors.textColorDark,
+          bgColor: MyColors.black.withOpacity(0.07),
+        ),
+        SizedBox(
+          height: 2.h,
+        ),
+        MyTextField(
+          onChanged: (password) => _password = password,
+          onSubmitted: (_) {},
+          textInputAction: TextInputAction.next,
+          isPassword: true,
+          focusNode: _passwordFocusNode,
+          hintText: "Password",
+          textColor: MyColors.textColorDark,
+          bgColor: MyColors.black.withOpacity(0.07),
+        ),
+        SizedBox(
+          height: 3.h,
+        ),
+        BlocConsumer<LoginCubit, LoginState>(
+          listener: (context, state) {
+            if (state is LoginSucceed) {
+              BlocProvider.of<AuthscreenNavCubit>(context)
+                  .authNavigate(authNav: AuthNav.toAuthPage);
+            } else if (state is LoginFailed) {
+              SnackBar snackBar = SnackBar(content: Text(state.errorMsg));
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            } else if (state is LoginWithInvalidValue) {
+              SnackBar snackBar = SnackBar(content: Text(state.errorMsg));
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            }
+          },
+          builder: (context, state) {
+            if (state is LoginLoading) {
+              return Center(
+                child: CircularProgressIndicator(
+                  color: MyColors.progressColor,
+                ),
+              );
+            } else {
+              return Center(
+                child: MyButton(
+                  btnText: "Log In",
+                  onPressed: () => BlocProvider.of<LoginCubit>(context)
+                      .loginWithEmailAndpswd(
+                    email: _email,
+                    password: _password,
+                  ),
+                  bgColor: MyColors.loginBtnClr,
+                  txtColor: MyColors.loginBtnTxtClr,
+                ),
+              );
+            }
+          },
+        ),
+        SizedBox(
+          height: 3.h,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Don\'t you have an account yet? ",
+              style: TextStyle(
+                fontSize: 14.sp,
+                color: MyColors.goToSignClr,
               ),
             ),
-          ),
-          ClipRRect(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(8.w),
-              topRight: Radius.circular(8.w),
+            GestureDetector(
+              onTap: () =>
+                  BlocProvider.of<AuthscreenNavCubit>(context).authNavigate(
+                authNav: AuthNav.toSignUp,
+              ),
+              child: Text(
+                "Sign Up",
+                style: TextStyle(
+                    fontSize: 14.sp,
+                    color: MyColors.goToSignClr,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
-            child: Stack(
-              children: [
-                Image.asset(
-                  "assets/images/bg_top_art.png",
-                  width: constraints.maxWidth,
-                  height: (constraints.maxHeight * 90) / 100,
-                  fit: BoxFit.cover,
-                ),
-                Container(
-                  height: (constraints.maxHeight * 90) / 100,
-                  child: ListView(
-                    padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 0),
-                    physics: BouncingScrollPhysics(),
-                    children: [
-                      SizedBox(
-                        height: 3.h,
-                      ),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(5.w),
-                        child: Image.asset(
-                          "assets/images/stu_text.png",
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 3.h,
-                      ),
-                      MyTextField(
-                        onChanged: (email) => _email = email,
-                        onSubmitted: (_) {
-                          _passwordFocusNode.requestFocus();
-                        },
-                        textInputAction: TextInputAction.next,
-                        isPassword: false,
-                        hintText: "Email",
-                        textColor: MyColors.white,
-                        bgColor: MyColors.black.withOpacity(0.3),
-                      ),
-                      SizedBox(
-                        height: 2.h,
-                      ),
-                      MyTextField(
-                        onChanged: (password) => _password = password,
-                        onSubmitted: (_) {},
-                        textInputAction: TextInputAction.next,
-                        isPassword: true,
-                        focusNode: _passwordFocusNode,
-                        hintText: "Password",
-                        textColor: MyColors.white,
-                        bgColor: MyColors.black.withOpacity(0.3),
-                      ),
-                      SizedBox(
-                        height: 3.h,
-                      ),
-                      BlocConsumer<LoginCubit, LoginState>(
-                        listener: (context, state) {
-                          if (state is LoginSucceed) {
-                            BlocProvider.of<AuthscreenNavCubit>(context)
-                                .authNavigate(authNav: AuthNav.toAuthPage);
-                          } else if (state is LoginFailed) {
-                            SnackBar snackBar =
-                                SnackBar(content: Text(state.errorMsg));
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBar);
-                          } else if (state is LoginWithInvalidValue) {
-                            SnackBar snackBar =
-                                SnackBar(content: Text(state.errorMsg));
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBar);
-                          }
-                        },
-                        builder: (context, state) {
-                          if (state is LoginLoading) {
-                            return Center(
-                              child: CircularProgressIndicator(
-                                color: MyColors.progressColor,
-                              ),
-                            );
-                          } else {
-                            return Center(
-                              child: MyButton(
-                                btnText: "Log In",
-                                onPressed: () =>
-                                    BlocProvider.of<LoginCubit>(context)
-                                        .loginWithEmailAndpswd(
-                                  email: _email,
-                                  password: _password,
-                                ),
-                                bgColor: MyColors.loginBtnClr,
-                                txtColor: MyColors.loginBtnTxtClr,
-                              ),
-                            );
-                          }
-                        },
-                      ),
-                      SizedBox(
-                        height: 3.h,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Don\'t you have an account yet? ",
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              color: MyColors.goToSignClr,
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () =>
-                                BlocProvider.of<AuthscreenNavCubit>(context)
-                                    .authNavigate(
-                              authNav: AuthNav.toSignUp,
-                            ),
-                            child: Text(
-                              "Sign Up",
-                              style: TextStyle(
-                                  fontSize: 14.sp,
-                                  color: MyColors.goToSignClr,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 3.h,
-                      ),
-                      Center(
-                        child: GestureDetector(
-                          onTap: () => showFpwDialog(),
-                          child: Text(
-                            "Forgot Password?",
-                            style: TextStyle(
-                                fontSize: 14.sp,
-                                color: MyColors.goToSignClr,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+          ],
+        ),
+        SizedBox(
+          height: 3.h,
+        ),
+        Center(
+          child: GestureDetector(
+            onTap: () => showFpwDialog(),
+            child: Text(
+              "Forgot Password?",
+              style: TextStyle(
+                  fontSize: 14.sp,
+                  color: MyColors.goToSignClr,
+                  fontWeight: FontWeight.bold),
             ),
           ),
-        ],
-      );
-    });
+        ),
+      ],
+    );
   }
 
   Future<void> sendEmail(

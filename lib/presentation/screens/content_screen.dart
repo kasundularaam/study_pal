@@ -162,7 +162,7 @@ class _ContentScreenState extends State<ContentScreen> {
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 3.w, vertical: 1.4.h),
                                           decoration: BoxDecoration(
-                                            color: MyColors.homeTitleClr,
+                                            color: MyColors.titleClr,
                                             borderRadius:
                                                 BorderRadius.circular(1.w),
                                           ),

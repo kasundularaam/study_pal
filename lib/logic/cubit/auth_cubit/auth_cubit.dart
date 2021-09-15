@@ -9,12 +9,14 @@ part 'auth_state.dart';
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial());
 
-  void checkUserStatus() {
+  Future<void> checkUserStatus() async {
     try {
+      emit(AuthLoading(loadingMsg: "Loading..."));
+      await Future.delayed(Duration(seconds: 1));
       bool userStatus = FirebaseAuthRepo.checkUserStatus();
       String _statusMsg;
       if (userStatus) {
-        _statusMsg = "Loading your data";
+        _statusMsg = "Loading your data...";
       } else {
         _statusMsg = "Please log in befor starting";
       }

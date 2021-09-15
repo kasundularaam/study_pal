@@ -36,6 +36,20 @@ class _ProfileTabState extends State<ProfileTab> {
             height: 100.h,
             fit: BoxFit.cover,
           ),
+          Container(
+            width: 100.w,
+            height: 100.h,
+            decoration: BoxDecoration(
+              color: MyColors.white.withOpacity(0.5),
+            ),
+          ),
+          Container(
+            width: 100.w,
+            height: 100.h,
+            decoration: BoxDecoration(
+              color: MyColors.rPerple.withOpacity(0.2),
+            ),
+          ),
           BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
             child: Container(),
@@ -49,7 +63,7 @@ class _ProfileTabState extends State<ProfileTab> {
                   Text(
                     "Profile",
                     style: TextStyle(
-                        color: MyColors.homeTitleClr,
+                        color: MyColors.titleClr,
                         fontSize: 26.sp,
                         fontWeight: FontWeight.w600),
                   ),

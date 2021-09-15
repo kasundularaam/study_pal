@@ -38,4 +38,11 @@ class ExamCountdownCubit extends Cubit<ExamCountdownState> {
     preferences.setInt(SharedPrefsKeys.examTimeStampKey, 0);
     await loadCountDown();
   }
+
+  Future<void> endCountdown() async {
+    emit(ExamCountdownLoading());
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setInt(SharedPrefsKeys.examTimeStampKey, 0);
+    await loadCountDown();
+  }
 }

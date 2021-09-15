@@ -35,11 +35,25 @@ class _EventsTabState extends State<EventsTab> {
       ),
       child: Stack(
         children: [
-          Image.asset(
-            "assets/images/bg_art.png",
+          // Image.asset(
+          //   "assets/images/bg_art.png",
+          //   width: 100.w,
+          //   height: 100.h,
+          //   fit: BoxFit.cover,
+          // ),
+          Container(
             width: 100.w,
             height: 100.h,
-            fit: BoxFit.cover,
+            decoration: BoxDecoration(
+              color: MyColors.white,
+            ),
+          ),
+          Container(
+            width: 100.w,
+            height: 100.h,
+            decoration: BoxDecoration(
+              color: MyColors.rPerple.withOpacity(0.2),
+            ),
           ),
           BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
@@ -56,7 +70,7 @@ class _EventsTabState extends State<EventsTab> {
                 Text(
                   "Events",
                   style: TextStyle(
-                      color: MyColors.homeTitleClr,
+                      color: MyColors.titleClr,
                       fontSize: 26.sp,
                       fontWeight: FontWeight.w600),
                 ),

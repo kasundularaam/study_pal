@@ -54,7 +54,7 @@ class WorkCard extends StatelessWidget {
                     Text(
                       "You",
                       style: TextStyle(
-                          color: MyColors.homeTitleClr,
+                          color: MyColors.titleClr,
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w600),
                     ),

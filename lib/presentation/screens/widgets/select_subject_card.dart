@@ -64,7 +64,7 @@ class _SelectSubjectCardState extends State<SelectSubjectCard> {
           ),
         ),
         SizedBox(
-          height: 3.w,
+          height: 2.h,
         )
       ],
     );

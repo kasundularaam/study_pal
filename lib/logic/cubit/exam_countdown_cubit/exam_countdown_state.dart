@@ -47,3 +47,5 @@ class ExamCountdownRunning extends ExamCountdownState {
   @override
   String toString() => 'ExamCountdownRunning(examTimeStamp: $examTimeStamp)';
 }
+
+class ExamCountdownEnded extends ExamCountdownState {}
