@@ -7,7 +7,6 @@ import 'package:study_pal/data/models/subject_model.dart';
 import 'package:study_pal/logic/cubit/subject_card_cubit/subject_card_cubit.dart';
 import 'package:study_pal/presentation/router/app_router.dart';
 import 'package:study_pal/presentation/screens/widgets/blur_bg.dart';
-import 'package:study_pal/presentation/screens/widgets/error_msg_box.dart';
 import 'package:study_pal/presentation/screens/widgets/loading_container.dart';
 import 'package:study_pal/presentation/screens/widgets/prograss_bar.dart';
 
@@ -59,43 +58,7 @@ class SubjectCard extends StatelessWidget {
                   ),
                   BlocBuilder<SubjectCardCubit, SubjectCardState>(
                     builder: (context, state) {
-                      if (state is SubjectCardInitial) {
-                        return Text("Initial State");
-                      } else if (state is SubjectCardLoading) {
-                        return Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                LoadingContainer(
-                                  width: 20.w,
-                                  height: 2.5.h,
-                                ),
-                                LoadingContainer(
-                                  width: 30.w,
-                                  height: 2.5.h,
-                                )
-                              ],
-                            ),
-                            SizedBox(
-                              height: 3.h,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                LoadingContainer(
-                                  width: 20.w,
-                                  height: 2.5.h,
-                                ),
-                                LoadingContainer(
-                                  width: 30.w,
-                                  height: 2.5.h,
-                                )
-                              ],
-                            )
-                          ],
-                        );
-                      } else if (state is SubjectCardLoaded) {
+                      if (state is SubjectCardLoaded) {
                         return Column(
                           children: [
                             Row(
@@ -170,15 +133,39 @@ class SubjectCard extends StatelessWidget {
                             )
                           ],
                         );
-                      } else if (state is SubjectCardFailed) {
-                        return Center(
-                          child: ErrorMsgBox(
-                            errorMsg: state.errorMsg,
-                          ),
-                        );
                       } else {
-                        return Center(
-                          child: Text("unhandled state excecuted!"),
+                        return Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                LoadingContainer(
+                                  width: 20.w,
+                                  height: 2.5.h,
+                                ),
+                                LoadingContainer(
+                                  width: 30.w,
+                                  height: 2.5.h,
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              height: 3.h,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                LoadingContainer(
+                                  width: 20.w,
+                                  height: 2.5.h,
+                                ),
+                                LoadingContainer(
+                                  width: 30.w,
+                                  height: 2.5.h,
+                                )
+                              ],
+                            )
+                          ],
                         );
                       }
                     },
@@ -189,7 +176,7 @@ class SubjectCard extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 5.w,
+          height: 2.h,
         )
       ],
     );

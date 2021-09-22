@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:study_pal/core/screen_arguments/add_countdown_scrn_args.dart';
 import 'package:study_pal/core/screen_arguments/add_eve_to_con_scrn_args.dart';
 import 'package:study_pal/core/screen_arguments/add_eve_to_mod_scrn_args.dart';
 import 'package:study_pal/core/screen_arguments/change_sub_args.dart';
@@ -13,12 +14,15 @@ import 'package:study_pal/logic/cubit/add_mod_eve_cal_cubit/add_mod_eve_cal_cubi
 import 'package:study_pal/logic/cubit/auth_nav_cubit/authscreen_nav_cubit.dart';
 import 'package:study_pal/logic/cubit/change_subjects_cubit/change_subjects_cubit.dart';
 import 'package:study_pal/logic/cubit/content_list_screen_cubit/content_list_screen_cubit.dart';
+import 'package:study_pal/logic/cubit/countdown_tab_cubit/countdown_tab_cubit.dart';
+import 'package:study_pal/logic/cubit/download_pdf_cubit/download_pdf_cubit.dart';
 import 'package:study_pal/logic/cubit/module_screen_cubit/module_screen_cubit.dart';
 import 'package:study_pal/logic/cubit/new_event_cubit/new_event_cubit.dart';
 import 'package:study_pal/logic/cubit/quiz_screen_cubit/quiz_screen_cubit.dart';
 import 'package:study_pal/logic/cubit/settings_cubit/setting_cubit.dart';
 import 'package:study_pal/logic/cubit/subject_screen_cubit/subject_screen_cubit.dart';
 import 'package:study_pal/logic/cubit/working_cubit/working_cubit.dart';
+import 'package:study_pal/presentation/screens/add_countdown_screen.dart';
 import 'package:study_pal/presentation/screens/add_event_to_con_screen.dart';
 import 'package:study_pal/presentation/screens/add_event_to_mod_screen.dart';
 import 'package:study_pal/presentation/screens/auth_screen.dart';
@@ -49,6 +53,7 @@ class AppRouter {
   static const String newEventScreen = '/newEventScreen';
   static const String editProfileScreen = '/editProfileScreen';
   static const String changeSubjectsScreen = '/changeSubjectsScreen';
+  static const String addCountdownScreen = '/addCountdownScreen';
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     WorkingCubit _workingCubit = WorkingCubit();
@@ -100,8 +105,11 @@ class AppRouter {
       case contentScreen:
         final ContentScreenArgs args = settings.arguments as ContentScreenArgs;
         return MaterialPageRoute(
-          builder: (_) => ContentScreen(
-            args: args,
+          builder: (_) => BlocProvider(
+            create: (context) => DownloadPdfCubit(),
+            child: ContentScreen(
+              args: args,
+            ),
           ),
         );
 
@@ -166,6 +174,16 @@ class AppRouter {
           builder: (_) => BlocProvider(
             create: (context) => ChangeSubjectsCubit(),
             child: ChangeSubjectScreen(
+              args: args,
+            ),
+          ),
+        );
+      case addCountdownScreen:
+        AddCountdownScrnArgs args = settings.arguments as AddCountdownScrnArgs;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => CountdownTabCubit(),
+            child: AddCountdownScreen(
               args: args,
             ),
           ),

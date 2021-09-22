@@ -66,6 +66,14 @@ class MyColors {
 
   static const Color titleClr = Color(0xff7F00FF);
 
-  static const Color navBtnClr = Color(0xff444444);
+  static const Color navBtnClr = Color(0xff47079A);
   static const Color navBtnSelctdClr = Color(0xffffffff);
+  static const Color hpCrdClr = Color(0xffEBE9ED);
+  static const Color eventCrdBgClr = Color(0xff9A70D1);
+  static const Color homeBgClr = Color(0xff9A70D1);
+  static const Color screenTitlesClr = Color(0xffffffff);
+
+  // INNER SCREEN TEMPLATE
+  static const Color innerScrnBgClr = Color(0xffffffff);
+  static const Color innerScrnTopBarBgClr = Color(0xff8C33FF);
 }

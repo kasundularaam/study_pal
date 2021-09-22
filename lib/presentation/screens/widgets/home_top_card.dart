@@ -20,14 +20,12 @@ class HomeTopCard extends StatelessWidget {
     return Column(
       children: [
         BlurBg(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(5.w),
-            bottomLeft: Radius.circular(5.w),
-          ),
+          borderRadius: BorderRadius.circular(5.w),
           child: Container(
             padding: EdgeInsets.all(5.w),
             width: 95.w,
-            decoration: BoxDecoration(color: MyColors.white.withOpacity(0.8)),
+            decoration:
+                BoxDecoration(color: MyColors.hpCrdClr.withOpacity(0.9)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -39,7 +37,7 @@ class HomeTopCard extends StatelessWidget {
                       fontWeight: FontWeight.w600),
                 ),
                 SizedBox(
-                  height: 5.w,
+                  height: 1.h,
                 ),
                 Column(
                   children: builedItemList(subjectList: subjectList),
@@ -49,7 +47,7 @@ class HomeTopCard extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 5.w,
+          height: 3.h,
         )
       ],
     );

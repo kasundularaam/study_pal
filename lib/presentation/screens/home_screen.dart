@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:study_pal/core/constants/my_colors.dart';
 import 'package:study_pal/core/my_enums.dart';
-import 'package:study_pal/logic/cubit/exam_countdown_cubit/exam_countdown_cubit.dart';
+import 'package:study_pal/logic/cubit/countdown_tab_cubit/countdown_tab_cubit.dart';
 import 'package:study_pal/logic/cubit/home_nav_cubit/home_nav_cubit.dart';
 import 'package:study_pal/logic/cubit/home_tab_cubit/home_tab_cubit.dart';
+import 'package:study_pal/logic/cubit/logout_cubit/logout_cubit.dart';
 import 'package:study_pal/logic/cubit/show_cal_events_cubit/show_cal_events_cubit.dart';
 import 'package:study_pal/presentation/screens/home_tabs/countdown_tab.dart';
 import 'package:study_pal/presentation/screens/home_tabs/events_tab.dart';
@@ -25,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return BlocProvider(
       create: (context) => HomeNavCubit(),
       child: Scaffold(
-        backgroundColor: MyColors.homeScrnBgClr,
+        backgroundColor: MyColors.homeBgClr,
         body: SafeArea(
           child: LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
@@ -48,7 +49,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: HomeTab(),
                           );
                         } else if (state.homeNav == HomeNav.toProfile) {
-                          return ProfileTab();
+                          return BlocProvider(
+                            create: (context) => LogoutCubit(),
+                            child: ProfileTab(),
+                          );
                         } else if (state.homeNav == HomeNav.toEvents) {
                           return BlocProvider(
                             create: (context) => ShowCalEventsCubit(),
@@ -56,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           );
                         } else if (state.homeNav == HomeNav.toCountDown) {
                           return BlocProvider(
-                            create: (context) => ExamCountdownCubit(),
+                            create: (context) => CountdownTabCubit(),
                             child: CountDownTab(),
                           );
                         } else {

@@ -148,12 +148,9 @@ class OkButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => onPressed(),
-      child: Text(
-        "Ok",
-        style: TextStyle(
-            color: MyColors.titleClr,
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w600),
+      child: Icon(
+        Icons.check,
+        color: MyColors.titleClr,
       ),
     );
   }

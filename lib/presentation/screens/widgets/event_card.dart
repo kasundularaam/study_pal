@@ -39,13 +39,12 @@ class EventCard extends StatelessWidget {
                       child: Container(
                         padding: EdgeInsets.all(2.w),
                         decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.white.withOpacity(0.8),
-                        ),
+                            shape: BoxShape.circle,
+                            color: MyColors.eventCrdBgClr),
                         child: Text(
                           day,
                           style: TextStyle(
-                              color: MyColors.textColorDark, fontSize: 20.sp),
+                              color: MyColors.textColorLight, fontSize: 20.sp),
                         ),
                       ),
                     ),
@@ -59,12 +58,13 @@ class EventCard extends StatelessWidget {
                       child: Container(
                         padding: EdgeInsets.all(2.w),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.8),
+                          color: MyColors.eventCrdBgClr.withOpacity(0.9),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
+                              width: 100.w,
                               padding: EdgeInsets.all(2.w),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(1.w),
@@ -83,7 +83,7 @@ class EventCard extends StatelessWidget {
                             Text(
                               "$monYear at $formattedTime",
                               style: TextStyle(
-                                  color: MyColors.textColorDark,
+                                  color: MyColors.textColorLight,
                                   fontSize: 12.sp),
                             ),
                           ],

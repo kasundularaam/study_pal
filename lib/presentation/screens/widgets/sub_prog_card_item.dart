@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
@@ -25,148 +26,75 @@ class SubProgCardItem extends StatelessWidget {
           ),
           BlocBuilder<SubProgCubit, SubProgState>(
             builder: (context, state) {
-              if (state is SubProgInitial) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Flexible(
-                      child: Text(
-                        subject.name,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            color: MyColors.textColorDark, fontSize: 16.sp),
-                      ),
-                    ),
-                    Text(
-                      "0%",
-                      style: TextStyle(
-                          color: MyColors.textColorDark, fontSize: 16.sp),
-                    ),
-                  ],
-                );
-              } else if (state is SubProgLoading) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Flexible(
-                      child: Text(
-                        subject.name,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            color: MyColors.textColorDark, fontSize: 16.sp),
-                      ),
-                    ),
-                    Text(
-                      "0%",
-                      style: TextStyle(
-                          color: MyColors.textColorDark, fontSize: 16.sp),
-                    ),
-                  ],
-                );
-              } else if (state is SubProgLoaded) {
+              if (state is SubProgLoaded) {
                 int precentage =
                     ((state.fireContentCount / state.contentCount) * 100)
                         .toInt();
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                return Column(
                   children: [
-                    Flexible(
-                      child: Text(
-                        subject.name,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            color: MyColors.textColorDark, fontSize: 16.sp),
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            subject.name,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                color: MyColors.textColorDark, fontSize: 16.sp),
+                          ),
+                        ),
+                        Text(
+                          "$precentage%",
+                          style: TextStyle(
+                              color: MyColors.textColorDark, fontSize: 16.sp),
+                        ),
+                      ],
                     ),
-                    Text(
-                      "$precentage%",
-                      style: TextStyle(
-                          color: MyColors.textColorDark, fontSize: 16.sp),
+                    SizedBox(
+                      height: 2.h,
                     ),
-                  ],
-                );
-              } else if (state is SubProgFailed) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Flexible(
-                      child: Text(
-                        subject.name,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            color: MyColors.textColorDark, fontSize: 16.sp),
-                      ),
-                    ),
-                    Text(
-                      "Error..",
-                      style: TextStyle(
-                          color: MyColors.textColorDark, fontSize: 16.sp),
-                    ),
+                    MyPrograssBar(
+                        width: 75.w,
+                        max: state.contentCount,
+                        progress: state.fireContentCount,
+                        backgroundColor: MyColors.white,
+                        progressColor: MyColors.progressColor),
                   ],
                 );
               } else {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                return Column(
                   children: [
-                    Flexible(
-                      child: Text(
-                        subject.name,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            color: MyColors.textColorDark, fontSize: 16.sp),
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            subject.name,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                color: MyColors.textColorDark, fontSize: 16.sp),
+                          ),
+                        ),
+                        Text(
+                          "...",
+                          style: TextStyle(
+                              color: MyColors.textColorDark,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
-                    Text(
-                      "Error..",
-                      style: TextStyle(
-                          color: MyColors.textColorDark, fontSize: 16.sp),
+                    SizedBox(
+                      height: 2.h,
+                    ),
+                    MyPrograssBar(
+                      width: 75.w,
+                      max: 100,
+                      progress: 0,
+                      backgroundColor: MyColors.white,
+                      progressColor: MyColors.progressColor,
                     ),
                   ],
-                );
-              }
-            },
-          ),
-          SizedBox(
-            height: 2.h,
-          ),
-          BlocBuilder<SubProgCubit, SubProgState>(
-            builder: (context, state) {
-              if (state is SubProgInitial) {
-                return MyPrograssBar(
-                  width: 75.w,
-                  max: 100,
-                  progress: 0,
-                  backgroundColor: MyColors.white,
-                  progressColor: MyColors.progressColor,
-                );
-              } else if (state is SubProgLoading) {
-                return MyPrograssBar(
-                    width: 75.w,
-                    max: 100,
-                    progress: 0,
-                    backgroundColor: MyColors.white,
-                    progressColor: MyColors.progressColor);
-              } else if (state is SubProgLoaded) {
-                return MyPrograssBar(
-                    width: 75.w,
-                    max: state.contentCount,
-                    progress: state.fireContentCount,
-                    backgroundColor: MyColors.white,
-                    progressColor: MyColors.progressColor);
-              } else if (state is SubProgFailed) {
-                return MyPrograssBar(
-                    width: 75.w,
-                    max: 100,
-                    progress: 0,
-                    backgroundColor: MyColors.white,
-                    progressColor: MyColors.progressColor);
-              } else {
-                return MyPrograssBar(
-                  width: 75.w,
-                  max: 100,
-                  progress: 0,
-                  backgroundColor: MyColors.white,
-                  progressColor: MyColors.progressColor,
                 );
               }
             },

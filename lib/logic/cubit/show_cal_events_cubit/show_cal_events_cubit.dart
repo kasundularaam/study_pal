@@ -17,7 +17,7 @@ class ShowCalEventsCubit extends Cubit<ShowCalEventsState> {
       if (calEvents.isNotEmpty) {
         emit(ShowCalEventsLoaded(calEvents: calEvents));
       } else {
-        emit(ShowCalEventsNoResult(message: "No results found"));
+        emit(ShowCalEventsNoResult(message: "No events found"));
       }
     } catch (e) {
       emit(ShowCalEventsFailed(errorMsg: e.toString()));

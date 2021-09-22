@@ -33,10 +33,10 @@ class _DatePickerState extends State<DatePicker> {
         }
       },
       child: Container(
-        padding: EdgeInsets.all(5.w),
+        padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(2.w),
-            color: MyColors.textColorLight),
+            color: MyColors.black.withOpacity(0.07)),
         child: BlocBuilder<PickDateCubit, PickDateState>(
           builder: (context, state) {
             if (state is PickDateInitial) {

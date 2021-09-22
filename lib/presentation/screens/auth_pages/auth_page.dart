@@ -9,7 +9,6 @@ import 'package:study_pal/core/screen_arguments/content_screen_args.dart';
 import 'package:study_pal/logic/cubit/auth_cubit/auth_cubit.dart';
 import 'package:study_pal/logic/cubit/auth_nav_cubit/authscreen_nav_cubit.dart';
 import 'package:study_pal/presentation/router/app_router.dart';
-import 'package:study_pal/presentation/screens/widgets/error_msg_box.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({Key? key}) : super(key: key);
@@ -81,19 +80,23 @@ class _AuthPageState extends State<AuthPage> {
               } else {
                 navigateToLogin();
               }
-              return Text(
-                state.statusMsg,
-                style: TextStyle(
-                  color: MyColors.textColorDark,
-                  fontSize: 12.sp,
+              return Center(
+                child: Text(
+                  state.statusMsg,
+                  style: TextStyle(
+                    color: MyColors.textColorDark,
+                    fontSize: 12.sp,
+                  ),
                 ),
               );
             } else if (state is AuthLoading) {
-              return Text(
-                state.loadingMsg,
-                style: TextStyle(
-                  color: MyColors.textColorDark,
-                  fontSize: 12.sp,
+              return Center(
+                child: Text(
+                  state.loadingMsg,
+                  style: TextStyle(
+                    color: MyColors.textColorDark,
+                    fontSize: 12.sp,
+                  ),
                 ),
               );
             } else {
@@ -110,7 +113,7 @@ class _AuthPageState extends State<AuthPage> {
 
   Widget buildFailedState(String errorMsg) {
     return Center(
-      child: Column(children: [
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
         Text(
           errorMsg,
           style: TextStyle(
@@ -127,7 +130,7 @@ class _AuthPageState extends State<AuthPage> {
           child: Text(
             "Try Again",
             style: TextStyle(
-              color: MyColors.hpTopCardBgColor,
+              color: MyColors.titleClr,
               fontSize: 16.sp,
             ),
           ),

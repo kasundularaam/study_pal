@@ -13,6 +13,7 @@ import 'package:study_pal/logic/cubit/module_screen_cubit/module_screen_cubit.da
 import 'package:study_pal/presentation/router/app_router.dart';
 import 'package:study_pal/presentation/screens/widgets/content_card_small.dart';
 import 'package:study_pal/presentation/screens/widgets/error_msg_box.dart';
+import 'package:study_pal/presentation/templates/inner_scrn_tmpl.dart';
 
 class ModuleScreen extends StatefulWidget {
   final ModuleScreenArgs args;
@@ -35,356 +36,277 @@ class _ModuleScreenState extends State<ModuleScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: MyColors.homeScrnBgClr,
-      body: SafeArea(
-        child: LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
-          return Column(
+    return InnerScrnTmpl(
+      title: widget.args.moduleName,
+      content: ListView(
+        physics: BouncingScrollPhysics(),
+        children: [
+          SizedBox(
+            height: 3.h,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 5.w,
+                      ),
+                      Text(
+                        "Contents",
+                        style: TextStyle(
+                            color: MyColors.textColorDark,
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () => Navigator.pushNamed(
+                          context,
+                          AppRouter.contentListScreen,
+                          arguments: ContentListScreenArgs(
+                            subjectId: widget.args.subjectId,
+                            subjectName: widget.args.subjectName,
+                            moduleId: widget.args.moduleId,
+                            moduleName: widget.args.moduleName,
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              "See All",
+                              style: TextStyle(
+                                color: MyColors.titleClr,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 2.w,
+                            ),
+                            Icon(
+                              Icons.arrow_forward_rounded,
+                              color: MyColors.titleClr,
+                            ),
+                            SizedBox(
+                              width: 5.w,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 3.h,
+              ),
               Container(
-                height: (constraints.maxHeight * 10) / 100,
-                child: Stack(
-                  children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: InkWell(
-                        onTap: () => Navigator.pop(context),
-                        child: Padding(
-                          padding: EdgeInsets.all(5.w),
-                          child: Icon(
-                            Icons.arrow_back_ios,
-                            color: MyColors.textColorLight,
-                            size: 20.sp,
+                height: 16.h,
+                child: BlocBuilder<ModuleScreenCubit, ModuleScreenState>(
+                  builder: (context, state) {
+                    if (state is ModuleScreenInitial) {
+                      return Center(child: Text("Initial State"));
+                    } else if (state is ModuleScreenLoading) {
+                      return Center(
+                          child: CircularProgressIndicator(
+                        color: MyColors.progressColor,
+                      ));
+                    } else if (state is ModuleScreenLoaded) {
+                      return ListView(
+                        padding: EdgeInsets.all(0),
+                        physics: BouncingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          SizedBox(
+                            width: 5.w,
+                          ),
+                          ListView.builder(
+                            padding: EdgeInsets.all(0),
+                            physics: BouncingScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemCount: state.contentList.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              Content content = state.contentList[index];
+                              return ContentCardSmall(
+                                args: ContentScreenArgs(
+                                  contentId: content.id,
+                                  contentName: content.contentTitle,
+                                  subjectName: widget.args.subjectName,
+                                  subjectId: widget.args.subjectId,
+                                  moduleName: widget.args.moduleName,
+                                  moduleId: widget.args.moduleId,
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      );
+                    } else if (state is ModuleScreenFailed) {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 5.w),
+                        child: ErrorMsgBox(errorMsg: state.errorMsg),
+                      );
+                    } else if (state is ModuleScreenNoResult) {
+                      return Center(
+                          child: ErrorMsgBox(errorMsg: state.message));
+                    } else {
+                      return Center(
+                        child:
+                            ErrorMsgBox(errorMsg: "unhandled state excecuted!"),
+                      );
+                    }
+                  },
+                ),
+              ),
+              SizedBox(
+                height: 3.h,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 5.w,
+                      ),
+                      Text(
+                        "Add schedule to work later",
+                        style: TextStyle(
+                          color: MyColors.textColorDark,
+                          fontSize: 14.sp,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () => Navigator.pushNamed(
+                          context,
+                          AppRouter.addEventToModScreen,
+                          arguments: AddEveToModScrnArgs(
+                            subjectId: widget.args.subjectId,
+                            subjectName: widget.args.subjectName,
+                            moduleId: widget.args.moduleId,
+                            moduleName: widget.args.moduleName,
+                          ),
+                        ),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 5.w, vertical: 1.h),
+                          decoration: BoxDecoration(
+                            color: MyColors.loginBtnClr,
+                            borderRadius: BorderRadius.circular(2.w),
+                          ),
+                          child: Text(
+                            "Add",
+                            style: TextStyle(
+                              color: MyColors.loginBtnTxtClr,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Center(
-                      child: Text(
-                        widget.args.moduleName,
-                        style: TextStyle(
-                            color: MyColors.textColorLight,
-                            fontSize: 26.sp,
-                            fontWeight: FontWeight.w600),
+                      SizedBox(
+                        width: 5.w,
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 3.h,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 5.w),
+                child: Divider(
+                  color: MyColors.textColorDark,
+                  thickness: 0.2.w,
                 ),
               ),
-              ClipRRect(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(8.w),
-                  topRight: Radius.circular(8.w),
+              SizedBox(
+                height: 3.h,
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 5.w),
+                child: Text(
+                  "Questions",
+                  style: TextStyle(
+                      color: MyColors.textColorDark,
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w600),
                 ),
-                child: Stack(
-                  children: [
-                    Image.asset(
-                      "assets/images/bg_bottom_art.png",
-                      width: constraints.maxWidth,
-                      height: (constraints.maxHeight * 90) / 100,
-                      fit: BoxFit.cover,
-                    ),
-                    Container(
-                      height: (constraints.maxHeight * 90) / 100,
-                      child: ListView(
-                        physics: BouncingScrollPhysics(),
-                        children: [
-                          SizedBox(
-                            height: 3.h,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      SizedBox(
-                                        width: 5.w,
-                                      ),
-                                      Text(
-                                        "Contents",
-                                        style: TextStyle(
-                                            color: MyColors.textColorDark,
-                                            fontSize: 20.sp,
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () => Navigator.pushNamed(
-                                          context,
-                                          AppRouter.contentListScreen,
-                                          arguments: ContentListScreenArgs(
-                                            subjectId: widget.args.subjectId,
-                                            subjectName:
-                                                widget.args.subjectName,
-                                            moduleId: widget.args.moduleId,
-                                            moduleName: widget.args.moduleName,
-                                          ),
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            Text(
-                                              "See All",
-                                              style: TextStyle(
-                                                color: MyColors.titleClr,
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2.w,
-                                            ),
-                                            Icon(
-                                              Icons.arrow_forward_rounded,
-                                              color: MyColors.titleClr,
-                                            ),
-                                            SizedBox(
-                                              width: 5.w,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 3.h,
-                              ),
-                              Container(
-                                height: 16.h,
-                                child: BlocBuilder<ModuleScreenCubit,
-                                    ModuleScreenState>(
-                                  builder: (context, state) {
-                                    if (state is ModuleScreenInitial) {
-                                      return Center(
-                                          child: Text("Initial State"));
-                                    } else if (state is ModuleScreenLoading) {
-                                      return Center(
-                                          child: CircularProgressIndicator(
-                                        color: MyColors.progressColor,
-                                      ));
-                                    } else if (state is ModuleScreenLoaded) {
-                                      return ListView(
-                                        padding: EdgeInsets.all(0),
-                                        physics: BouncingScrollPhysics(),
-                                        scrollDirection: Axis.horizontal,
-                                        children: [
-                                          SizedBox(
-                                            width: 5.w,
-                                          ),
-                                          ListView.builder(
-                                            padding: EdgeInsets.all(0),
-                                            physics: BouncingScrollPhysics(),
-                                            scrollDirection: Axis.horizontal,
-                                            shrinkWrap: true,
-                                            itemCount: state.contentList.length,
-                                            itemBuilder: (BuildContext context,
-                                                int index) {
-                                              Content content =
-                                                  state.contentList[index];
-                                              return ContentCardSmall(
-                                                args: ContentScreenArgs(
-                                                  contentId: content.id,
-                                                  contentName:
-                                                      content.contentTitle,
-                                                  subjectName:
-                                                      widget.args.subjectName,
-                                                  subjectId:
-                                                      widget.args.subjectId,
-                                                  moduleName:
-                                                      widget.args.moduleName,
-                                                  moduleId:
-                                                      widget.args.moduleId,
-                                                ),
-                                              );
-                                            },
-                                          ),
-                                        ],
-                                      );
-                                    } else if (state is ModuleScreenFailed) {
-                                      return Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 5.w),
-                                        child: ErrorMsgBox(
-                                            errorMsg: state.errorMsg),
-                                      );
-                                    } else if (state is ModuleScreenNoResult) {
-                                      return Center(
-                                          child: ErrorMsgBox(
-                                              errorMsg: state.message));
-                                    } else {
-                                      return Center(
-                                        child: ErrorMsgBox(
-                                            errorMsg:
-                                                "unhandled state excecuted!"),
-                                      );
-                                    }
-                                  },
-                                ),
-                              ),
-                              SizedBox(
-                                height: 3.h,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      SizedBox(
-                                        width: 5.w,
-                                      ),
-                                      Text(
-                                        "Add schedule to work later",
-                                        style: TextStyle(
-                                          color: MyColors.textColorDark,
-                                          fontSize: 14.sp,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () => Navigator.pushNamed(
-                                          context,
-                                          AppRouter.addEventToModScreen,
-                                          arguments: AddEveToModScrnArgs(
-                                            subjectId: widget.args.subjectId,
-                                            subjectName:
-                                                widget.args.subjectName,
-                                            moduleId: widget.args.moduleId,
-                                            moduleName: widget.args.moduleName,
-                                          ),
-                                        ),
-                                        child: Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 5.w, vertical: 1.h),
-                                          decoration: BoxDecoration(
-                                            color: MyColors.loginBtnClr,
-                                            borderRadius:
-                                                BorderRadius.circular(2.w),
-                                          ),
-                                          child: Text(
-                                            "Add",
-                                            style: TextStyle(
-                                              color: MyColors.loginBtnTxtClr,
-                                              fontSize: 14.sp,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 5.w,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 3.h,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 5.w),
-                                child: Divider(
-                                  color: MyColors.textColorDark,
-                                  thickness: 0.2.w,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 3.h,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(left: 5.w),
-                                child: Text(
-                                  "Questions",
-                                  style: TextStyle(
-                                      color: MyColors.textColorDark,
-                                      fontSize: 20.sp,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 3.h,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      SizedBox(
-                                        width: 5.w,
-                                      ),
-                                      Text(
-                                        "let's practice yourself",
-                                        style: TextStyle(
-                                          color: MyColors.textColorDark,
-                                          fontSize: 14.sp,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () => Navigator.pushNamed(
-                                          context,
-                                          AppRouter.quizScreen,
-                                          arguments: QuizScreenArgs(
-                                            moduleId: widget.args.moduleId,
-                                            moduleName: widget.args.moduleName,
-                                          ),
-                                        ),
-                                        child: Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 3.w, vertical: 1.4.h),
-                                          decoration: BoxDecoration(
-                                            color: MyColors.progressColor,
-                                            borderRadius:
-                                                BorderRadius.circular(2.w),
-                                          ),
-                                          child: Text(
-                                            "Go To Quiz",
-                                            style: TextStyle(
-                                                color: MyColors.textColorDark,
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 5.w,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 1.h,
-                              ),
-                            ],
-                          ),
-                        ],
+              ),
+              SizedBox(
+                height: 3.h,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 5.w,
                       ),
-                    ),
-                  ],
-                ),
+                      Text(
+                        "let's practice yourself",
+                        style: TextStyle(
+                          color: MyColors.textColorDark,
+                          fontSize: 14.sp,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () => Navigator.pushNamed(
+                          context,
+                          AppRouter.quizScreen,
+                          arguments: QuizScreenArgs(
+                            moduleId: widget.args.moduleId,
+                            moduleName: widget.args.moduleName,
+                          ),
+                        ),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 3.w, vertical: 1.4.h),
+                          decoration: BoxDecoration(
+                            color: MyColors.progressColor,
+                            borderRadius: BorderRadius.circular(2.w),
+                          ),
+                          child: Text(
+                            "Go To Quiz",
+                            style: TextStyle(
+                                color: MyColors.textColorDark,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 5.w,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 1.h,
               ),
             ],
-          );
-        }),
+          ),
+        ],
       ),
     );
   }

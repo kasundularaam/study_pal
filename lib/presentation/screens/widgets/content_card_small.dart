@@ -27,6 +27,7 @@ class ContentCardSmall extends StatelessWidget {
               child: Container(
                 height: 15.h,
                 width: 50.w,
+                padding: EdgeInsets.all(3.w),
                 decoration: BoxDecoration(
                   color: MyColors.white,
                   borderRadius: BorderRadius.circular(2.w),
