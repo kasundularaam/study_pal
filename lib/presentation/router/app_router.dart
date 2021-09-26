@@ -14,11 +14,11 @@ import 'package:study_pal/logic/cubit/add_mod_eve_cal_cubit/add_mod_eve_cal_cubi
 import 'package:study_pal/logic/cubit/auth_nav_cubit/authscreen_nav_cubit.dart';
 import 'package:study_pal/logic/cubit/change_subjects_cubit/change_subjects_cubit.dart';
 import 'package:study_pal/logic/cubit/content_list_screen_cubit/content_list_screen_cubit.dart';
-import 'package:study_pal/logic/cubit/countdown_tab_cubit/countdown_tab_cubit.dart';
 import 'package:study_pal/logic/cubit/download_pdf_cubit/download_pdf_cubit.dart';
 import 'package:study_pal/logic/cubit/module_screen_cubit/module_screen_cubit.dart';
 import 'package:study_pal/logic/cubit/new_event_cubit/new_event_cubit.dart';
 import 'package:study_pal/logic/cubit/quiz_screen_cubit/quiz_screen_cubit.dart';
+import 'package:study_pal/logic/cubit/set_countdown_cubit/set_countdown_cubit.dart';
 import 'package:study_pal/logic/cubit/settings_cubit/setting_cubit.dart';
 import 'package:study_pal/logic/cubit/subject_screen_cubit/subject_screen_cubit.dart';
 import 'package:study_pal/logic/cubit/working_cubit/working_cubit.dart';
@@ -182,7 +182,7 @@ class AppRouter {
         AddCountdownScrnArgs args = settings.arguments as AddCountdownScrnArgs;
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (context) => CountdownTabCubit(),
+            create: (context) => SetCountdownCubit(),
             child: AddCountdownScreen(
               args: args,
             ),

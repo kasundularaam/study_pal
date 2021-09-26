@@ -11,7 +11,7 @@ List<PieChartSectionData> getSections(
           final value = PieChartSectionData(
             color: data.color,
             value: data.percent,
-            title: '${data.percent}%',
+            title: '${data.percent.toStringAsFixed(1)}%',
             radius: 20.w,
             titleStyle: TextStyle(
               fontSize: 12.sp,

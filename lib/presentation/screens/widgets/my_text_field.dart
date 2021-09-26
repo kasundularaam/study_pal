@@ -5,6 +5,7 @@ class MyTextField extends StatelessWidget {
   final Function(String) onChanged;
   final Function(String) onSubmitted;
   final FocusNode? focusNode;
+  final TextEditingController? controller;
   final TextInputAction textInputAction;
   final bool isPassword;
   final String hintText;
@@ -15,6 +16,7 @@ class MyTextField extends StatelessWidget {
     required this.onChanged,
     required this.onSubmitted,
     this.focusNode,
+    this.controller,
     required this.textInputAction,
     required this.isPassword,
     required this.hintText,
@@ -30,6 +32,7 @@ class MyTextField extends StatelessWidget {
         borderRadius: BorderRadius.circular(2.w),
       ),
       child: TextField(
+        controller: controller,
         obscureText: isPassword,
         onChanged: onChanged,
         onSubmitted: onSubmitted,

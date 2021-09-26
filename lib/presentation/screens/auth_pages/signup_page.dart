@@ -5,7 +5,7 @@ import 'package:study_pal/core/constants/my_colors.dart';
 import 'package:study_pal/core/my_enums.dart';
 import 'package:study_pal/logic/cubit/auth_nav_cubit/authscreen_nav_cubit.dart';
 import 'package:study_pal/logic/cubit/signup_cubit/signup_cubit.dart';
-import 'package:study_pal/presentation/screens/widgets/my_button.dart';
+import 'package:study_pal/presentation/screens/widgets/reguler_btn.dart';
 import 'package:study_pal/presentation/screens/widgets/my_text_field.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -107,7 +107,7 @@ class _SignUpPageState extends State<SignUpPage> {
               );
             } else {
               return Center(
-                child: MyButton(
+                child: RegulerBtn(
                   btnText: "Sign Up",
                   onPressed: () =>
                       BlocProvider.of<SignupCubit>(context).signUpNewUser(
@@ -147,7 +147,10 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ),
           ],
-        )
+        ),
+        SizedBox(
+          height: 3.h,
+        ),
       ],
     );
   }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 import 'package:study_pal/core/constants/my_colors.dart';
-import 'package:study_pal/core/constants/my_styles.dart';
 import 'package:study_pal/core/screen_arguments/add_eve_to_con_scrn_args.dart';
 import 'package:study_pal/data/models/add_con_eve_cal_cu_model.dart';
 import 'package:study_pal/logic/cubit/add_con_eve_cal_cubit/add_con_eve_cal_cubit.dart';

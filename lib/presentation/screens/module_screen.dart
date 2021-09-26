@@ -13,6 +13,7 @@ import 'package:study_pal/logic/cubit/module_screen_cubit/module_screen_cubit.da
 import 'package:study_pal/presentation/router/app_router.dart';
 import 'package:study_pal/presentation/screens/widgets/content_card_small.dart';
 import 'package:study_pal/presentation/screens/widgets/error_msg_box.dart';
+import 'package:study_pal/presentation/screens/widgets/small_btn.dart';
 import 'package:study_pal/presentation/templates/inner_scrn_tmpl.dart';
 
 class ModuleScreen extends StatefulWidget {
@@ -189,34 +190,20 @@ class _ModuleScreenState extends State<ModuleScreen> {
                   ),
                   Row(
                     children: [
-                      GestureDetector(
-                        onTap: () => Navigator.pushNamed(
-                          context,
-                          AppRouter.addEventToModScreen,
-                          arguments: AddEveToModScrnArgs(
-                            subjectId: widget.args.subjectId,
-                            subjectName: widget.args.subjectName,
-                            moduleId: widget.args.moduleId,
-                            moduleName: widget.args.moduleName,
-                          ),
-                        ),
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 5.w, vertical: 1.h),
-                          decoration: BoxDecoration(
-                            color: MyColors.loginBtnClr,
-                            borderRadius: BorderRadius.circular(2.w),
-                          ),
-                          child: Text(
-                            "Add",
-                            style: TextStyle(
-                              color: MyColors.loginBtnTxtClr,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ),
+                      SmallBtn(
+                          btnText: "Add",
+                          onPressed: () => Navigator.pushNamed(
+                                context,
+                                AppRouter.addEventToModScreen,
+                                arguments: AddEveToModScrnArgs(
+                                  subjectId: widget.args.subjectId,
+                                  subjectName: widget.args.subjectName,
+                                  moduleId: widget.args.moduleId,
+                                  moduleName: widget.args.moduleName,
+                                ),
+                              ),
+                          bgColor: MyColors.primaryColor,
+                          txtColor: MyColors.lightColor),
                       SizedBox(
                         width: 5.w,
                       ),
@@ -269,31 +256,18 @@ class _ModuleScreenState extends State<ModuleScreen> {
                   ),
                   Row(
                     children: [
-                      GestureDetector(
-                        onTap: () => Navigator.pushNamed(
-                          context,
-                          AppRouter.quizScreen,
-                          arguments: QuizScreenArgs(
-                            moduleId: widget.args.moduleId,
-                            moduleName: widget.args.moduleName,
-                          ),
-                        ),
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 3.w, vertical: 1.4.h),
-                          decoration: BoxDecoration(
-                            color: MyColors.progressColor,
-                            borderRadius: BorderRadius.circular(2.w),
-                          ),
-                          child: Text(
-                            "Go To Quiz",
-                            style: TextStyle(
-                                color: MyColors.textColorDark,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600),
-                          ),
-                        ),
-                      ),
+                      SmallBtn(
+                          btnText: "Go To Quiz",
+                          onPressed: () => Navigator.pushNamed(
+                                context,
+                                AppRouter.quizScreen,
+                                arguments: QuizScreenArgs(
+                                  moduleId: widget.args.moduleId,
+                                  moduleName: widget.args.moduleName,
+                                ),
+                              ),
+                          bgColor: MyColors.secondaryColor,
+                          txtColor: MyColors.darkColor),
                       SizedBox(
                         width: 5.w,
                       ),

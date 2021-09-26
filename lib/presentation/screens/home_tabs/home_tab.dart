@@ -47,7 +47,7 @@ class _HomeTabState extends State<HomeTab> {
                 padding: EdgeInsets.symmetric(horizontal: 5.w),
                 children: [
                   SizedBox(
-                    height: 12.h,
+                    height: 10.h,
                   ),
                   HomeTopCard(
                     subjectList: state.subjectList,

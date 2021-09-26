@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-class MyButton extends StatelessWidget {
+class RegulerBtn extends StatelessWidget {
   final String btnText;
   final Function onPressed;
   final Color bgColor;
   final Color txtColor;
-  const MyButton({
+  const RegulerBtn({
     Key? key,
     required this.btnText,
     required this.onPressed,
@@ -29,7 +29,7 @@ class MyButton extends StatelessWidget {
         child: Text(
           btnText,
           style: TextStyle(
-              fontSize: 18.sp, color: txtColor, fontWeight: FontWeight.w600),
+              fontSize: 16.sp, color: txtColor, fontWeight: FontWeight.w600),
         ),
       ),
     );

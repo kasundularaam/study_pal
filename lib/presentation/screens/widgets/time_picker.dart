@@ -34,7 +34,7 @@ class _TimePickerState extends State<TimePicker> {
         padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(2.w),
-            color: MyColors.black.withOpacity(0.07)),
+            color: MyColors.darkColor.withOpacity(0.1)),
         child: BlocBuilder<PickTimeCubit, PickTimeState>(
           builder: (context, state) {
             if (state is PickTimeInitial) {

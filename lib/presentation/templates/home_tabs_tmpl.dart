@@ -28,7 +28,7 @@ class _HomeTabsTmplState extends State<HomeTabsTmpl> {
         bottomRight: Radius.circular(10.w),
       ),
       child: Container(
-        color: MyColors.white,
+        color: MyColors.homeTabsBgClr,
         child: Stack(
           children: [
             Image.asset(
@@ -38,11 +38,11 @@ class _HomeTabsTmplState extends State<HomeTabsTmpl> {
               fit: BoxFit.cover,
             ),
             Container(
-              color: MyColors.white.withOpacity(0.8),
+              color: MyColors.white.withOpacity(0.7),
             ),
             widget.content,
             Container(
-              color: MyColors.white.withOpacity(1),
+              color: MyColors.homeTabsTopBgClr,
               width: 100.w,
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
@@ -52,7 +52,7 @@ class _HomeTabsTmplState extends State<HomeTabsTmpl> {
                     Text(
                       widget.title,
                       style: TextStyle(
-                          color: MyColors.titleClr,
+                          color: MyColors.primaryColor,
                           fontSize: 20.sp,
                           fontWeight: FontWeight.w600),
                     ),

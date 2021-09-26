@@ -14,56 +14,50 @@ class SubProgCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<SubProgCardCubit>(context).getSubjects();
-    return Column(
-      children: [
-        BlurBg(
-          borderRadius: BorderRadius.circular(5.w),
-          child: Container(
-            width: 100.w,
-            padding: EdgeInsets.all(5.w),
-            decoration: BoxDecoration(
-              color: MyColors.white.withOpacity(0.8),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Summary",
-                  style:
-                      TextStyle(color: MyColors.textColorDark, fontSize: 18.sp),
-                ),
-                SizedBox(
-                  height: 3.h,
-                ),
-                BlocBuilder<SubProgCardCubit, SubProgCardState>(
-                  builder: (context, state) {
-                    if (state is SubProgCardInitial) {
-                      return Text("Initial State");
-                    } else if (state is SubProgCardLoading) {
-                      return Text("Loading...");
-                    } else if (state is SubProgCardLoaded) {
-                      return Align(
-                        alignment: Alignment.center,
-                        child: Column(
-                          children:
-                              builedItemList(subjectList: state.subjectList),
-                        ),
-                      );
-                    } else if (state is SubProgCardFailed) {
-                      return Text("something went wrong!");
-                    } else {
-                      return Text("unhandled state excecuted!");
-                    }
-                  },
-                ),
-              ],
-            ),
-          ),
+    return BlurBg(
+      borderRadius: BorderRadius.circular(5.w),
+      child: Container(
+        width: 100.w,
+        padding: EdgeInsets.all(5.w),
+        decoration: BoxDecoration(
+          color: MyColors.profileTabCtdsClr.withOpacity(0.9),
         ),
-        SizedBox(
-          height: 3.h,
-        )
-      ],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Summary",
+              style: TextStyle(
+                  color: MyColors.textColorDark,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              height: 2.h,
+            ),
+            BlocBuilder<SubProgCardCubit, SubProgCardState>(
+              builder: (context, state) {
+                if (state is SubProgCardInitial) {
+                  return Text("Initial State");
+                } else if (state is SubProgCardLoading) {
+                  return Text("Loading...");
+                } else if (state is SubProgCardLoaded) {
+                  return Align(
+                    alignment: Alignment.center,
+                    child: Column(
+                      children: builedItemList(subjectList: state.subjectList),
+                    ),
+                  );
+                } else if (state is SubProgCardFailed) {
+                  return Text("something went wrong!");
+                } else {
+                  return Text("unhandled state excecuted!");
+                }
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 

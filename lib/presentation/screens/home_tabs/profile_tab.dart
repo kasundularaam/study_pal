@@ -29,52 +29,26 @@ class _ProfileTabState extends State<ProfileTab> {
     return HomeTabsTmpl(
       title: "Profile",
       content: Container(
-        child: ListView(physics: BouncingScrollPhysics(), children: [
-          SizedBox(height: 2.h),
-          Row(
+        child: ListView(
+            physics: BouncingScrollPhysics(),
+            padding: EdgeInsets.symmetric(horizontal: 5.w),
             children: [
-              SizedBox(width: 5.w),
-              Text(
-                "Profile",
-                style: TextStyle(
-                    color: MyColors.titleClr,
-                    fontSize: 26.sp,
-                    fontWeight: FontWeight.w600),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 2.h,
-          ),
-          Row(
-            children: [
-              SizedBox(
-                width: 5.w,
-              ),
+              SizedBox(height: 10.h),
               BlocProvider(
                 create: (context) => ProfileTopCardCubit(),
                 child: ProfileTopCard(),
               ),
-            ],
-          ),
-          ListView(
-            physics: BouncingScrollPhysics(),
-            shrinkWrap: true,
-            padding: EdgeInsets.symmetric(horizontal: 5.w),
-            children: [
+              SizedBox(height: 2.h),
               Container(
                 child: BlocProvider(
                   create: (context) => TodayWorksCubit(),
                   child: TodayWorkedDetails(),
                 ),
               ),
+              SizedBox(height: 2.h),
               BlocProvider(
                 create: (context) => SubProgCardCubit(),
                 child: SubProgCard(),
-              ),
-              Divider(
-                thickness: 0.2.w,
-                color: MyColors.textColorDark,
               ),
               SizedBox(
                 height: 3.h,
@@ -83,22 +57,25 @@ class _ProfileTabState extends State<ProfileTab> {
                 child: Text(
                   "Your activities",
                   style: TextStyle(
-                    color: MyColors.textColorDark,
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
+                      color: MyColors.textColorDark,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w600,
+                      shadows: [
+                        Shadow(
+                            color: MyColors.black.withOpacity(0.2),
+                            offset: Offset(1, 1),
+                            blurRadius: 5)
+                      ]),
                 ),
               ),
               SizedBox(
-                height: 3.h,
+                height: 2.h,
               ),
               BlocProvider(
                 create: (context) => WorkCardListCubit(),
                 child: WorkCardList(),
               ),
-            ],
-          ),
-        ]),
+            ]),
       ),
       action: BlocConsumer<LogoutCubit, LogoutState>(
         listener: (context, state) {

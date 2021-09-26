@@ -10,10 +10,12 @@ part 'countdown_tab_state.dart';
 class CountdownTabCubit extends Cubit<CountdownTabState> {
   CountdownTabCubit() : super(CountdownTabInitial());
 
+  List<Countdown> countdowns = [];
+
   Future<void> loadCountdowns() async {
     try {
       emit(CountdownTabLoading());
-      List<Countdown> countdowns = await FirebaseCountdownRepo.getCountdowns();
+      countdowns = await FirebaseCountdownRepo.getCountdowns();
       emit(CountdownTabLoaded(countdowns: countdowns));
     } catch (e) {
       emit(CountdownTabFailed(errorMsg: e.toString()));
@@ -22,6 +24,18 @@ class CountdownTabCubit extends Cubit<CountdownTabState> {
 
   void goToEdit({required Countdown countdown}) {
     emit(CountdownTabEdit(countdown: countdown));
+  }
+
+  Future<void> deleteCountdown(
+      {required String countdownId, required int index}) async {
+    try {
+      emit(CountdownTabLoading());
+      await FirebaseCountdownRepo.deleteCountdown(countdownId: countdownId);
+      countdowns.removeAt(index);
+      emit(CountdownTabLoaded(countdowns: countdowns));
+    } catch (e) {
+      emit(CountdownTabFailed(errorMsg: e.toString()));
+    }
   }
 
   void geToNew() {

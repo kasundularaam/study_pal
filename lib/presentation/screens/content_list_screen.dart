@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 import 'package:study_pal/core/constants/my_colors.dart';
-import 'package:study_pal/core/constants/my_styles.dart';
 import 'package:study_pal/core/screen_arguments/content_list_screen_args.dart';
 import 'package:study_pal/core/screen_arguments/content_screen_args.dart';
 import 'package:study_pal/data/models/content_model.dart';

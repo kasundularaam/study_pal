@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,7 +39,7 @@ class _EventsTabState extends State<EventsTab> {
           physics: BouncingScrollPhysics(),
           children: [
             SizedBox(
-              height: 12.h,
+              height: 10.h,
             ),
             MyTextField(
               onChanged: (text) => BlocProvider.of<ShowCalEventsCubit>(context)

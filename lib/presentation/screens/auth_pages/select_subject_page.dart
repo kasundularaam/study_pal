@@ -43,7 +43,7 @@ class _SelectSubjectPageState extends State<SelectSubjectPage> {
                 "Subjects",
                 style: TextStyle(
                     color: MyColors.titleClr,
-                    fontSize: 26.sp,
+                    fontSize: 20.sp,
                     fontWeight: FontWeight.w600),
               ),
               BlocConsumer<SelectSubjectCubit, SelectSubjectState>(
@@ -88,7 +88,7 @@ class _SelectSubjectPageState extends State<SelectSubjectPage> {
             "Select your subjects from here",
             style: TextStyle(
                 color: MyColors.textColorDark,
-                fontSize: 16.sp,
+                fontSize: 12.sp,
                 fontWeight: FontWeight.w600),
           ),
         ),
@@ -104,27 +104,29 @@ class _SelectSubjectPageState extends State<SelectSubjectPage> {
               ),
             );
           } else if (state is SelectSubjectLoaded) {
-            return Container(
-              padding: EdgeInsets.only(top: 4.h, bottom: 2.h),
-              color: MyColors.black.withOpacity(0.07),
-              child: ListView.builder(
-                  physics: BouncingScrollPhysics(),
-                  padding: EdgeInsets.symmetric(horizontal: 5.w),
-                  shrinkWrap: true,
-                  itemCount: state.subjectList.length,
-                  itemBuilder: (context, index) {
-                    Subject subject = state.subjectList[index];
-                    return SelectSubjectCard(
-                        isSelected: false,
-                        subject: subject,
-                        onSelected: (sub) {
-                          if (selectedList.contains(sub)) {
-                            selectedList.remove(sub);
-                          } else {
-                            selectedList.add(sub);
-                          }
-                        });
-                  }),
+            return Expanded(
+              child: Container(
+                padding: EdgeInsets.only(top: 4.h, bottom: 2.h),
+                color: MyColors.black.withOpacity(0.07),
+                child: ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    padding: EdgeInsets.symmetric(horizontal: 5.w),
+                    shrinkWrap: true,
+                    itemCount: state.subjectList.length,
+                    itemBuilder: (context, index) {
+                      Subject subject = state.subjectList[index];
+                      return SelectSubjectCard(
+                          isSelected: false,
+                          subject: subject,
+                          onSelected: (sub) {
+                            if (selectedList.contains(sub)) {
+                              selectedList.remove(sub);
+                            } else {
+                              selectedList.add(sub);
+                            }
+                          });
+                    }),
+              ),
             );
           } else if (state is SelectSubjectFailed) {
             return Center(child: ErrorMsgBox(errorMsg: state.errorMsg));
@@ -151,6 +153,7 @@ class OkButton extends StatelessWidget {
       child: Icon(
         Icons.check,
         color: MyColors.titleClr,
+        size: 20.sp,
       ),
     );
   }

@@ -8,7 +8,7 @@ import 'package:study_pal/core/my_enums.dart';
 import 'package:study_pal/data/repositories/firebase_repo/firebase_auth_repo.dart';
 import 'package:study_pal/logic/cubit/auth_nav_cubit/authscreen_nav_cubit.dart';
 import 'package:study_pal/logic/cubit/login_cubit/login_cubit.dart';
-import 'package:study_pal/presentation/screens/widgets/my_button.dart';
+import 'package:study_pal/presentation/screens/widgets/reguler_btn.dart';
 import 'package:study_pal/presentation/screens/widgets/my_text_field.dart';
 
 class LoginPage extends StatefulWidget {
@@ -92,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
               );
             } else {
               return Center(
-                child: MyButton(
+                child: RegulerBtn(
                   btnText: "Log In",
                   onPressed: () => BlocProvider.of<LoginCubit>(context)
                       .loginWithEmailAndpswd(
@@ -148,6 +148,9 @@ class _LoginPageState extends State<LoginPage> {
                   fontWeight: FontWeight.bold),
             ),
           ),
+        ),
+        SizedBox(
+          height: 3.h,
         ),
       ],
     );

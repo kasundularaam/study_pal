@@ -33,7 +33,7 @@ class WorkCard extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.all(3.w),
             decoration: BoxDecoration(
-              color: MyColors.white.withOpacity(0.8),
+              color: MyColors.profileTabCtdsClr.withOpacity(0.9),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

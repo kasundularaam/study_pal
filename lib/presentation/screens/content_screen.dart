@@ -6,6 +6,8 @@ import 'package:study_pal/core/screen_arguments/add_eve_to_con_scrn_args.dart';
 import 'package:study_pal/core/screen_arguments/content_screen_args.dart';
 import 'package:study_pal/logic/cubit/download_pdf_cubit/download_pdf_cubit.dart';
 import 'package:study_pal/presentation/router/app_router.dart';
+import 'package:study_pal/presentation/screens/widgets/big_btn.dart';
+import 'package:study_pal/presentation/screens/widgets/small_btn.dart';
 import 'package:study_pal/presentation/templates/inner_scrn_tmpl.dart';
 
 class ContentScreen extends StatefulWidget {
@@ -101,75 +103,18 @@ class _ContentScreenState extends State<ContentScreen> {
                       color: MyColors.progressColor,
                     ));
                   } else {
-                    return GestureDetector(
-                      onTap: () => BlocProvider.of<DownloadPdfCubit>(context)
-                          .downloadPdf(
-                              moduleId: widget.args.moduleId,
-                              contentId: widget.args.contentId),
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 3.w, vertical: 1.4.h),
-                        decoration: BoxDecoration(
-                          color: MyColors.titleClr,
-                          borderRadius: BorderRadius.circular(1.w),
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Download",
-                            style: TextStyle(
-                              color: MyColors.textColorLight,
-                              fontSize: 14.sp,
-                            ),
-                          ),
-                        ),
-                      ),
+                    return SmallBtn(
+                      btnText: "Download",
+                      onPressed: () =>
+                          BlocProvider.of<DownloadPdfCubit>(context)
+                              .downloadPdf(
+                                  moduleId: widget.args.moduleId,
+                                  contentId: widget.args.contentId),
+                      bgColor: MyColors.primaryColor,
+                      txtColor: MyColors.lightColor,
                     );
                   }
                 },
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 3.h,
-          ),
-          Divider(
-            color: MyColors.textColorDark,
-            thickness: 0.2.w,
-          ),
-          SizedBox(
-            height: 3.h,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Start working right now",
-                style: TextStyle(
-                  color: MyColors.textColorDark,
-                  fontSize: 14.sp,
-                ),
-              ),
-              GestureDetector(
-                onTap: () => Navigator.pushNamed(
-                  context,
-                  AppRouter.workingScreen,
-                  arguments: widget.args,
-                ),
-                child: Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.4.h),
-                  decoration: BoxDecoration(
-                    color: MyColors.progressColor,
-                    borderRadius: BorderRadius.circular(2.w),
-                  ),
-                  child: Text(
-                    "let's go",
-                    style: TextStyle(
-                        color: MyColors.textColorDark,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600),
-                  ),
-                ),
               ),
             ],
           ),
@@ -193,39 +138,52 @@ class _ContentScreenState extends State<ContentScreen> {
                   fontSize: 14.sp,
                 ),
               ),
-              GestureDetector(
-                onTap: () => Navigator.pushNamed(
-                  context,
-                  AppRouter.addEventToConScreen,
-                  arguments: AddEveToConScrnArgs(
-                      subjectId: widget.args.subjectId,
-                      subjectName: widget.args.subjectName,
-                      moduleId: widget.args.moduleId,
-                      moduleName: widget.args.moduleName,
-                      contentId: widget.args.contentId,
-                      contentName: widget.args.contentName),
-                ),
-                child: Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.4.h),
-                  decoration: BoxDecoration(
-                    color: MyColors.homeScrnBgClr,
-                    borderRadius: BorderRadius.circular(2.w),
-                  ),
-                  child: Text(
-                    "Add",
-                    style: TextStyle(
-                        color: MyColors.textColorLight,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600),
-                  ),
-                ),
-              ),
+              SmallBtn(
+                  btnText: "Add",
+                  onPressed: () => Navigator.pushNamed(
+                        context,
+                        AppRouter.addEventToConScreen,
+                        arguments: AddEveToConScrnArgs(
+                            subjectId: widget.args.subjectId,
+                            subjectName: widget.args.subjectName,
+                            moduleId: widget.args.moduleId,
+                            moduleName: widget.args.moduleName,
+                            contentId: widget.args.contentId,
+                            contentName: widget.args.contentName),
+                      ),
+                  bgColor: MyColors.primaryColor,
+                  txtColor: MyColors.lightColor),
             ],
           ),
           SizedBox(
             height: 3.h,
           ),
+          Divider(
+            color: MyColors.textColorDark,
+            thickness: 0.2.w,
+          ),
+          SizedBox(
+            height: 3.h,
+          ),
+          Text(
+            "Start working right now",
+            style: TextStyle(
+              color: MyColors.textColorDark,
+              fontSize: 14.sp,
+            ),
+          ),
+          SizedBox(
+            height: 3.h,
+          ),
+          BigBtn(
+              btnText: "Let's go",
+              onPressed: () => Navigator.pushNamed(
+                    context,
+                    AppRouter.workingScreen,
+                    arguments: widget.args,
+                  ),
+              bgColor: MyColors.secondaryColor,
+              txtColor: MyColors.darkColor),
         ],
       ),
     );

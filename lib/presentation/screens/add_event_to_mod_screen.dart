@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 import 'package:study_pal/core/constants/my_colors.dart';
-import 'package:study_pal/core/constants/my_styles.dart';
 import 'package:study_pal/core/screen_arguments/add_eve_to_mod_scrn_args.dart';
 import 'package:study_pal/data/models/add_mod_eve_cal_cu_model.dart';
 import 'package:study_pal/logic/cubit/add_mod_eve_cal_cubit/add_mod_eve_cal_cubit.dart';
@@ -10,7 +9,7 @@ import 'package:study_pal/logic/cubit/pick_date_cubit/pick_date_cubit.dart';
 import 'package:study_pal/logic/cubit/pick_time_cubit/pick_time_cubit.dart';
 import 'package:study_pal/presentation/screens/widgets/date_picker.dart';
 import 'package:study_pal/presentation/screens/widgets/error_msg_box.dart';
-import 'package:study_pal/presentation/screens/widgets/my_button.dart';
+import 'package:study_pal/presentation/screens/widgets/small_btn.dart';
 import 'package:study_pal/presentation/screens/widgets/success_msg_box.dart';
 import 'package:study_pal/presentation/screens/widgets/time_picker.dart';
 import 'package:study_pal/presentation/templates/inner_scrn_tmpl.dart';
@@ -200,7 +199,7 @@ class _AddEventToModScreenState extends State<AddEventToModScreen> {
             builder: (context, state) {
               if (state is AddModEveCalInitial) {
                 return Center(
-                  child: MyButton(
+                  child: SmallBtn(
                       btnText: "Add",
                       onPressed: () {
                         if (pickedDate != null && pickedTime != null) {

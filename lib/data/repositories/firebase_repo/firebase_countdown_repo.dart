@@ -10,7 +10,11 @@ class FirebaseCountdownRepo {
 
   static Future<void> setCountdown({required Countdown countdown}) async {
     try {
-      _reference.doc(countdown.countdownId).set(countdown.toMap());
+      if (countdown.examTimeStamp > DateTime.now().millisecondsSinceEpoch) {
+        _reference.doc(countdown.countdownId).set(countdown.toMap());
+      } else {
+        throw "cant't set a countdown selected date and time";
+      }
     } catch (e) {
       throw e;
     }

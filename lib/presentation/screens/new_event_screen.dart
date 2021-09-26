@@ -7,7 +7,7 @@ import 'package:study_pal/logic/cubit/pick_date_cubit/pick_date_cubit.dart';
 import 'package:study_pal/logic/cubit/pick_time_cubit/pick_time_cubit.dart';
 import 'package:study_pal/presentation/screens/widgets/date_picker.dart';
 import 'package:study_pal/presentation/screens/widgets/error_msg_box.dart';
-import 'package:study_pal/presentation/screens/widgets/my_button.dart';
+import 'package:study_pal/presentation/screens/widgets/small_btn.dart';
 import 'package:study_pal/presentation/screens/widgets/success_msg_box.dart';
 import 'package:study_pal/presentation/screens/widgets/time_picker.dart';
 import 'package:study_pal/presentation/templates/inner_scrn_tmpl.dart';
@@ -94,7 +94,7 @@ class _NewEventScreenState extends State<NewEventScreen> {
             builder: (context, state) {
               if (state is NewEventInitial) {
                 return Center(
-                  child: MyButton(
+                  child: SmallBtn(
                     btnText: "Add",
                     onPressed: () {
                       if (pickedDate != null && pickedTime != null) {
