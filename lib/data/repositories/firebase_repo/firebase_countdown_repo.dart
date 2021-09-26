@@ -13,7 +13,7 @@ class FirebaseCountdownRepo {
       if (countdown.examTimeStamp > DateTime.now().millisecondsSinceEpoch) {
         _reference.doc(countdown.countdownId).set(countdown.toMap());
       } else {
-        throw "cant't set a countdown selected date and time";
+        throw "date has already passed";
       }
     } catch (e) {
       throw e;

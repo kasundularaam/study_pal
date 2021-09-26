@@ -9,6 +9,7 @@ import 'package:study_pal/logic/cubit/pick_date_cubit/pick_date_cubit.dart';
 import 'package:study_pal/logic/cubit/pick_time_cubit/pick_time_cubit.dart';
 import 'package:study_pal/presentation/screens/widgets/date_picker.dart';
 import 'package:study_pal/presentation/screens/widgets/error_msg_box.dart';
+import 'package:study_pal/presentation/screens/widgets/reguler_btn.dart';
 import 'package:study_pal/presentation/screens/widgets/small_btn.dart';
 import 'package:study_pal/presentation/screens/widgets/success_msg_box.dart';
 import 'package:study_pal/presentation/screens/widgets/time_picker.dart';
@@ -41,19 +42,19 @@ class _AddEventToModScreenState extends State<AddEventToModScreen> {
         physics: BouncingScrollPhysics(),
         children: [
           Text("Module",
-              style: TextStyle(color: MyColors.textColorDark, fontSize: 16.sp)),
+              style: TextStyle(color: MyColors.darkColor, fontSize: 16.sp)),
           SizedBox(
             height: 2.h,
           ),
           Container(
             padding: EdgeInsets.all(5.w),
             decoration: BoxDecoration(
-              color: MyColors.textColorLight,
+              color: MyColors.lightColor,
               borderRadius: BorderRadius.circular(2.w),
             ),
             child: Text(
               title,
-              style: TextStyle(color: MyColors.textColorDark, fontSize: 14.sp),
+              style: TextStyle(color: MyColors.darkColor, fontSize: 14.sp),
             ),
           ),
           SizedBox(
@@ -61,39 +62,47 @@ class _AddEventToModScreenState extends State<AddEventToModScreen> {
           ),
           Text(
             "Date",
-            style: TextStyle(color: MyColors.textColorDark, fontSize: 16.sp),
+            style: TextStyle(color: MyColors.darkColor, fontSize: 16.sp),
           ),
           SizedBox(
             height: 2.h,
           ),
           BlocProvider(
             create: (context) => PickDateCubit(),
-            child: DatePicker(onSelectDate: (date) => pickedDate = date),
+            child: MDatePicker(
+              onSelectDate: (date) => pickedDate = date,
+              bgColor: MyColors.lightColor,
+              txtColor: MyColors.darkColor,
+            ),
           ),
           SizedBox(
             height: 2.h,
           ),
           Text("time",
-              style: TextStyle(color: MyColors.textColorDark, fontSize: 16.sp)),
+              style: TextStyle(color: MyColors.darkColor, fontSize: 16.sp)),
           SizedBox(
             height: 2.h,
           ),
           BlocProvider(
             create: (context) => PickTimeCubit(),
-            child: TimePicker(onPickedTime: (time) => pickedTime = time),
+            child: MTimePicker(
+              onPickedTime: (time) => pickedTime = time,
+              bgColor: MyColors.lightColor,
+              txtColor: MyColors.darkColor,
+            ),
           ),
           SizedBox(
             height: 2.h,
           ),
           Text("repete",
-              style: TextStyle(color: MyColors.textColorDark, fontSize: 16.sp)),
+              style: TextStyle(color: MyColors.darkColor, fontSize: 16.sp)),
           SizedBox(
             height: 2.h,
           ),
           Container(
             padding: EdgeInsets.all(5.w),
             decoration: BoxDecoration(
-              color: MyColors.textColorLight,
+              color: MyColors.lightColor,
               borderRadius: BorderRadius.circular(2.w),
             ),
             child: Column(
@@ -104,10 +113,11 @@ class _AddEventToModScreenState extends State<AddEventToModScreen> {
                   children: [
                     Text(
                       "Remind me weekly",
-                      style: TextStyle(
-                          color: MyColors.textColorDark, fontSize: 14.sp),
+                      style:
+                          TextStyle(color: MyColors.darkColor, fontSize: 14.sp),
                     ),
                     Switch(
+                        activeColor: MyColors.primaryColor,
                         value: switchValue,
                         onChanged: (value) {
                           setState(() {
@@ -134,8 +144,7 @@ class _AddEventToModScreenState extends State<AddEventToModScreen> {
                               Text(
                                 "For $weekCount weeks",
                                 style: TextStyle(
-                                    color: MyColors.textColorDark,
-                                    fontSize: 14.sp),
+                                    color: MyColors.darkColor, fontSize: 14.sp),
                               ),
                               Row(
                                 children: [
@@ -151,7 +160,7 @@ class _AddEventToModScreenState extends State<AddEventToModScreen> {
                                     child: Container(
                                         padding: EdgeInsets.all(2.w),
                                         decoration: BoxDecoration(
-                                            color: MyColors.extraLight,
+                                            color: MyColors.secondaryColor,
                                             shape: BoxShape.circle),
                                         child: Icon(Icons.remove)),
                                   ),
@@ -165,7 +174,7 @@ class _AddEventToModScreenState extends State<AddEventToModScreen> {
                                       child: Text(
                                         "$weekCount",
                                         style: TextStyle(
-                                            color: MyColors.textColorLight,
+                                            color: MyColors.lightColor,
                                             fontSize: 14.sp),
                                       )),
                                   GestureDetector(
@@ -178,7 +187,7 @@ class _AddEventToModScreenState extends State<AddEventToModScreen> {
                                     child: Container(
                                         padding: EdgeInsets.all(2.w),
                                         decoration: BoxDecoration(
-                                            color: MyColors.extraLight,
+                                            color: MyColors.secondaryColor,
                                             shape: BoxShape.circle),
                                         child: Icon(Icons.add)),
                                   ),
@@ -195,11 +204,22 @@ class _AddEventToModScreenState extends State<AddEventToModScreen> {
           SizedBox(
             height: 3.h,
           ),
-          BlocBuilder<AddModEveCalCubit, AddModEveCalState>(
+          BlocConsumer<AddModEveCalCubit, AddModEveCalState>(
+            listener: (context, state) {
+              if (state is AddModEveCalFailed) {
+                SnackBar snackBar = SnackBar(content: Text(state.errorMsg));
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              } else if (state is AddModEveCalSucceed) {
+                SnackBar snackBar = SnackBar(content: Text("event set!"));
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
+            },
             builder: (context, state) {
-              if (state is AddModEveCalInitial) {
+              if (state is AddModEveCalLoading) {
+                return Center(child: CircularProgressIndicator());
+              } else {
                 return Center(
-                  child: SmallBtn(
+                  child: RegulerBtn(
                       btnText: "Add",
                       onPressed: () {
                         if (pickedDate != null && pickedTime != null) {
@@ -217,18 +237,9 @@ class _AddEventToModScreenState extends State<AddEventToModScreen> {
                           print("date or time not picked");
                         }
                       },
-                      bgColor: MyColors.progressColor,
-                      txtColor: MyColors.textColorDark),
+                      bgColor: MyColors.secondaryColor,
+                      txtColor: MyColors.darkColor),
                 );
-              } else if (state is AddModEveCalLoading) {
-                return Center(child: CircularProgressIndicator());
-              } else if (state is AddModEveCalSucceed) {
-                return Center(
-                    child: SuccessMsgBox(successMsg: "Remainder added"));
-              } else if (state is AddModEveCalFailed) {
-                return Center(child: ErrorMsgBox(errorMsg: state.errorMsg));
-              } else {
-                return Text("");
               }
             },
           ),

@@ -94,8 +94,8 @@ class _CountDownTabState extends State<CountDownTab> {
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           color: MyColors.darkColor,
-                                          fontSize: 18.sp,
-                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.w500,
                                         ),
                                       ),
                                     ],
@@ -128,8 +128,8 @@ class _CountDownTabState extends State<CountDownTab> {
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           color: MyColors.darkColor,
-                                          fontSize: 18.sp,
-                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.w500,
                                         ),
                                       ),
                                     ],

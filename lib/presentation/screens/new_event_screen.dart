@@ -7,6 +7,7 @@ import 'package:study_pal/logic/cubit/pick_date_cubit/pick_date_cubit.dart';
 import 'package:study_pal/logic/cubit/pick_time_cubit/pick_time_cubit.dart';
 import 'package:study_pal/presentation/screens/widgets/date_picker.dart';
 import 'package:study_pal/presentation/screens/widgets/error_msg_box.dart';
+import 'package:study_pal/presentation/screens/widgets/reguler_btn.dart';
 import 'package:study_pal/presentation/screens/widgets/small_btn.dart';
 import 'package:study_pal/presentation/screens/widgets/success_msg_box.dart';
 import 'package:study_pal/presentation/screens/widgets/time_picker.dart';
@@ -36,34 +37,39 @@ class _NewEventScreenState extends State<NewEventScreen> {
             height: 2.h,
           ),
           Text("Date",
-              style:
-                  TextStyle(color: MyColors.textColorLight, fontSize: 16.sp)),
+              style: TextStyle(color: MyColors.darkColor, fontSize: 16.sp)),
           SizedBox(
             height: 2.h,
           ),
           BlocProvider(
             create: (context) => PickDateCubit(),
-            child: DatePicker(onSelectDate: (date) => pickedDate = date),
+            child: MDatePicker(
+              onSelectDate: (date) => pickedDate = date,
+              bgColor: MyColors.lightColor,
+              txtColor: MyColors.darkColor,
+            ),
           ),
           SizedBox(
             height: 2.h,
           ),
           Text("time",
-              style:
-                  TextStyle(color: MyColors.textColorLight, fontSize: 16.sp)),
+              style: TextStyle(color: MyColors.darkColor, fontSize: 16.sp)),
           SizedBox(
             height: 2.h,
           ),
           BlocProvider(
             create: (context) => PickTimeCubit(),
-            child: TimePicker(onPickedTime: (time) => pickedTime = time),
+            child: MTimePicker(
+              onPickedTime: (time) => pickedTime = time,
+              bgColor: MyColors.lightColor,
+              txtColor: MyColors.darkColor,
+            ),
           ),
           SizedBox(
             height: 3.h,
           ),
           Text("Description",
-              style:
-                  TextStyle(color: MyColors.textColorLight, fontSize: 16.sp)),
+              style: TextStyle(color: MyColors.darkColor, fontSize: 16.sp)),
           SizedBox(
             height: 2.h,
           ),
@@ -94,7 +100,7 @@ class _NewEventScreenState extends State<NewEventScreen> {
             builder: (context, state) {
               if (state is NewEventInitial) {
                 return Center(
-                  child: SmallBtn(
+                  child: RegulerBtn(
                     btnText: "Add",
                     onPressed: () {
                       if (pickedDate != null && pickedTime != null) {
@@ -104,8 +110,8 @@ class _NewEventScreenState extends State<NewEventScreen> {
                         print("date or time not picked");
                       }
                     },
-                    bgColor: MyColors.hpTopCardBgColor,
-                    txtColor: MyColors.textColorLight,
+                    bgColor: MyColors.secondaryColor,
+                    txtColor: MyColors.darkColor,
                   ),
                 );
               } else if (state is NewEventLoading) {

@@ -75,25 +75,13 @@ class _SelectSubjectPageState extends State<SelectSubjectPage> {
             ],
           ),
         ),
-        Divider(
-          thickness: 1,
-          color: MyColors.titleClr,
-        ),
         SizedBox(
           height: 2.h,
         ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 5.w),
-          child: Text(
-            "Select your subjects from here",
-            style: TextStyle(
-                color: MyColors.textColorDark,
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w600),
-          ),
-        ),
-        SizedBox(
-          height: 3.h,
+        Container(
+          height: 0.1,
+          width: 100.w,
+          color: MyColors.darkColor,
         ),
         BlocBuilder<SelectSubListCubit, SelectSubListState>(
             builder: (context, state) {
@@ -107,7 +95,7 @@ class _SelectSubjectPageState extends State<SelectSubjectPage> {
             return Expanded(
               child: Container(
                 padding: EdgeInsets.only(top: 4.h, bottom: 2.h),
-                color: MyColors.black.withOpacity(0.07),
+                color: MyColors.darkColor.withOpacity(0.07),
                 child: ListView.builder(
                     physics: BouncingScrollPhysics(),
                     padding: EdgeInsets.symmetric(horizontal: 5.w),

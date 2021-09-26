@@ -27,7 +27,6 @@ class AddCountdownScreen extends StatefulWidget {
 class _AddCountdownScreenState extends State<AddCountdownScreen> {
   DateTime? pickedDate;
   TimeOfDay? pickedTime;
-  String examTitle = "Unknown";
   TextEditingController controller = TextEditingController();
 
   @override
@@ -44,20 +43,25 @@ class _AddCountdownScreenState extends State<AddCountdownScreen> {
         padding: EdgeInsets.all(5.w),
         physics: BouncingScrollPhysics(),
         children: [
-          Text("Exam title",
-              style: TextStyle(color: MyColors.darkColor, fontSize: 16.sp)),
+          Text(
+            "Exam title",
+            style: TextStyle(
+              color: MyColors.darkColor,
+              fontSize: 16.sp,
+            ),
+          ),
           SizedBox(
             height: 2.h,
           ),
           MyTextField(
             controller: controller,
-            onChanged: (text) => examTitle = text,
-            onSubmitted: (text) => examTitle = text,
+            onChanged: (text) {},
+            onSubmitted: (text) {},
             textInputAction: TextInputAction.done,
             isPassword: false,
             hintText: "Title...",
             textColor: MyColors.darkColor,
-            bgColor: MyColors.darkColor.withOpacity(0.1),
+            bgColor: MyColors.lightColor,
           ),
           SizedBox(
             height: 2.h,
@@ -69,7 +73,11 @@ class _AddCountdownScreenState extends State<AddCountdownScreen> {
           ),
           BlocProvider(
             create: (context) => PickDateCubit(),
-            child: DatePicker(onSelectDate: (date) => pickedDate = date),
+            child: MDatePicker(
+              onSelectDate: (date) => pickedDate = date,
+              bgColor: MyColors.lightColor,
+              txtColor: MyColors.darkColor,
+            ),
           ),
           SizedBox(
             height: 2.h,
@@ -81,7 +89,11 @@ class _AddCountdownScreenState extends State<AddCountdownScreen> {
           ),
           BlocProvider(
             create: (context) => PickTimeCubit(),
-            child: TimePicker(onPickedTime: (time) => pickedTime = time),
+            child: MTimePicker(
+              onPickedTime: (time) => pickedTime = time,
+              bgColor: MyColors.lightColor,
+              txtColor: MyColors.darkColor,
+            ),
           ),
           SizedBox(
             height: 5.h,
@@ -103,7 +115,7 @@ class _AddCountdownScreenState extends State<AddCountdownScreen> {
                     countdownIdEdit: widget.args.add
                         ? null
                         : widget.args.countdown!.countdownId,
-                    examTitle: examTitle,
+                    examTitle: controller.text,
                     exmTime: pickedTime!,
                     exmDate: pickedDate!,
                   ),

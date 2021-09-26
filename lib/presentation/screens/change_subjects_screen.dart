@@ -49,119 +49,116 @@ class _ChangeSubjectScreenState extends State<ChangeSubjectScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.screenBgDarkColor,
+      backgroundColor: MyColors.lightColor,
       body: SafeArea(
-        child: LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
-          return Column(
-            children: [
-              Container(
-                height: (constraints.maxHeight * 10) / 100,
-                child: Stack(
-                  children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: InkWell(
-                        onTap: () => Navigator.pop(context),
-                        child: Padding(
-                          padding: EdgeInsets.all(5.w),
-                          child: Icon(
-                            Icons.arrow_back_ios,
-                            color: MyColors.textColorLight,
-                            size: 20.sp,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 2.h,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 5.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Subjects",
+                    style: TextStyle(
+                        color: MyColors.titleClr,
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  BlocConsumer<ChangeSubjectsCubit, ChangeSubjectsState>(
+                    listener: (context, state) {
+                      if (state is ChangeSubjectsSucceed) {
+                        SnackBar succeedSnack =
+                            SnackBar(content: Text(state.message));
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(succeedSnack);
+                      } else if (state is ChangeSubjectsFailed) {
+                        SnackBar failedSnack =
+                            SnackBar(content: Text(state.errorMsg));
+                        ScaffoldMessenger.of(context).showSnackBar(failedSnack);
+                      }
+                    },
+                    builder: (context, state) {
+                      if (state is ChangeSubjectsLoading) {
+                        return Center(
+                          child: CircularProgressIndicator(
+                            color: MyColors.progressColor,
                           ),
-                        ),
-                      ),
-                    ),
-                    Center(
-                      child: Text(
-                        "Change Subjects",
-                        style: TextStyle(
-                            color: MyColors.textColorLight,
-                            fontSize: 26.sp,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ),
-                  ],
-                ),
+                        );
+                      } else {
+                        return OkButton(
+                          onPressed: () =>
+                              BlocProvider.of<ChangeSubjectsCubit>(context)
+                                  .updateSubjects(
+                            fireSubjectIds: fireSubIds,
+                            selectedSubjectIds: selectedSubIds,
+                          ),
+                        );
+                      }
+                    },
+                  ),
+                ],
               ),
-              Container(
-                height: (constraints.maxHeight * 75) / 100,
-                decoration: BoxDecoration(
-                  color: MyColors.screenBgColor,
-                  borderRadius: BorderRadius.circular(8.w),
-                ),
-                child: ListView(
+            ),
+            SizedBox(
+              height: 2.h,
+            ),
+            Container(
+              height: 0.7,
+              width: 100.w,
+              color: MyColors.darkColor,
+            ),
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.only(top: 4.h, bottom: 2.h),
+                color: MyColors.darkColor.withOpacity(0.07),
+                child: ListView.builder(
                   physics: BouncingScrollPhysics(),
                   padding: EdgeInsets.symmetric(horizontal: 5.w),
-                  children: [
-                    SizedBox(
-                      height: 3.h,
-                    ),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: subjects.length,
-                      physics: BouncingScrollPhysics(),
-                      itemBuilder: (BuildContext context, int index) {
-                        Subject subject = subjects[index];
-                        return SelectSubjectCard(
-                            isSelected: isPreSelected(subjectId: subject.id),
-                            subject: subject,
-                            onSelected: (selectedSub) {
-                              if (selectedSubIds.contains(selectedSub.id)) {
-                                selectedSubIds.remove(selectedSub.id);
-                              } else {
-                                selectedSubIds.add(selectedSub.id);
-                              }
-                              print(selectedSubIds);
-                            });
-                      },
-                    ),
-                  ],
+                  shrinkWrap: true,
+                  itemCount: subjects.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    Subject subject = subjects[index];
+                    return SelectSubjectCard(
+                        isSelected: isPreSelected(subjectId: subject.id),
+                        subject: subject,
+                        onSelected: (selectedSub) {
+                          if (selectedSubIds.contains(selectedSub.id)) {
+                            selectedSubIds.remove(selectedSub.id);
+                          } else {
+                            selectedSubIds.add(selectedSub.id);
+                          }
+                          print(selectedSubIds);
+                        });
+                  },
                 ),
               ),
-              Container(
-                height: (constraints.maxHeight * 15) / 100,
-                child: Center(
-                    child:
-                        BlocConsumer<ChangeSubjectsCubit, ChangeSubjectsState>(
-                  listener: (context, state) {
-                    if (state is ChangeSubjectsSucceed) {
-                      SnackBar succeedSnack =
-                          SnackBar(content: Text(state.message));
-                      ScaffoldMessenger.of(context).showSnackBar(succeedSnack);
-                    } else if (state is ChangeSubjectsFailed) {
-                      SnackBar failedSnack =
-                          SnackBar(content: Text(state.errorMsg));
-                      ScaffoldMessenger.of(context).showSnackBar(failedSnack);
-                    }
-                  },
-                  builder: (context, state) {
-                    if (state is ChangeSubjectsLoading) {
-                      return CircularProgressIndicator(
-                        color: MyColors.progressColor,
-                      );
-                    } else {
-                      return GestureDetector(
-                        onTap: () =>
-                            BlocProvider.of<ChangeSubjectsCubit>(context)
-                                .updateSubjects(
-                          fireSubjectIds: fireSubIds,
-                          selectedSubjectIds: selectedSubIds,
-                        ),
-                        child: Icon(
-                          Icons.check_circle_rounded,
-                          size: 36.sp,
-                          color: MyColors.progressColor,
-                        ),
-                      );
-                    }
-                  },
-                )),
-              ),
-            ],
-          );
-        }),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class OkButton extends StatelessWidget {
+  final Function onPressed;
+  const OkButton({
+    Key? key,
+    required this.onPressed,
+  }) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => onPressed(),
+      child: Icon(
+        Icons.check,
+        color: MyColors.titleClr,
+        size: 20.sp,
       ),
     );
   }
