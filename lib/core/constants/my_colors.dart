@@ -100,4 +100,10 @@ class MyColors {
   static const Color stopBtnClr = Color(0xffD83A56);
 
   static const Color successClr = Color(0xff50CB93);
+
+  static const Color cAnsFgClr = Color(0xff5AA469);
+  static const Color cAnsBgClr = Color(0xffCCFFBD);
+
+  static const Color wAnsBgClr = Color(0xffFFE6E6);
+  static const Color wAnsFgClr = Color(0xffD83A56);
 }

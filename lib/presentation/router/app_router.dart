@@ -17,6 +17,7 @@ import 'package:study_pal/logic/cubit/content_list_screen_cubit/content_list_scr
 import 'package:study_pal/logic/cubit/download_pdf_cubit/download_pdf_cubit.dart';
 import 'package:study_pal/logic/cubit/module_screen_cubit/module_screen_cubit.dart';
 import 'package:study_pal/logic/cubit/new_event_cubit/new_event_cubit.dart';
+import 'package:study_pal/logic/cubit/quiz_nav_cubit/quiz_nav_cubit.dart';
 import 'package:study_pal/logic/cubit/quiz_screen_cubit/quiz_screen_cubit.dart';
 import 'package:study_pal/logic/cubit/set_countdown_cubit/set_countdown_cubit.dart';
 import 'package:study_pal/logic/cubit/settings_cubit/setting_cubit.dart';
@@ -117,7 +118,7 @@ class AppRouter {
         final QuizScreenArgs args = settings.arguments as QuizScreenArgs;
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (context) => QuizScreenCubit(),
+            create: (context) => QuizNavCubit(),
             child: QuizScreen(
               moduleId: args.moduleId,
               moduleName: args.moduleName,

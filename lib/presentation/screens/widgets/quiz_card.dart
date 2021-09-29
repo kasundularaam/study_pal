@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
+
 import 'package:study_pal/core/constants/my_colors.dart';
 import 'package:study_pal/data/models/question_model.dart';
-import 'package:study_pal/logic/cubit/quiz_card_cubit/quiz_card_cubit.dart';
+import 'package:study_pal/data/models/quiz_check_model.dart';
 import 'package:study_pal/logic/cubit/select_answer_cubit/select_answer_cubit.dart';
-import 'package:study_pal/presentation/screens/widgets/error_msg_box.dart';
-import 'package:study_pal/presentation/screens/widgets/success_msg_box.dart';
 
 class QuizCard extends StatefulWidget {
   final Question question;
+  final Function(QuizCheck) onChecked;
   final int index;
   const QuizCard({
     Key? key,
     required this.question,
+    required this.onChecked,
     required this.index,
   }) : super(key: key);
   @override
@@ -44,7 +45,7 @@ class _QuizCardState extends State<QuizCard> {
           width: 100.w,
           padding: EdgeInsets.all(5.w),
           decoration: BoxDecoration(
-            color: MyColors.textColorLight,
+            color: MyColors.lightColor,
             borderRadius: BorderRadius.circular(5.w),
           ),
           child: Column(
@@ -52,7 +53,7 @@ class _QuizCardState extends State<QuizCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "${widget.index}. "
+                "${widget.index.toString().padLeft(2, "0")}. "
                 "${widget.question.question}",
                 style:
                     TextStyle(color: MyColors.textColorDark, fontSize: 16.sp),
@@ -80,53 +81,6 @@ class _QuizCardState extends State<QuizCard> {
                   },
                 ),
               ),
-              SizedBox(
-                height: 1.h,
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: BlocBuilder<QuizCardCubit, QuizCardState>(
-                  builder: (context, state) {
-                    if (state is QuizCardInitial) {
-                      return TextButton(
-                          onPressed: () =>
-                              BlocProvider.of<QuizCardCubit>(context)
-                                  .checkAnswer(
-                                      correctAnswer:
-                                          widget.question.correctAnswer,
-                                      selectedAnswer: selectedAnswer),
-                          child: Text(
-                            "Check",
-                            style: TextStyle(
-                              color: MyColors.textColorDark,
-                              fontSize: 16.sp,
-                            ),
-                          ));
-                    } else if (state is QuizCardCorrect) {
-                      return SuccessMsgBox(successMsg: "Correct");
-                    } else if (state is QuizCardWrong) {
-                      return ErrorMsgBox(
-                          errorMsg:
-                              "WORNG! correct answer is : ${state.correctAnswer}");
-                    } else {
-                      return TextButton(
-                          onPressed: () =>
-                              BlocProvider.of<QuizCardCubit>(context)
-                                  .checkAnswer(
-                                      correctAnswer:
-                                          widget.question.correctAnswer,
-                                      selectedAnswer: selectedAnswer),
-                          child: Text(
-                            "Check",
-                            style: TextStyle(
-                              color: MyColors.hpTopCardBgColor,
-                              fontSize: 16.sp,
-                            ),
-                          ));
-                    }
-                  },
-                ),
-              ),
             ],
           ),
         ),
@@ -146,9 +100,18 @@ class _QuizCardState extends State<QuizCard> {
             BlocProvider.of<SelectAnswerCubit>(context)
                 .selectAnswer(selectedAnswer: answer);
             selectedAnswer = answer;
+            widget.onChecked(
+              QuizCheck(
+                id: widget.question.id,
+                question: widget.question.question,
+                correctAnswer: widget.question.correctAnswer,
+                checkedAnswer: answer,
+                index: widget.index,
+              ),
+            );
           },
-          txtColor: MyColors.textColorLight,
-          bgColor: MyColors.hpTopCardBgColor));
+          txtColor: MyColors.lightColor,
+          bgColor: MyColors.primaryColor));
     });
     return answBtnList;
   }
@@ -157,21 +120,36 @@ class _QuizCardState extends State<QuizCard> {
     List<Widget> answBtnList = [];
     answerList.forEach((answer) {
       if (answer == selectedAnsw) {
-        answBtnList.add(AnswerBtn(
+        answBtnList.add(
+          AnswerBtn(
             answer: answer,
             onPressed: () {},
-            txtColor: MyColors.textColorDark,
-            bgColor: MyColors.progressColor));
+            txtColor: MyColors.darkColor,
+            bgColor: MyColors.secondaryColor,
+          ),
+        );
       } else {
-        answBtnList.add(AnswerBtn(
+        answBtnList.add(
+          AnswerBtn(
             answer: answer,
             onPressed: () {
               BlocProvider.of<SelectAnswerCubit>(context)
                   .selectAnswer(selectedAnswer: answer);
               selectedAnswer = answer;
+              widget.onChecked(
+                QuizCheck(
+                  id: widget.question.id,
+                  question: widget.question.question,
+                  correctAnswer: widget.question.correctAnswer,
+                  checkedAnswer: answer,
+                  index: widget.index,
+                ),
+              );
             },
-            txtColor: MyColors.textColorLight,
-            bgColor: MyColors.hpTopCardBgColor));
+            txtColor: MyColors.lightColor,
+            bgColor: MyColors.primaryColor,
+          ),
+        );
       }
     });
     return answBtnList;
