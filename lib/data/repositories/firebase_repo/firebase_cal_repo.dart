@@ -3,12 +3,12 @@ import 'package:study_pal/data/models/cal_event_modle.dart';
 import 'package:study_pal/data/repositories/firebase_repo/firebase_auth_repo.dart';
 
 class FirebaseCalRepo {
+  static CollectionReference reference = FirebaseFirestore.instance
+      .collection("users")
+      .doc(FirebaseAuthRepo.currentUid())
+      .collection("events");
   static Future<void> addEventToCal({required CalEvent calEvent}) async {
     try {
-      CollectionReference reference = FirebaseFirestore.instance
-          .collection("users")
-          .doc(FirebaseAuthRepo.currentUid())
-          .collection("events");
       reference.doc(calEvent.id).set({
         "id": calEvent.id,
         "title": calEvent.title,
@@ -30,10 +30,7 @@ class FirebaseCalRepo {
     try {
       List<CalEvent> events = [];
       final int now = DateTime.now().millisecondsSinceEpoch;
-      QuerySnapshot snapshot = await FirebaseFirestore.instance
-          .collection("users")
-          .doc(FirebaseAuthRepo.currentUid())
-          .collection("events")
+      QuerySnapshot snapshot = await reference
           .where("time", isGreaterThanOrEqualTo: now)
           .orderBy("time", descending: false)
           .get();
@@ -55,6 +52,14 @@ class FirebaseCalRepo {
         );
       }).toList();
       return events;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  static Future<void> deleteEvent({required String eventId}) async {
+    try {
+      await reference.doc(eventId).delete();
     } catch (e) {
       throw e;
     }

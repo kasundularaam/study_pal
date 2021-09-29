@@ -72,7 +72,34 @@ class _EventsTabState extends State<EventsTab> {
                     itemCount: state.calEvents.length,
                     itemBuilder: (BuildContext context, int index) {
                       CalEvent calEvent = state.calEvents[index];
-                      return EventCard(calEvent: calEvent);
+                      return EventCard(
+                          onLongPress: (eventId) {
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (bottomSheetContext) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Navigator.pop(bottomSheetContext);
+                                      BlocProvider.of<ShowCalEventsCubit>(
+                                              context)
+                                          .deleteEvent(eventId: eventId);
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.all(5.w),
+                                      color: MyColors.lightColor,
+                                      child: Text(
+                                        "delete",
+                                        style: TextStyle(
+                                          color: MyColors.darkColor,
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                });
+                          },
+                          calEvent: calEvent);
                     },
                   );
                 } else if (state is ShowCalEventsFailed) {

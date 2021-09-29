@@ -56,4 +56,13 @@ class ShowCalEventsCubit extends Cubit<ShowCalEventsState> {
       emit(ShowCalEventsFailed(errorMsg: e.toString()));
     }
   }
+
+  Future<void> deleteEvent({required String eventId}) async {
+    try {
+      await FirebaseCalRepo.deleteEvent(eventId: eventId);
+      loadEvents();
+    } catch (e) {
+      emit(ShowCalEventsFailed(errorMsg: e.toString()));
+    }
+  }
 }
