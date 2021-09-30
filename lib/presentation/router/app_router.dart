@@ -18,7 +18,6 @@ import 'package:study_pal/logic/cubit/download_pdf_cubit/download_pdf_cubit.dart
 import 'package:study_pal/logic/cubit/module_screen_cubit/module_screen_cubit.dart';
 import 'package:study_pal/logic/cubit/new_event_cubit/new_event_cubit.dart';
 import 'package:study_pal/logic/cubit/quiz_nav_cubit/quiz_nav_cubit.dart';
-import 'package:study_pal/logic/cubit/quiz_screen_cubit/quiz_screen_cubit.dart';
 import 'package:study_pal/logic/cubit/set_countdown_cubit/set_countdown_cubit.dart';
 import 'package:study_pal/logic/cubit/settings_cubit/setting_cubit.dart';
 import 'package:study_pal/logic/cubit/subject_screen_cubit/subject_screen_cubit.dart';

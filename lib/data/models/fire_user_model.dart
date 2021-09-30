@@ -4,21 +4,25 @@ class FireUser {
   String uid;
   String name;
   String email;
+  String profilePic;
   FireUser({
     required this.uid,
     required this.name,
     required this.email,
+    required this.profilePic,
   });
 
   FireUser copyWith({
     String? uid,
     String? name,
     String? email,
+    String? profilePic,
   }) {
     return FireUser(
       uid: uid ?? this.uid,
       name: name ?? this.name,
       email: email ?? this.email,
+      profilePic: profilePic ?? this.profilePic,
     );
   }
 
@@ -27,6 +31,7 @@ class FireUser {
       'uid': uid,
       'name': name,
       'email': email,
+      'profilePic': profilePic,
     };
   }
 
@@ -35,6 +40,7 @@ class FireUser {
       uid: map['uid'],
       name: map['name'],
       email: map['email'],
+      profilePic: map['profilePic'],
     );
   }
 
@@ -44,7 +50,9 @@ class FireUser {
       FireUser.fromMap(json.decode(source));
 
   @override
-  String toString() => 'LmsUser(uid: $uid, name: $name, email: $email)';
+  String toString() {
+    return 'FireUser(uid: $uid, name: $name, email: $email, profilePic: $profilePic)';
+  }
 
   @override
   bool operator ==(Object other) {
@@ -53,9 +61,12 @@ class FireUser {
     return other is FireUser &&
         other.uid == uid &&
         other.name == name &&
-        other.email == email;
+        other.email == email &&
+        other.profilePic == profilePic;
   }
 
   @override
-  int get hashCode => uid.hashCode ^ name.hashCode ^ email.hashCode;
+  int get hashCode {
+    return uid.hashCode ^ name.hashCode ^ email.hashCode ^ profilePic.hashCode;
+  }
 }

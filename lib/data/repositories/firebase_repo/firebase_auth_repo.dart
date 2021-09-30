@@ -1,9 +1,21 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:study_pal/data/models/fire_user_model.dart';
+import 'package:firebase_storage/firebase_storage.dart' as storage;
 import 'package:study_pal/data/value%20validator/auth_value_validator.dart';
 
 class FirebaseAuthRepo {
+  static DocumentReference reference = FirebaseFirestore.instance
+      .collection("users")
+      .doc(FirebaseAuthRepo.currentUid());
+
+  static String imageFilePath = "images/${currentUid()}/profile.png";
+
+  static storage.Reference profilePicRef =
+      storage.FirebaseStorage.instance.ref(imageFilePath);
+
   static Future<void> loginWithEmailAndpswd(
       {required String email, required String password}) async {
     try {
@@ -32,7 +44,11 @@ class FirebaseAuthRepo {
       User? currentUser = FirebaseAuth.instance.currentUser;
       if (currentUser != null) {
         await addUserToFireStore(
-            lmsUser: FireUser(uid: currentUser.uid, name: name, email: email));
+            fireUser: FireUser(
+                uid: currentUser.uid,
+                name: name,
+                email: email,
+                profilePic: "null"));
       } else {
         throw "canot add user to database. user does not exist";
       }
@@ -69,16 +85,10 @@ class FirebaseAuthRepo {
   }
 
   static Future<void> addUserToFireStore({
-    required FireUser lmsUser,
+    required FireUser fireUser,
   }) async {
     try {
-      CollectionReference users =
-          FirebaseFirestore.instance.collection("users");
-      await users.doc(lmsUser.uid).set({
-        "uid": lmsUser.uid,
-        "name": lmsUser.name,
-        "email": lmsUser.email,
-      });
+      await reference.set(fireUser.toMap());
     } catch (e) {
       throw e;
     }
@@ -112,16 +122,9 @@ class FirebaseAuthRepo {
 
   static Future<FireUser> getUserDetails() async {
     try {
-      DocumentSnapshot snapshot = await FirebaseFirestore.instance
-          .collection("users")
-          .doc(FirebaseAuthRepo.currentUid())
-          .get();
+      DocumentSnapshot snapshot = await reference.get();
       Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>;
-      return FireUser(
-        email: data['email'],
-        name: data['name'],
-        uid: data['uid'],
-      );
+      return FireUser.fromMap(data);
     } catch (e) {
       throw e;
     }
@@ -130,9 +133,7 @@ class FirebaseAuthRepo {
   static Future<void> updateUserName({required String newName}) async {
     try {
       if (newName.isNotEmpty) {
-        CollectionReference reference =
-            FirebaseFirestore.instance.collection("users");
-        await reference.doc(currentUid()).update({'name': newName});
+        await reference.update({'name': newName});
       } else {
         throw "Name is empty!";
       }
@@ -167,6 +168,16 @@ class FirebaseAuthRepo {
       }
     } catch (e) {
       throw e.toString();
+    }
+  }
+
+  static Future<void> uploadProfilePic({required File imageFile}) async {
+    try {
+      await profilePicRef.putFile(imageFile);
+      String downloadUrl = await profilePicRef.getDownloadURL();
+      await reference.update({"profilePic": downloadUrl});
+    } catch (e) {
+      throw e;
     }
   }
 }

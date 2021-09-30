@@ -8,9 +8,7 @@ import 'package:study_pal/logic/cubit/add_con_eve_cal_cubit/add_con_eve_cal_cubi
 import 'package:study_pal/logic/cubit/pick_date_cubit/pick_date_cubit.dart';
 import 'package:study_pal/logic/cubit/pick_time_cubit/pick_time_cubit.dart';
 import 'package:study_pal/presentation/screens/widgets/date_picker.dart';
-import 'package:study_pal/presentation/screens/widgets/error_msg_box.dart';
 import 'package:study_pal/presentation/screens/widgets/reguler_btn.dart';
-import 'package:study_pal/presentation/screens/widgets/success_msg_box.dart';
 import 'package:study_pal/presentation/screens/widgets/time_picker.dart';
 import 'package:study_pal/presentation/templates/inner_scrn_tmpl.dart';
 

@@ -9,8 +9,10 @@ class WorkCardListLoading extends WorkCardListState {}
 
 class WorkCardListLoaded extends WorkCardListState {
   final List<FireContent> fireContents;
+  final String profileImage;
   WorkCardListLoaded({
     required this.fireContents,
+    required this.profileImage,
   });
 
   @override
@@ -18,14 +20,16 @@ class WorkCardListLoaded extends WorkCardListState {
     if (identical(this, other)) return true;
 
     return other is WorkCardListLoaded &&
-        listEquals(other.fireContents, fireContents);
+        listEquals(other.fireContents, fireContents) &&
+        other.profileImage == profileImage;
   }
 
   @override
-  int get hashCode => fireContents.hashCode;
+  int get hashCode => fireContents.hashCode ^ profileImage.hashCode;
 
   @override
-  String toString() => 'WorkCardListLoaded(fireContents: $fireContents)';
+  String toString() =>
+      'WorkCardListLoaded(fireContents: $fireContents, profileImage: $profileImage)';
 }
 
 class WorkCardListFailed extends WorkCardListState {

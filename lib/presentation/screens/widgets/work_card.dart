@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:timeago/timeago.dart' as timeago;
+
 import 'package:study_pal/core/constants/my_colors.dart';
 import 'package:study_pal/data/models/fire_content.dart';
 import 'package:study_pal/presentation/screens/widgets/blur_bg.dart';
-import 'package:timeago/timeago.dart' as timeago;
 
 class WorkCard extends StatelessWidget {
   final FireContent fireContent;
+  final String profileImage;
   const WorkCard({
     Key? key,
     required this.fireContent,
+    required this.profileImage,
   }) : super(key: key);
 
   String workedTimeStr({required int counter}) {
@@ -33,7 +36,7 @@ class WorkCard extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.all(3.w),
             decoration: BoxDecoration(
-              color: MyColors.profileTabCtdsClr.withOpacity(0.9),
+              color: MyColors.profileTabCrdsClr.withOpacity(0.9),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,11 +45,22 @@ class WorkCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     ClipOval(
-                      child: Image.asset(
-                        "assets/images/boy.jpg",
-                        width: 8.w,
-                        height: 8.w,
-                      ),
+                      child: profileImage != "null"
+                          ? FadeInImage(
+                              placeholder: AssetImage(
+                                "assets/images/boy.jpg",
+                              ),
+                              image: NetworkImage(profileImage),
+                              width: 8.w,
+                              height: 8.w,
+                              fit: BoxFit.cover,
+                            )
+                          : Image.asset(
+                              "assets/images/boy.jpg",
+                              width: 8.w,
+                              height: 8.w,
+                              fit: BoxFit.cover,
+                            ),
                     ),
                     SizedBox(
                       width: 2.w,

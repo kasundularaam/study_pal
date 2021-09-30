@@ -29,7 +29,10 @@ class WorkCardList extends StatelessWidget {
             itemCount: state.fireContents.length,
             itemBuilder: (BuildContext context, int index) {
               FireContent fireContent = state.fireContents[index];
-              return WorkCard(fireContent: fireContent);
+              return WorkCard(
+                fireContent: fireContent,
+                profileImage: state.profileImage,
+              );
             },
           );
         } else if (state is WorkCardListFailed) {

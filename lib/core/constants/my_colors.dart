@@ -95,7 +95,7 @@ class MyColors {
 
   static const Color hpCrdClr = Color(0xffCEC6D4);
 
-  static const Color profileTabCtdsClr = Color(0xffCEC6D4);
+  static const Color profileTabCrdsClr = Color(0xffCEC6D4);
 
   static const Color stopBtnClr = Color(0xffD83A56);
 
