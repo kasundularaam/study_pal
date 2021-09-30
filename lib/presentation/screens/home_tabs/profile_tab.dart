@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 import 'package:study_pal/core/constants/my_colors.dart';
 import 'package:study_pal/logic/cubit/logout_cubit/logout_cubit.dart';
-import 'package:study_pal/logic/cubit/profile_top_card_cubit/profile_top_card_cubit.dart';
 import 'package:study_pal/logic/cubit/sub_prog_card_cubit/sub_prog_card_cubit.dart';
 import 'package:study_pal/logic/cubit/today_worls_cubit/today_works_cubit.dart';
 import 'package:study_pal/logic/cubit/work_card_list_cubit/work_card_list_cubit.dart';
