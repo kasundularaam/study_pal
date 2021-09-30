@@ -51,7 +51,7 @@ class _MTimePickerState extends State<MTimePicker> {
               );
             } else {
               return Center(
-                child: Text("Pick a date",
+                child: Text("Pick a time",
                     style: TextStyle(color: widget.txtColor, fontSize: 14.sp)),
               );
             }

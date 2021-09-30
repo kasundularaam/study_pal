@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
+
 import 'package:study_pal/core/constants/my_colors.dart';
 import 'package:study_pal/core/screen_arguments/add_countdown_scrn_args.dart';
 import 'package:study_pal/data/models/countdown_model.dart';
@@ -11,8 +12,6 @@ import 'package:study_pal/presentation/screens/widgets/countdown_card.dart';
 import 'package:study_pal/presentation/templates/home_tabs_tmpl.dart';
 
 class CountDownTab extends StatefulWidget {
-  const CountDownTab({Key? key}) : super(key: key);
-
   @override
   _CountDownTabState createState() => _CountDownTabState();
 }

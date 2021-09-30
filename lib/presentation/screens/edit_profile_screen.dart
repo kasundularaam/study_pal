@@ -5,6 +5,7 @@ import 'package:study_pal/core/constants/my_colors.dart';
 import 'package:study_pal/logic/cubit/change_password_cubit/change_password_cubit.dart';
 import 'package:study_pal/logic/cubit/change_pro_pic_cubit/change_pro_pic_cubit.dart';
 import 'package:study_pal/logic/cubit/edit_name_cubit/edit_name_cubit.dart';
+import 'package:study_pal/logic/cubit/profile_top_card_cubit/profile_top_card_cubit.dart';
 import 'package:study_pal/logic/cubit/settings_cubit/setting_cubit.dart';
 import 'package:study_pal/presentation/screens/widgets/change_password_card.dart';
 import 'package:study_pal/presentation/screens/widgets/change_pro_pic_crd.dart';
@@ -53,6 +54,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     SnackBar snackBar =
                         SnackBar(content: Text("Image Uploaded!"));
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    BlocProvider.of<ProfileTopCardCubit>(context)
+                        .getUserDetails();
                   }, failed: (errorMsg) {
                     SnackBar snackBar = SnackBar(content: Text(errorMsg));
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);

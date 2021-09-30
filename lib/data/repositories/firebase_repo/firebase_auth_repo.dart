@@ -88,7 +88,10 @@ class FirebaseAuthRepo {
     required FireUser fireUser,
   }) async {
     try {
-      await reference.set(fireUser.toMap());
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(fireUser.uid)
+          .set(fireUser.toMap());
     } catch (e) {
       throw e;
     }

@@ -7,6 +7,7 @@ import 'package:study_pal/logic/cubit/home_nav_cubit/home_nav_cubit.dart';
 import 'package:study_pal/logic/cubit/home_tab_cubit/home_tab_cubit.dart';
 import 'package:study_pal/logic/cubit/logout_cubit/logout_cubit.dart';
 import 'package:study_pal/logic/cubit/show_cal_events_cubit/show_cal_events_cubit.dart';
+import 'package:study_pal/presentation/router/app_router.dart';
 import 'package:study_pal/presentation/screens/home_tabs/countdown_tab.dart';
 import 'package:study_pal/presentation/screens/home_tabs/events_tab.dart';
 import 'package:study_pal/presentation/screens/home_tabs/home_tab.dart';
@@ -21,6 +22,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   HomeTabCubit _homeTabCubit = HomeTabCubit();
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -54,13 +56,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: ProfileTab(),
                           );
                         } else if (state.homeNav == HomeNav.toEvents) {
-                          return BlocProvider(
-                            create: (context) => ShowCalEventsCubit(),
+                          return BlocProvider.value(
+                            value: AppRouter.showCalEventsCubit,
                             child: EventsTab(),
                           );
                         } else if (state.homeNav == HomeNav.toCountDown) {
-                          return BlocProvider(
-                            create: (context) => CountdownTabCubit(),
+                          return BlocProvider.value(
+                            value: AppRouter.countdownTabCubit,
                             child: CountDownTab(),
                           );
                         } else {

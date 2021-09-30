@@ -30,6 +30,7 @@ class ChangeProPicCubit extends Cubit<ChangeProPicState> {
       loaddProfilePic();
     } catch (e) {
       emit(ChangeProPicFailed(errorMsg: e.toString()));
+      loaddProfilePic();
     }
   }
 }

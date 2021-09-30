@@ -34,8 +34,8 @@ class _ProfileTabState extends State<ProfileTab> {
             padding: EdgeInsets.symmetric(horizontal: 5.w),
             children: [
               SizedBox(height: 10.h),
-              BlocProvider(
-                create: (context) => ProfileTopCardCubit(),
+              BlocProvider.value(
+                value: AppRouter.profileTopCardCubit,
                 child: ProfileTopCard(),
               ),
               SizedBox(height: 2.h),

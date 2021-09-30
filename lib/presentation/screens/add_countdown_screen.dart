@@ -4,6 +4,7 @@ import 'package:sizer/sizer.dart';
 import 'package:study_pal/core/constants/my_colors.dart';
 
 import 'package:study_pal/core/screen_arguments/add_countdown_scrn_args.dart';
+import 'package:study_pal/logic/cubit/countdown_tab_cubit/countdown_tab_cubit.dart';
 import 'package:study_pal/logic/cubit/pick_date_cubit/pick_date_cubit.dart';
 import 'package:study_pal/logic/cubit/pick_time_cubit/pick_time_cubit.dart';
 import 'package:study_pal/logic/cubit/set_countdown_cubit/set_countdown_cubit.dart';
@@ -130,6 +131,7 @@ class _AddCountdownScreenState extends State<AddCountdownScreen> {
               } else if (state is SetCountdownSucceed) {
                 SnackBar snackBar = SnackBar(content: Text("coundown set!"));
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                BlocProvider.of<CountdownTabCubit>(context).loadCountdowns();
               }
             }),
           ),

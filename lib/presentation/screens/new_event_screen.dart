@@ -5,6 +5,7 @@ import 'package:study_pal/core/constants/my_colors.dart';
 import 'package:study_pal/logic/cubit/new_event_cubit/new_event_cubit.dart';
 import 'package:study_pal/logic/cubit/pick_date_cubit/pick_date_cubit.dart';
 import 'package:study_pal/logic/cubit/pick_time_cubit/pick_time_cubit.dart';
+import 'package:study_pal/logic/cubit/show_cal_events_cubit/show_cal_events_cubit.dart';
 import 'package:study_pal/presentation/screens/widgets/date_picker.dart';
 import 'package:study_pal/presentation/screens/widgets/error_msg_box.dart';
 import 'package:study_pal/presentation/screens/widgets/reguler_btn.dart';
@@ -95,9 +96,24 @@ class _NewEventScreenState extends State<NewEventScreen> {
           SizedBox(
             height: 5.h,
           ),
-          BlocBuilder<NewEventCubit, NewEventState>(
+          BlocConsumer<NewEventCubit, NewEventState>(
+            listener: (context, state) {
+              if (state is NewEventSucceed) {
+                SnackBar snackBar = SnackBar(content: Text("Event added!"));
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                BlocProvider.of<ShowCalEventsCubit>(context).loadEvents();
+              } else if (state is NewEventFailed) {
+                SnackBar snackBar = SnackBar(content: Text(state.errorMsg));
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
+            },
             builder: (context, state) {
-              if (state is NewEventInitial) {
+              if (state is NewEventLoading) {
+                return Center(
+                    child: CircularProgressIndicator(
+                  color: MyColors.secondaryColor,
+                ));
+              } else {
                 return Center(
                   child: RegulerBtn(
                     btnText: "Add",
@@ -113,15 +129,6 @@ class _NewEventScreenState extends State<NewEventScreen> {
                     txtColor: MyColors.darkColor,
                   ),
                 );
-              } else if (state is NewEventLoading) {
-                return Center(child: CircularProgressIndicator());
-              } else if (state is NewEventSucceed) {
-                return Center(
-                    child: SuccessMsgBox(successMsg: "Reminder added"));
-              } else if (state is NewEventFailed) {
-                return Center(child: ErrorMsgBox(errorMsg: state.errorMsg));
-              } else {
-                return Text("");
               }
             },
           ),
