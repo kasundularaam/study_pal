@@ -132,6 +132,7 @@ class _AddCountdownScreenState extends State<AddCountdownScreen> {
                 SnackBar snackBar = SnackBar(content: Text("coundown set!"));
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 BlocProvider.of<CountdownTabCubit>(context).loadCountdowns();
+                Navigator.pop(context);
               }
             }),
           ),

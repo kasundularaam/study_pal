@@ -5,6 +5,7 @@ import 'package:study_pal/core/constants/my_colors.dart';
 import 'package:study_pal/core/screen_arguments/change_sub_args.dart';
 import 'package:study_pal/data/models/subject_model.dart';
 import 'package:study_pal/logic/cubit/change_subjects_cubit/change_subjects_cubit.dart';
+import 'package:study_pal/logic/cubit/settings_cubit/setting_cubit.dart';
 import 'package:study_pal/presentation/screens/widgets/select_subject_card.dart';
 
 class ChangeSubjectScreen extends StatefulWidget {
@@ -76,6 +77,9 @@ class _ChangeSubjectScreenState extends State<ChangeSubjectScreen> {
                             SnackBar(content: Text(state.message));
                         ScaffoldMessenger.of(context)
                             .showSnackBar(succeedSnack);
+                        BlocProvider.of<SettingCubit>(context)
+                            .loadProfileSettings();
+                        Navigator.pop(context);
                       } else if (state is ChangeSubjectsFailed) {
                         SnackBar failedSnack =
                             SnackBar(content: Text(state.errorMsg));

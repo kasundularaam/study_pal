@@ -100,6 +100,7 @@ class _NewEventScreenState extends State<NewEventScreen> {
                 SnackBar snackBar = SnackBar(content: Text("Event added!"));
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 BlocProvider.of<ShowCalEventsCubit>(context).loadEvents();
+                Navigator.pop(context);
               } else if (state is NewEventFailed) {
                 SnackBar snackBar = SnackBar(content: Text(state.errorMsg));
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);

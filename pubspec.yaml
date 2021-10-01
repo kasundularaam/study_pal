@@ -41,14 +41,8 @@ flutter:
 
   assets:
     - assets/images/boy.jpg
-    - assets/images/girl.jpg
-    - assets/images/auth.jpeg
-    - assets/images/bg_art.png
     - assets/images/bg_bottom_art.png
-    - assets/images/bg_top_art.png
-    - assets/images/stu_no_txt.png
-    - assets/images/stu_text.png
     - assets/images/homet.png
     - assets/images/autht.png
-    - assets/images/authw.jpg
     - assets/images/done.png
+    - assets/images/warning.png

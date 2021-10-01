@@ -95,24 +95,7 @@ class _ChangePasswordCardState extends State<ChangePasswordCard> {
                 widget.onFailed(state.errorMsg);
               }
             }, builder: (context, state) {
-              if (state is ChangePasswordInitial) {
-                return InkWell(
-                  onTap: () => BlocProvider.of<ChangePasswordCubit>(context)
-                      .changePassword(
-                          currentPassword: currentPassword,
-                          newPassword: newPassword),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 5.w),
-                    child: Text(
-                      "CHANGE",
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        color: MyColors.green,
-                      ),
-                    ),
-                  ),
-                );
-              } else if (state is ChangePasswordLoading) {
+              if (state is ChangePasswordLoading) {
                 return Padding(
                   padding: EdgeInsets.symmetric(horizontal: 5.w),
                   child: Text(
@@ -120,23 +103,6 @@ class _ChangePasswordCardState extends State<ChangePasswordCard> {
                     style: TextStyle(
                       fontSize: 14.sp,
                       color: MyColors.primaryColor,
-                    ),
-                  ),
-                );
-              } else if (state is ChangePasswordFailed) {
-                return InkWell(
-                  onTap: () => BlocProvider.of<ChangePasswordCubit>(context)
-                      .changePassword(
-                          currentPassword: currentPassword,
-                          newPassword: newPassword),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 5.w),
-                    child: Text(
-                      "SAVE",
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        color: MyColors.green,
-                      ),
                     ),
                   ),
                 );
@@ -149,7 +115,7 @@ class _ChangePasswordCardState extends State<ChangePasswordCard> {
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 5.w),
                     child: Text(
-                      "SAVE",
+                      "CHANGE",
                       style: TextStyle(
                         fontSize: 14.sp,
                         color: MyColors.green,

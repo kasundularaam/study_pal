@@ -96,6 +96,7 @@ class _AddEventToConScreenState extends State<AddEventToConScreen> {
               } else if (state is AddConEventToCalSucceed) {
                 SnackBar snackBar = SnackBar(content: Text("event set!"));
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                Navigator.pop(context);
               }
             },
             builder: (context, state) {

@@ -209,6 +209,7 @@ class _AddEventToModScreenState extends State<AddEventToModScreen> {
               } else if (state is AddModEveCalSucceed) {
                 SnackBar snackBar = SnackBar(content: Text("event set!"));
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                Navigator.pop(context);
               }
             },
             builder: (context, state) {

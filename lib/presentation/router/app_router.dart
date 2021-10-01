@@ -61,6 +61,7 @@ class AppRouter {
   static CountdownTabCubit countdownTabCubit = CountdownTabCubit();
   static ProfileTopCardCubit profileTopCardCubit = ProfileTopCardCubit();
   static ShowCalEventsCubit showCalEventsCubit = ShowCalEventsCubit();
+  static SettingCubit settingCubit = SettingCubit();
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     WorkingCubit _workingCubit = WorkingCubit();
@@ -177,9 +178,7 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
             providers: [
-              BlocProvider(
-                create: (context) => SettingCubit(),
-              ),
+              BlocProvider.value(value: settingCubit),
               BlocProvider.value(value: profileTopCardCubit),
             ],
             child: EditProfileScreen(),
@@ -188,8 +187,13 @@ class AppRouter {
       case changeSubjectsScreen:
         ChangeSubScrnArgs args = settings.arguments as ChangeSubScrnArgs;
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => ChangeSubjectsCubit(),
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => ChangeSubjectsCubit(),
+              ),
+              BlocProvider.value(value: settingCubit),
+            ],
             child: ChangeSubjectScreen(
               args: args,
             ),
