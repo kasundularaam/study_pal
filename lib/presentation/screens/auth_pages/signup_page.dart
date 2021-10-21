@@ -51,8 +51,8 @@ class _SignUpPageState extends State<SignUpPage> {
           textInputAction: TextInputAction.next,
           isPassword: false,
           hintText: "Name",
-          textColor: MyColors.textColorDark,
-          bgColor: MyColors.black.withOpacity(0.07),
+          textColor: MyColors.darkColor,
+          bgColor: MyColors.primaryColor.withOpacity(0.1),
         ),
         SizedBox(
           height: 2.h,
@@ -66,8 +66,8 @@ class _SignUpPageState extends State<SignUpPage> {
           textInputAction: TextInputAction.next,
           isPassword: false,
           hintText: "Email",
-          textColor: MyColors.textColorDark,
-          bgColor: MyColors.black.withOpacity(0.07),
+          textColor: MyColors.darkColor,
+          bgColor: MyColors.primaryColor.withOpacity(0.1),
         ),
         SizedBox(
           height: 2.h,
@@ -79,8 +79,8 @@ class _SignUpPageState extends State<SignUpPage> {
           isPassword: true,
           focusNode: _passwordFocusNode,
           hintText: "Password",
-          textColor: MyColors.textColorDark,
-          bgColor: MyColors.black.withOpacity(0.07),
+          textColor: MyColors.darkColor,
+          bgColor: MyColors.primaryColor.withOpacity(0.1),
         ),
         SizedBox(
           height: 3.h,
@@ -115,8 +115,8 @@ class _SignUpPageState extends State<SignUpPage> {
                     name: _name,
                     password: _password,
                   ),
-                  bgColor: MyColors.loginBtnClr,
-                  txtColor: MyColors.loginBtnTxtClr,
+                  bgColor: MyColors.secondaryColor,
+                  txtColor: MyColors.lightColor,
                 ),
               );
             }
@@ -132,7 +132,7 @@ class _SignUpPageState extends State<SignUpPage> {
               "Do you have an account? ",
               style: TextStyle(
                 fontSize: 14.sp,
-                color: MyColors.goToSignClr,
+                color: MyColors.primaryColor,
               ),
             ),
             GestureDetector(
@@ -142,7 +142,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 "Log In",
                 style: TextStyle(
                     fontSize: 14.sp,
-                    color: MyColors.goToSignClr,
+                    color: MyColors.primaryColor,
                     fontWeight: FontWeight.w600),
               ),
             ),

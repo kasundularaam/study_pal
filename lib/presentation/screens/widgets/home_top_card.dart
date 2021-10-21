@@ -23,9 +23,9 @@ class HomeTopCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(5.w),
           child: Container(
             padding: EdgeInsets.all(5.w),
-            width: 95.w,
-            decoration:
-                BoxDecoration(color: MyColors.hpCrdClr.withOpacity(0.9)),
+            decoration: BoxDecoration(
+              color: MyColors.lightColor.withOpacity(0.6),
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

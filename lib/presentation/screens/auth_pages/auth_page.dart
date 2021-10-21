@@ -84,7 +84,7 @@ class _AuthPageState extends State<AuthPage> {
                 child: Text(
                   state.statusMsg,
                   style: TextStyle(
-                    color: MyColors.textColorDark,
+                    color: MyColors.darkColor,
                     fontSize: 12.sp,
                   ),
                 ),
@@ -94,7 +94,7 @@ class _AuthPageState extends State<AuthPage> {
                 child: Text(
                   state.loadingMsg,
                   style: TextStyle(
-                    color: MyColors.textColorDark,
+                    color: MyColors.darkColor,
                     fontSize: 12.sp,
                   ),
                 ),
@@ -117,7 +117,7 @@ class _AuthPageState extends State<AuthPage> {
         Text(
           errorMsg,
           style: TextStyle(
-            color: MyColors.textColorDark,
+            color: MyColors.darkColor,
             fontSize: 12,
           ),
         ),
@@ -130,7 +130,7 @@ class _AuthPageState extends State<AuthPage> {
           child: Text(
             "Try Again",
             style: TextStyle(
-              color: MyColors.titleClr,
+              color: MyColors.primaryColor,
               fontSize: 16.sp,
             ),
           ),

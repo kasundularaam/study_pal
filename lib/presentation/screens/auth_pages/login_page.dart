@@ -51,8 +51,8 @@ class _LoginPageState extends State<LoginPage> {
           textInputAction: TextInputAction.next,
           isPassword: false,
           hintText: "Email",
-          textColor: MyColors.textColorDark,
-          bgColor: MyColors.black.withOpacity(0.07),
+          textColor: MyColors.darkColor,
+          bgColor: MyColors.primaryColor.withOpacity(0.1),
         ),
         SizedBox(
           height: 2.h,
@@ -64,8 +64,8 @@ class _LoginPageState extends State<LoginPage> {
           isPassword: true,
           focusNode: _passwordFocusNode,
           hintText: "Password",
-          textColor: MyColors.textColorDark,
-          bgColor: MyColors.black.withOpacity(0.07),
+          textColor: MyColors.darkColor,
+          bgColor: MyColors.primaryColor.withOpacity(0.1),
         ),
         SizedBox(
           height: 3.h,
@@ -99,8 +99,8 @@ class _LoginPageState extends State<LoginPage> {
                     email: _email,
                     password: _password,
                   ),
-                  bgColor: MyColors.loginBtnClr,
-                  txtColor: MyColors.loginBtnTxtClr,
+                  bgColor: MyColors.secondaryColor,
+                  txtColor: MyColors.lightColor,
                 ),
               );
             }
@@ -116,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
               "Don\'t you have an account yet? ",
               style: TextStyle(
                 fontSize: 14.sp,
-                color: MyColors.goToSignClr,
+                color: MyColors.primaryColor,
               ),
             ),
             GestureDetector(
@@ -128,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                 "Sign Up",
                 style: TextStyle(
                     fontSize: 14.sp,
-                    color: MyColors.goToSignClr,
+                    color: MyColors.primaryColor,
                     fontWeight: FontWeight.bold),
               ),
             ),
@@ -144,7 +144,7 @@ class _LoginPageState extends State<LoginPage> {
               "Forgot Password?",
               style: TextStyle(
                   fontSize: 14.sp,
-                  color: MyColors.goToSignClr,
+                  color: MyColors.primaryColor,
                   fontWeight: FontWeight.bold),
             ),
           ),
@@ -190,8 +190,8 @@ class _LoginPageState extends State<LoginPage> {
                     textInputAction: TextInputAction.next,
                     isPassword: false,
                     hintText: "Email...",
-                    textColor: MyColors.textColorDark,
-                    bgColor: MyColors.homeScrnBgClr.withOpacity(0.2),
+                    textColor: MyColors.darkColor,
+                    bgColor: MyColors.primaryColor.withOpacity(0.1),
                   ),
                   SizedBox(
                     height: 2.h,
@@ -203,8 +203,8 @@ class _LoginPageState extends State<LoginPage> {
                           rpEmail: resetPwEmail, dialogContext: dialogContext),
                       child: Text(
                         "Send",
-                        style:
-                            TextStyle(color: MyColors.green, fontSize: 14.sp),
+                        style: TextStyle(
+                            color: MyColors.primaryColor, fontSize: 14.sp),
                       ),
                     ),
                   ),

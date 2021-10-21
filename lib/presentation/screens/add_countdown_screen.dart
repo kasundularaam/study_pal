@@ -121,7 +121,7 @@ class _AddCountdownScreenState extends State<AddCountdownScreen> {
                     exmDate: pickedDate!,
                   ),
                   bgColor: MyColors.secondaryColor,
-                  txtColor: MyColors.darkColor,
+                  txtColor: MyColors.lightColor,
                 );
               }
             }, listener: (context, state) {

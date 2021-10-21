@@ -34,14 +34,14 @@ class HomeTopCardItem extends StatelessWidget {
                     child: Text(
                       subject.name,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                          color: MyColors.textColorDark, fontSize: 14.sp),
+                      style:
+                          TextStyle(color: MyColors.darkColor, fontSize: 14.sp),
                     ),
                   ),
                   Text(
                     "$precentage%",
-                    style: TextStyle(
-                        color: MyColors.textColorDark, fontSize: 14.sp),
+                    style:
+                        TextStyle(color: MyColors.darkColor, fontSize: 14.sp),
                   ),
                 ],
               ),
@@ -52,7 +52,7 @@ class HomeTopCardItem extends StatelessWidget {
                   width: 75.w,
                   max: state.contentCount,
                   progress: state.fireContentCount,
-                  backgroundColor: MyColors.white,
+                  backgroundColor: MyColors.primaryColor.withOpacity(0.5),
                   progressColor: MyColors.progressColor),
             ],
           );
@@ -69,14 +69,14 @@ class HomeTopCardItem extends StatelessWidget {
                     child: Text(
                       subject.name,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                          color: MyColors.textColorDark, fontSize: 14.sp),
+                      style:
+                          TextStyle(color: MyColors.darkColor, fontSize: 14.sp),
                     ),
                   ),
                   Text(
                     "...",
                     style: TextStyle(
-                        color: MyColors.textColorDark,
+                        color: MyColors.darkColor,
                         fontSize: 14.sp,
                         fontWeight: FontWeight.bold),
                   ),
@@ -89,7 +89,7 @@ class HomeTopCardItem extends StatelessWidget {
                 width: 75.w,
                 max: 100,
                 progress: 0,
-                backgroundColor: MyColors.white,
+                backgroundColor: MyColors.primaryColor.withOpacity(0.5),
                 progressColor: MyColors.progressColor,
               ),
             ],

@@ -16,7 +16,7 @@ class BlurBg extends StatelessWidget {
     return ClipRRect(
       borderRadius: borderRadius,
       child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+        filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
         child: child,
       ),
     );

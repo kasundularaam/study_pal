@@ -54,36 +54,38 @@ class _CongratulationsTabState extends State<CongratulationsTab> {
           SizedBox(
             height: 3.h,
           ),
-          GestureDetector(
-            onTap: () => Navigator.of(context).pushNamedAndRemoveUntil(
-                AppRouter.authScreen, (Route<dynamic> route) => false),
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 5.w),
-              padding: EdgeInsets.all(5.w),
-              decoration: BoxDecoration(
-                color: MyColors.lightColor,
-                borderRadius: BorderRadius.circular(5.w),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    Icons.home_outlined,
-                    size: 22.sp,
-                    color: MyColors.primaryColor,
-                  ),
-                  SizedBox(
-                    width: 2.w,
-                  ),
-                  Text(
-                    "Back To Home",
-                    style: TextStyle(
-                        color: MyColors.primaryColor,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w600),
-                  ),
-                ],
+          Center(
+            child: GestureDetector(
+              onTap: () => Navigator.of(context).pushNamedAndRemoveUntil(
+                  AppRouter.authScreen, (Route<dynamic> route) => false),
+              child: Container(
+                padding:
+                    EdgeInsets.symmetric(vertical: 1.5.h, horizontal: 10.w),
+                decoration: BoxDecoration(
+                  color: MyColors.lightColor,
+                  borderRadius: BorderRadius.circular(5.h),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.home_outlined,
+                      size: 20.sp,
+                      color: MyColors.primaryColor,
+                    ),
+                    SizedBox(
+                      width: 2.w,
+                    ),
+                    Text(
+                      "Back To Home",
+                      style: TextStyle(
+                          color: MyColors.primaryColor,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

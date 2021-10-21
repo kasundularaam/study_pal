@@ -38,11 +38,9 @@ class _ProfileTabState extends State<ProfileTab> {
                 child: ProfileTopCard(),
               ),
               SizedBox(height: 2.h),
-              Container(
-                child: BlocProvider(
-                  create: (context) => TodayWorksCubit(),
-                  child: TodayWorkedDetails(),
-                ),
+              BlocProvider(
+                create: (context) => TodayWorksCubit(),
+                child: TodayWorkedDetails(),
               ),
               SizedBox(height: 2.h),
               BlocProvider(
@@ -100,10 +98,13 @@ class _ProfileTabState extends State<ProfileTab> {
           } else {
             return GestureDetector(
               onTap: () => BlocProvider.of<LogoutCubit>(context).logOut(),
-              child: Icon(
-                Icons.logout_rounded,
-                size: 14.sp,
-                color: MyColors.textColorDark,
+              child: Text(
+                "SIGN OUT",
+                style: TextStyle(
+                  color: MyColors.secondaryColor,
+                  fontSize: 11.sp,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             );
           }

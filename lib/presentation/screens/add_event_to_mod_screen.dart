@@ -157,7 +157,7 @@ class _AddEventToModScreenState extends State<AddEventToModScreen> {
                                     child: Container(
                                         padding: EdgeInsets.all(2.w),
                                         decoration: BoxDecoration(
-                                            color: MyColors.secondaryColor,
+                                            color: MyColors.progressColor,
                                             shape: BoxShape.circle),
                                         child: Icon(Icons.remove)),
                                   ),
@@ -184,7 +184,7 @@ class _AddEventToModScreenState extends State<AddEventToModScreen> {
                                     child: Container(
                                         padding: EdgeInsets.all(2.w),
                                         decoration: BoxDecoration(
-                                            color: MyColors.secondaryColor,
+                                            color: MyColors.progressColor,
                                             shape: BoxShape.circle),
                                         child: Icon(Icons.add)),
                                   ),
@@ -236,7 +236,7 @@ class _AddEventToModScreenState extends State<AddEventToModScreen> {
                         }
                       },
                       bgColor: MyColors.secondaryColor,
-                      txtColor: MyColors.darkColor),
+                      txtColor: MyColors.lightColor),
                 );
               }
             },

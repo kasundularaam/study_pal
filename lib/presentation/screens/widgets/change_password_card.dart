@@ -118,7 +118,7 @@ class _ChangePasswordCardState extends State<ChangePasswordCard> {
                       "CHANGE",
                       style: TextStyle(
                         fontSize: 14.sp,
-                        color: MyColors.green,
+                        color: MyColors.primaryColor,
                       ),
                     ),
                   ),

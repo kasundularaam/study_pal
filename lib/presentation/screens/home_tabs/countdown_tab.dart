@@ -30,7 +30,11 @@ class _CountDownTabState extends State<CountDownTab> {
       action: GestureDetector(
         onTap: () => Navigator.pushNamed(context, AppRouter.addCountdownScreen,
             arguments: AddCountdownScrnArgs(add: true)),
-        child: Icon(Icons.add_alarm_rounded, color: MyColors.textColorDark),
+        child: Icon(
+          Icons.add_alarm_rounded,
+          color: MyColors.secondaryColor,
+          size: 22.sp,
+        ),
       ),
       content: BlocBuilder<CountdownTabCubit, CountdownTabState>(
           builder: (context, state) {
@@ -63,6 +67,9 @@ class _CountDownTabState extends State<CountDownTab> {
                           builder: (bSContext) => Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
+                              SizedBox(
+                                height: 2.h,
+                              ),
                               GestureDetector(
                                 onTap: () {
                                   Navigator.pop(bSContext);
@@ -76,20 +83,26 @@ class _CountDownTabState extends State<CountDownTab> {
                                   );
                                 },
                                 child: Container(
+                                  margin:
+                                      EdgeInsets.symmetric(horizontal: 10.w),
                                   padding: EdgeInsets.symmetric(
-                                      horizontal: 5.w, vertical: 2.h),
+                                      horizontal: 5.w, vertical: 1.2.h),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(3.h),
+                                      color: MyColors.primaryColor
+                                          .withOpacity(0.1)),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Icon(
                                         Icons.edit_rounded,
-                                        color: MyColors.darkColor,
+                                        color: MyColors.secondaryColor,
                                       ),
                                       SizedBox(
                                         width: 2.w,
                                       ),
                                       Text(
-                                        "edit",
+                                        "Edit",
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           color: MyColors.darkColor,
@@ -101,6 +114,9 @@ class _CountDownTabState extends State<CountDownTab> {
                                   ),
                                 ),
                               ),
+                              SizedBox(
+                                height: 2.h,
+                              ),
                               GestureDetector(
                                 onTap: () {
                                   Navigator.pop(bSContext);
@@ -110,20 +126,26 @@ class _CountDownTabState extends State<CountDownTab> {
                                           index: index);
                                 },
                                 child: Container(
+                                  margin:
+                                      EdgeInsets.symmetric(horizontal: 10.w),
                                   padding: EdgeInsets.symmetric(
-                                      horizontal: 5.w, vertical: 2.h),
+                                      horizontal: 5.w, vertical: 1.2.h),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(3.h),
+                                      color: MyColors.primaryColor
+                                          .withOpacity(0.1)),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Icon(
                                         Icons.delete_rounded,
-                                        color: MyColors.darkColor,
+                                        color: MyColors.rRed,
                                       ),
                                       SizedBox(
                                         width: 2.w,
                                       ),
                                       Text(
-                                        "delete",
+                                        "Delete",
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           color: MyColors.darkColor,
@@ -134,7 +156,10 @@ class _CountDownTabState extends State<CountDownTab> {
                                     ],
                                   ),
                                 ),
-                              )
+                              ),
+                              SizedBox(
+                                height: 2.h,
+                              ),
                             ],
                           ),
                         ),

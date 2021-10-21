@@ -110,7 +110,7 @@ class _NewEventScreenState extends State<NewEventScreen> {
               if (state is NewEventLoading) {
                 return Center(
                     child: CircularProgressIndicator(
-                  color: MyColors.secondaryColor,
+                  color: MyColors.progressColor,
                 ));
               } else {
                 return Center(
@@ -125,7 +125,7 @@ class _NewEventScreenState extends State<NewEventScreen> {
                       }
                     },
                     bgColor: MyColors.secondaryColor,
-                    txtColor: MyColors.darkColor,
+                    txtColor: MyColors.lightColor,
                   ),
                 );
               }

@@ -42,7 +42,7 @@ class _SelectSubjectPageState extends State<SelectSubjectPage> {
               Text(
                 "Subjects",
                 style: TextStyle(
-                    color: MyColors.titleClr,
+                    color: MyColors.primaryColor,
                     fontSize: 20.sp,
                     fontWeight: FontWeight.w600),
               ),
@@ -140,7 +140,7 @@ class OkButton extends StatelessWidget {
       onTap: () => onPressed(),
       child: Icon(
         Icons.check,
-        color: MyColors.titleClr,
+        color: MyColors.primaryColor,
         size: 20.sp,
       ),
     );

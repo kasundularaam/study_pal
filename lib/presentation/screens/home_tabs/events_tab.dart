@@ -31,7 +31,11 @@ class _EventsTabState extends State<EventsTab> {
       title: "Events",
       action: GestureDetector(
         onTap: () => Navigator.pushNamed(context, AppRouter.newEventScreen),
-        child: Icon(Icons.add_task_rounded, color: MyColors.textColorDark),
+        child: Icon(
+          Icons.add_alert_rounded,
+          color: MyColors.secondaryColor,
+          size: 22.sp,
+        ),
       ),
       content: Container(
         child: ListView(
@@ -48,8 +52,8 @@ class _EventsTabState extends State<EventsTab> {
               textInputAction: TextInputAction.search,
               isPassword: false,
               hintText: "Find event",
-              textColor: MyColors.textColorLight,
-              bgColor: MyColors.eventCrdBgClr.withOpacity(0.9),
+              textColor: MyColors.lightColor,
+              bgColor: MyColors.primaryColor.withOpacity(0.9),
             ),
             SizedBox(
               height: 3.h,
@@ -77,25 +81,57 @@ class _EventsTabState extends State<EventsTab> {
                             showModalBottomSheet(
                                 context: context,
                                 builder: (bottomSheetContext) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      Navigator.pop(bottomSheetContext);
-                                      BlocProvider.of<ShowCalEventsCubit>(
-                                              context)
-                                          .deleteEvent(eventId: eventId);
-                                    },
-                                    child: Container(
-                                      padding: EdgeInsets.all(5.w),
-                                      color: MyColors.lightColor,
-                                      child: Text(
-                                        "delete",
-                                        style: TextStyle(
-                                          color: MyColors.darkColor,
-                                          fontSize: 16.sp,
-                                          fontWeight: FontWeight.w600,
+                                  return Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      SizedBox(
+                                        height: 2.h,
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.pop(bottomSheetContext);
+                                          BlocProvider.of<ShowCalEventsCubit>(
+                                                  context)
+                                              .deleteEvent(eventId: eventId);
+                                        },
+                                        child: Container(
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 10.w),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 5.w, vertical: 1.2.h),
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(3.h),
+                                              color: MyColors.primaryColor
+                                                  .withOpacity(0.1)),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.delete_rounded,
+                                                color: MyColors.rRed,
+                                              ),
+                                              SizedBox(
+                                                width: 2.w,
+                                              ),
+                                              Text(
+                                                "Delete",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  color: MyColors.darkColor,
+                                                  fontSize: 16.sp,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
+                                      SizedBox(
+                                        height: 2.h,
+                                      ),
+                                    ],
                                   );
                                 });
                           },

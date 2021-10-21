@@ -8,7 +8,7 @@ import 'package:study_pal/data/models/quiz_check_model.dart';
 class CheckQuizCard extends StatelessWidget {
   final QuizCheck quizCheck;
 
-  const CheckQuizCard({
+  const  CheckQuizCard({
     Key? key,
     required this.quizCheck,
   }) : super(key: key);

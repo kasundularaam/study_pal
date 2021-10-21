@@ -71,7 +71,7 @@ class _InitTabState extends State<InitTab> {
                   return Container(
                     padding: EdgeInsets.all(5.w),
                     decoration: BoxDecoration(
-                      color: MyColors.secondaryColor,
+                      color: MyColors.progressColor,
                       borderRadius: BorderRadius.circular(5.w),
                     ),
                     child: Text(
@@ -86,7 +86,7 @@ class _InitTabState extends State<InitTab> {
                   return Container(
                     padding: EdgeInsets.all(5.w),
                     decoration: BoxDecoration(
-                      color: MyColors.secondaryColor,
+                      color: MyColors.progressColor,
                       borderRadius: BorderRadius.circular(5.w),
                     ),
                     child: Text(
@@ -116,13 +116,13 @@ class _InitTabState extends State<InitTab> {
                   return Container(
                     padding: EdgeInsets.all(5.w),
                     decoration: BoxDecoration(
-                      color: MyColors.textColorLight,
+                      color: MyColors.lightColor,
                       borderRadius: BorderRadius.circular(5.w),
                     ),
                     child: Text(
                       "00:00:00",
                       style: TextStyle(
-                        color: MyColors.textColorDark,
+                        color: MyColors.darkColor,
                         fontSize: 50.sp,
                         fontWeight: FontWeight.w600,
                       ),

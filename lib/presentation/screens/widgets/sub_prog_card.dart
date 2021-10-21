@@ -20,7 +20,7 @@ class SubProgCard extends StatelessWidget {
         width: 100.w,
         padding: EdgeInsets.all(5.w),
         decoration: BoxDecoration(
-          color: MyColors.profileTabCrdsClr.withOpacity(0.9),
+          color: MyColors.lightColor.withOpacity(0.6),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -228,23 +228,26 @@ class _EndTabState extends State<EndTab> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           SmallBtn(
-                              btnText: "Not Yet",
-                              onPressed: () =>
-                                  BlocProvider.of<AddWorkDetailsCubit>(context)
-                                      .addWorkDetails(
-                                          isCompleted: false,
-                                          endTabArgs: widget.args),
-                              bgColor: MyColors.lightColor,
-                              txtColor: MyColors.darkColor),
+                            btnText: "Not Yet",
+                            onPressed: () =>
+                                BlocProvider.of<AddWorkDetailsCubit>(context)
+                                    .addWorkDetails(
+                              isCompleted: false,
+                              endTabArgs: widget.args,
+                            ),
+                            bgColor: MyColors.lightColor,
+                            txtColor: MyColors.primaryColor,
+                          ),
                           SmallBtn(
-                              btnText: "Yes I Did",
-                              onPressed: () =>
-                                  BlocProvider.of<AddWorkDetailsCubit>(context)
-                                      .addWorkDetails(
-                                          isCompleted: true,
-                                          endTabArgs: widget.args),
-                              bgColor: MyColors.secondaryColor,
-                              txtColor: MyColors.darkColor),
+                            btnText: "Yes I Did",
+                            onPressed: () =>
+                                BlocProvider.of<AddWorkDetailsCubit>(context)
+                                    .addWorkDetails(
+                                        isCompleted: true,
+                                        endTabArgs: widget.args),
+                            bgColor: MyColors.secondaryColor,
+                            txtColor: MyColors.lightColor,
+                          ),
                         ],
                       )
                     ],

@@ -124,7 +124,7 @@ class _QuizCardState extends State<QuizCard> {
           AnswerBtn(
             answer: answer,
             onPressed: () {},
-            txtColor: MyColors.darkColor,
+            txtColor: MyColors.lightColor,
             bgColor: MyColors.secondaryColor,
           ),
         );
@@ -181,7 +181,7 @@ class AnswerBtn extends StatelessWidget {
             padding: EdgeInsets.all(3.w),
             decoration: BoxDecoration(
               color: bgColor,
-              borderRadius: BorderRadius.circular(3.w),
+              borderRadius: BorderRadius.circular(2.w),
             ),
             child: Align(
               alignment: Alignment.centerLeft,

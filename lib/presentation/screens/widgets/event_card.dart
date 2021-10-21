@@ -39,7 +39,7 @@ class EventCard extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.all(2.w),
                   decoration: BoxDecoration(
-                      shape: BoxShape.circle, color: MyColors.eventCrdBgClr),
+                      shape: BoxShape.circle, color: MyColors.primaryColor),
                   child: Text(
                     day,
                     style: TextStyle(
@@ -59,7 +59,7 @@ class EventCard extends StatelessWidget {
                   child: Container(
                     padding: EdgeInsets.all(2.w),
                     decoration: BoxDecoration(
-                      color: MyColors.eventCrdBgClr.withOpacity(0.9),
+                      color: MyColors.primaryColor.withOpacity(0.9),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

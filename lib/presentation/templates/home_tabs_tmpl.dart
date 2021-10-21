@@ -37,12 +37,9 @@ class _HomeTabsTmplState extends State<HomeTabsTmpl> {
               height: 100.h,
               fit: BoxFit.cover,
             ),
-            Container(
-              color: MyColors.white.withOpacity(0.7),
-            ),
             widget.content,
             Container(
-              color: MyColors.homeTabsTopBgClr,
+              color: MyColors.lightColor,
               width: 100.w,
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),

@@ -84,7 +84,7 @@ class _ModuleScreenState extends State<ModuleScreen> {
                             Text(
                               "See All",
                               style: TextStyle(
-                                color: MyColors.titleClr,
+                                color: MyColors.secondaryColor,
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -94,7 +94,7 @@ class _ModuleScreenState extends State<ModuleScreen> {
                             ),
                             Icon(
                               Icons.arrow_forward_rounded,
-                              color: MyColors.titleClr,
+                              color: MyColors.secondaryColor,
                             ),
                             SizedBox(
                               width: 5.w,
@@ -202,7 +202,7 @@ class _ModuleScreenState extends State<ModuleScreen> {
                                   moduleName: widget.args.moduleName,
                                 ),
                               ),
-                          bgColor: MyColors.primaryColor,
+                          bgColor: MyColors.secondaryColor,
                           txtColor: MyColors.lightColor),
                       SizedBox(
                         width: 5.w,
@@ -266,7 +266,7 @@ class _ModuleScreenState extends State<ModuleScreen> {
                                   moduleName: widget.args.moduleName,
                                 ),
                               ),
-                          bgColor: MyColors.secondaryColor,
+                          bgColor: MyColors.progressColor,
                           txtColor: MyColors.darkColor),
                       SizedBox(
                         width: 5.w,

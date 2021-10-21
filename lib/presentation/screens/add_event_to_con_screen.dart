@@ -126,7 +126,7 @@ class _AddEventToConScreenState extends State<AddEventToConScreen> {
                         }
                       },
                       bgColor: MyColors.secondaryColor,
-                      txtColor: MyColors.darkColor),
+                      txtColor: MyColors.lightColor),
                 );
               }
             },

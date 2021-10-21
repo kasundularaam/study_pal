@@ -36,7 +36,7 @@ class WorkCard extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.all(3.w),
             decoration: BoxDecoration(
-              color: MyColors.profileTabCrdsClr.withOpacity(0.9),
+              color: MyColors.lightColor.withOpacity(0.6),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,6 +87,7 @@ class WorkCard extends StatelessWidget {
                   height: 1.h,
                 ),
                 Container(
+                  width: 100.w,
                   padding: EdgeInsets.all(2.w),
                   decoration: BoxDecoration(
                     color: MyColors.white,

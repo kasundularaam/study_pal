@@ -15,14 +15,14 @@ class ProfileTopCard extends StatelessWidget {
       child: Container(
         width: 95.w,
         padding: EdgeInsets.all(5.w),
-        decoration:
-            BoxDecoration(color: MyColors.profileTabCrdsClr.withOpacity(0.9)),
+        decoration: BoxDecoration(
+          color: MyColors.lightColor.withOpacity(0.6),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             BlocBuilder<ProfileTopCardCubit, ProfileTopCardState>(
               builder: (context, state) {
-                print("STATE $state");
                 if (state is ProfileTopCardLoaded) {
                   return Row(
                     crossAxisAlignment: CrossAxisAlignment.start,

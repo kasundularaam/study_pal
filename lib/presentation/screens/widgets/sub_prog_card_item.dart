@@ -57,7 +57,7 @@ class SubProgCardItem extends StatelessWidget {
                         width: 75.w,
                         max: state.contentCount,
                         progress: state.fireContentCount,
-                        backgroundColor: MyColors.white,
+                        backgroundColor: MyColors.primaryColor.withOpacity(0.5),
                         progressColor: MyColors.progressColor),
                   ],
                 );
@@ -91,7 +91,7 @@ class SubProgCardItem extends StatelessWidget {
                       width: 75.w,
                       max: 100,
                       progress: 0,
-                      backgroundColor: MyColors.white,
+                      backgroundColor: MyColors.primaryColor.withOpacity(0.5),
                       progressColor: MyColors.progressColor,
                     ),
                   ],

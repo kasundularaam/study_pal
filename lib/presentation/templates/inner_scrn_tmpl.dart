@@ -23,7 +23,7 @@ class _InnerScrnTmplState extends State<InnerScrnTmpl> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.innerScrnTopBgClr,
+      backgroundColor: MyColors.primaryColor,
       body: SafeArea(
         child: LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {

@@ -79,22 +79,7 @@ class _EditNameCardState extends State<EditNameCard> {
                 }
               },
               builder: (context, state) {
-                if (state is EditNameInitial) {
-                  return InkWell(
-                    onTap: () => BlocProvider.of<EditNameCubit>(context)
-                        .updateUserName(newName: newName),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 5.w),
-                      child: Text(
-                        "SAVE",
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          color: MyColors.green,
-                        ),
-                      ),
-                    ),
-                  );
-                } else if (state is EditNameLoading) {
+                if (state is EditNameLoading) {
                   return Padding(
                     padding: EdgeInsets.symmetric(horizontal: 5.w),
                     child: Text(
@@ -102,37 +87,6 @@ class _EditNameCardState extends State<EditNameCard> {
                       style: TextStyle(
                         fontSize: 14.sp,
                         color: MyColors.primaryColor,
-                      ),
-                    ),
-                  );
-                }
-                if (state is EditNameSucceed) {
-                  return InkWell(
-                    onTap: () => BlocProvider.of<EditNameCubit>(context)
-                        .updateUserName(newName: newName),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 5.w),
-                      child: Text(
-                        "SAVE",
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          color: MyColors.green,
-                        ),
-                      ),
-                    ),
-                  );
-                } else if (state is EditNameFailed) {
-                  return InkWell(
-                    onTap: () => BlocProvider.of<EditNameCubit>(context)
-                        .updateUserName(newName: newName),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 5.w),
-                      child: Text(
-                        "SAVE",
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          color: MyColors.green,
-                        ),
                       ),
                     ),
                   );
@@ -146,7 +100,7 @@ class _EditNameCardState extends State<EditNameCard> {
                         "SAVE",
                         style: TextStyle(
                           fontSize: 14.sp,
-                          color: MyColors.green,
+                          color: MyColors.primaryColor,
                         ),
                       ),
                     ),

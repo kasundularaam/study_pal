@@ -37,7 +37,7 @@ class _ContentScreenState extends State<ContentScreen> {
             child: Text(
               widget.args.contentName,
               style: TextStyle(
-                color: MyColors.titleClr,
+                color: MyColors.primaryColor,
                 fontSize: 22.sp,
                 fontWeight: FontWeight.w600,
               ),
@@ -83,7 +83,7 @@ class _ContentScreenState extends State<ContentScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Download content as a PDF",
+                "Download content",
                 style: TextStyle(
                   color: MyColors.textColorDark,
                   fontSize: 14.sp,
@@ -110,7 +110,7 @@ class _ContentScreenState extends State<ContentScreen> {
                               .downloadPdf(
                                   moduleId: widget.args.moduleId,
                                   contentId: widget.args.contentId),
-                      bgColor: MyColors.primaryColor,
+                      bgColor: MyColors.secondaryColor,
                       txtColor: MyColors.lightColor,
                     );
                   }
@@ -151,7 +151,7 @@ class _ContentScreenState extends State<ContentScreen> {
                             contentId: widget.args.contentId,
                             contentName: widget.args.contentName),
                       ),
-                  bgColor: MyColors.primaryColor,
+                  bgColor: MyColors.secondaryColor,
                   txtColor: MyColors.lightColor),
             ],
           ),
@@ -182,7 +182,7 @@ class _ContentScreenState extends State<ContentScreen> {
                     AppRouter.workingScreen,
                     arguments: widget.args,
                   ),
-              bgColor: MyColors.secondaryColor,
+              bgColor: MyColors.progressColor,
               txtColor: MyColors.darkColor),
         ],
       ),
