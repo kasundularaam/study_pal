@@ -19,30 +19,42 @@ class HomeTopCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        BlurBg(
-          borderRadius: BorderRadius.circular(5.w),
-          child: Container(
-            padding: EdgeInsets.all(5.w),
-            decoration: BoxDecoration(
-              color: MyColors.lightColor.withOpacity(0.6),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Subjects",
-                  style: TextStyle(
-                      color: MyColors.textColorDark,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w600),
-                ),
-                SizedBox(
-                  height: 1.h,
-                ),
-                Column(
-                  children: builedItemList(subjectList: subjectList),
-                ),
-              ],
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5.w),
+            boxShadow: [
+              BoxShadow(
+                  color: MyColors.darkColor.withOpacity(0.1),
+                  offset: Offset(1, 1),
+                  blurRadius: 4,
+                  spreadRadius: 4)
+            ],
+          ),
+          child: BlurBg(
+            borderRadius: BorderRadius.circular(5.w),
+            child: Container(
+              padding: EdgeInsets.all(5.w),
+              decoration: BoxDecoration(
+                color: MyColors.lightColor.withOpacity(0.6),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Subjects",
+                    style: TextStyle(
+                        color: MyColors.textColorDark,
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  SizedBox(
+                    height: 1.h,
+                  ),
+                  Column(
+                    children: builedItemList(subjectList: subjectList),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

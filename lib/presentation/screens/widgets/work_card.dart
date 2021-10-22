@@ -31,101 +31,113 @@ class WorkCard extends StatelessWidget {
 
     return Column(
       children: [
-        BlurBg(
-          borderRadius: BorderRadius.circular(5.w),
-          child: Container(
-            padding: EdgeInsets.all(3.w),
-            decoration: BoxDecoration(
-              color: MyColors.lightColor.withOpacity(0.6),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    ClipOval(
-                      child: profileImage != "null"
-                          ? FadeInImage(
-                              placeholder: AssetImage(
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5.w),
+            boxShadow: [
+              BoxShadow(
+                  color: MyColors.darkColor.withOpacity(0.1),
+                  offset: Offset(1, 1),
+                  blurRadius: 4,
+                  spreadRadius: 4)
+            ],
+          ),
+          child: BlurBg(
+            borderRadius: BorderRadius.circular(5.w),
+            child: Container(
+              padding: EdgeInsets.all(3.w),
+              decoration: BoxDecoration(
+                color: MyColors.lightColor.withOpacity(0.6),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      ClipOval(
+                        child: profileImage != "null"
+                            ? FadeInImage(
+                                placeholder: AssetImage(
+                                  "assets/images/boy.jpg",
+                                ),
+                                image: NetworkImage(profileImage),
+                                width: 8.w,
+                                height: 8.w,
+                                fit: BoxFit.cover,
+                              )
+                            : Image.asset(
                                 "assets/images/boy.jpg",
+                                width: 8.w,
+                                height: 8.w,
+                                fit: BoxFit.cover,
                               ),
-                              image: NetworkImage(profileImage),
-                              width: 8.w,
-                              height: 8.w,
-                              fit: BoxFit.cover,
-                            )
-                          : Image.asset(
-                              "assets/images/boy.jpg",
-                              width: 8.w,
-                              height: 8.w,
-                              fit: BoxFit.cover,
-                            ),
-                    ),
-                    SizedBox(
-                      width: 2.w,
-                    ),
-                    Text(
-                      "You",
-                      style: TextStyle(
-                          color: MyColors.titleClr,
+                      ),
+                      SizedBox(
+                        width: 2.w,
+                      ),
+                      Text(
+                        "You",
+                        style: TextStyle(
+                            color: MyColors.primaryColor,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      Text(
+                        fireContent.isCompleted
+                            ? " completed a content on"
+                            : " worked on",
+                        style: TextStyle(
+                          color: MyColors.textColorDark,
                           fontSize: 14.sp,
-                          fontWeight: FontWeight.w600),
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 1.h,
+                  ),
+                  Container(
+                    width: 100.w,
+                    padding: EdgeInsets.all(2.w),
+                    decoration: BoxDecoration(
+                      color: MyColors.white,
+                      borderRadius: BorderRadius.circular(1.w),
                     ),
-                    Text(
-                      fireContent.isCompleted
-                          ? " completed a content on"
-                          : " worked on",
+                    child: Text(
+                      "${fireContent.subjectName} > ${fireContent.moduleName} > ${fireContent.contentName}",
                       style: TextStyle(
                         color: MyColors.textColorDark,
-                        fontSize: 14.sp,
+                        fontSize: 12.sp,
                       ),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 1.h,
-                ),
-                Container(
-                  width: 100.w,
-                  padding: EdgeInsets.all(2.w),
-                  decoration: BoxDecoration(
-                    color: MyColors.white,
-                    borderRadius: BorderRadius.circular(1.w),
+                    ),
                   ),
-                  child: Text(
-                    "${fireContent.subjectName} > ${fireContent.moduleName} > ${fireContent.contentName}",
+                  SizedBox(
+                    height: 1.h,
+                  ),
+                  Text(
+                    "Worked time: $workedTime",
                     style: TextStyle(
                       color: MyColors.textColorDark,
                       fontSize: 12.sp,
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 1.h,
-                ),
-                Text(
-                  "Worked time: $workedTime",
-                  style: TextStyle(
-                    color: MyColors.textColorDark,
-                    fontSize: 12.sp,
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    timeago.format(
-                      DateTime.fromMillisecondsSinceEpoch(
-                        fireContent.startTimestamp,
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      timeago.format(
+                        DateTime.fromMillisecondsSinceEpoch(
+                          fireContent.startTimestamp,
+                        ),
+                      ),
+                      style: TextStyle(
+                        color: MyColors.textColorDark,
+                        fontSize: 12.sp,
                       ),
                     ),
-                    style: TextStyle(
-                      color: MyColors.textColorDark,
-                      fontSize: 12.sp,
-                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

@@ -63,12 +63,27 @@ class _ChangeSubjectScreenState extends State<ChangeSubjectScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "Subjects",
-                    style: TextStyle(
-                        color: MyColors.primaryColor,
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w600),
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () => Navigator.pop(context),
+                        child: Icon(
+                          Icons.close,
+                          color: MyColors.primaryColor,
+                          size: 20.sp,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 5.w,
+                      ),
+                      Text(
+                        "Subjects",
+                        style: TextStyle(
+                            color: MyColors.primaryColor,
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ],
                   ),
                   BlocConsumer<ChangeSubjectsCubit, ChangeSubjectsState>(
                     listener: (context, state) {

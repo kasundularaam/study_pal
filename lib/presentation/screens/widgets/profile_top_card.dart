@@ -10,147 +10,160 @@ class ProfileTopCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<ProfileTopCardCubit>(context).getUserDetails();
-    return BlurBg(
-      borderRadius: BorderRadius.circular(5.w),
-      child: Container(
-        width: 95.w,
-        padding: EdgeInsets.all(5.w),
-        decoration: BoxDecoration(
-          color: MyColors.lightColor.withOpacity(0.6),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            BlocBuilder<ProfileTopCardCubit, ProfileTopCardState>(
-              builder: (context, state) {
-                if (state is ProfileTopCardLoaded) {
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(12.w),
-                        child: state.fireUser.profilePic != "null"
-                            ? FadeInImage(
-                                placeholder:
-                                    AssetImage("assets/images/boy.jpg"),
-                                image: NetworkImage(
-                                  state.fireUser.profilePic,
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5.w),
+        boxShadow: [
+          BoxShadow(
+              color: MyColors.darkColor.withOpacity(0.1),
+              offset: Offset(1, 1),
+              blurRadius: 4,
+              spreadRadius: 4)
+        ],
+      ),
+      child: BlurBg(
+        borderRadius: BorderRadius.circular(5.w),
+        child: Container(
+          width: 95.w,
+          padding: EdgeInsets.all(5.w),
+          decoration: BoxDecoration(
+            color: MyColors.lightColor.withOpacity(0.6),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              BlocBuilder<ProfileTopCardCubit, ProfileTopCardState>(
+                builder: (context, state) {
+                  if (state is ProfileTopCardLoaded) {
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(12.w),
+                          child: state.fireUser.profilePic != "null"
+                              ? FadeInImage(
+                                  placeholder:
+                                      AssetImage("assets/images/boy.jpg"),
+                                  image: NetworkImage(
+                                    state.fireUser.profilePic,
+                                  ),
+                                  width: 24.w,
+                                  height: 24.w,
+                                  fit: BoxFit.cover,
+                                )
+                              : Image.asset(
+                                  "assets/images/boy.jpg",
+                                  width: 24.w,
+                                  height: 24.w,
+                                  fit: BoxFit.cover,
                                 ),
-                                width: 24.w,
-                                height: 24.w,
-                                fit: BoxFit.cover,
-                              )
-                            : Image.asset(
-                                "assets/images/boy.jpg",
-                                width: 24.w,
-                                height: 24.w,
-                                fit: BoxFit.cover,
+                        ),
+                        SizedBox(width: 6.w),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              state.fireUser.name,
+                              style: TextStyle(
+                                color: MyColors.textColorDark,
+                                fontSize: 18.sp,
                               ),
-                      ),
-                      SizedBox(width: 6.w),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            state.fireUser.name,
-                            style: TextStyle(
-                              color: MyColors.textColorDark,
-                              fontSize: 18.sp,
                             ),
-                          ),
-                          Text(
-                            state.fireUser.email,
-                            style: TextStyle(
-                              color: MyColors.textColorDark,
-                              fontSize: 12.sp,
+                            Text(
+                              state.fireUser.email,
+                              style: TextStyle(
+                                color: MyColors.textColorDark,
+                                fontSize: 12.sp,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  );
-                } else {
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(12.w),
-                        child: Image.asset(
-                          "assets/images/boy.jpg",
-                          width: 24.w,
-                          height: 24.w,
-                          fit: BoxFit.cover,
+                          ],
                         ),
-                      ),
-                      SizedBox(width: 6.w),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            width: 20.w,
-                            height: 1.6.h,
-                            decoration: BoxDecoration(
-                              color: MyColors.textColorLight,
-                              borderRadius: BorderRadius.circular(1.w),
+                      ],
+                    );
+                  } else {
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(12.w),
+                          child: Image.asset(
+                            "assets/images/boy.jpg",
+                            width: 24.w,
+                            height: 24.w,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        SizedBox(width: 6.w),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: 20.w,
+                              height: 1.6.h,
+                              decoration: BoxDecoration(
+                                color: MyColors.textColorLight,
+                                borderRadius: BorderRadius.circular(1.w),
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          Container(
-                            width: 40.w,
-                            height: 1.2.h,
-                            decoration: BoxDecoration(
-                              color: MyColors.textColorLight,
-                              borderRadius: BorderRadius.circular(1.w),
+                            SizedBox(
+                              height: 1.h,
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  );
-                }
-              },
-            ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: GestureDetector(
-                onTap: () =>
-                    Navigator.pushNamed(context, AppRouter.editProfileScreen),
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.w),
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                        color: MyColors.textColorDark,
-                      ),
-                      borderRadius: BorderRadius.circular(2.w)),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons.settings_rounded,
-                        size: 14.sp,
-                        color: MyColors.textColorDark,
-                      ),
-                      SizedBox(
-                        width: 1.w,
-                      ),
-                      Text(
-                        "Edit",
-                        style: TextStyle(
+                            Container(
+                              width: 40.w,
+                              height: 1.2.h,
+                              decoration: BoxDecoration(
+                                color: MyColors.textColorLight,
+                                borderRadius: BorderRadius.circular(1.w),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    );
+                  }
+                },
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: GestureDetector(
+                  onTap: () =>
+                      Navigator.pushNamed(context, AppRouter.editProfileScreen),
+                  child: Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.w),
+                    decoration: BoxDecoration(
+                        border: Border.all(
                           color: MyColors.textColorDark,
-                          fontSize: 12.sp,
                         ),
-                      ),
-                    ],
+                        borderRadius: BorderRadius.circular(2.w)),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.settings_rounded,
+                          size: 14.sp,
+                          color: MyColors.textColorDark,
+                        ),
+                        SizedBox(
+                          width: 1.w,
+                        ),
+                        Text(
+                          "Edit",
+                          style: TextStyle(
+                            color: MyColors.textColorDark,
+                            fontSize: 12.sp,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );
