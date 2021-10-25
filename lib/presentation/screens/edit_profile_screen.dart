@@ -69,6 +69,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   child: EditNameCard(
                       fireUser: state.fireUser,
                       onSucceed: (message) {
+                        BlocProvider.of<ProfileTopCardCubit>(context)
+                            .getUserDetails();
                         SnackBar succeedSnack =
                             SnackBar(content: Text(message));
                         ScaffoldMessenger.of(context)

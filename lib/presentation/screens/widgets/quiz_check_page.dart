@@ -14,6 +14,11 @@ class QuizCheckPage extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    Color grade = Colors.red;
+    String gradeTitle = "WASTED";
+    int quizAttempted = 5;
+    int correct = 1;
+    int precentage = 100;
     return Column(
       children: [
         Expanded(
@@ -23,6 +28,76 @@ class QuizCheckPage extends StatelessWidget {
             children: [
               SizedBox(
                 height: 3.h,
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 5.w),
+                padding: EdgeInsets.all(5.w),
+                decoration: BoxDecoration(
+                  color: grade,
+                  borderRadius: BorderRadius.circular(5.w),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      gradeTitle,
+                      style: TextStyle(
+                          color: MyColors.lightColor,
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    SizedBox(
+                      height: 2.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Quiz attempted: $quizAttempted",
+                              style: TextStyle(
+                                color: MyColors.lightColor,
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 1.h,
+                            ),
+                            Text(
+                              "Correct: $correct",
+                              style: TextStyle(
+                                color: MyColors.lightColor,
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(5.w),
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                  color: MyColors.lightColor, width: 1.w)),
+                          child: Text(
+                            "$precentage%",
+                            style: TextStyle(
+                              color: MyColors.lightColor,
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 2.h,
               ),
               ListView.builder(
                 itemCount: quizChecks.length,

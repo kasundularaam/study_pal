@@ -7,9 +7,8 @@ import 'package:firebase_storage/firebase_storage.dart' as storage;
 import 'package:study_pal/data/value%20validator/auth_value_validator.dart';
 
 class FirebaseAuthRepo {
-  static DocumentReference reference = FirebaseFirestore.instance
-      .collection("users")
-      .doc(FirebaseAuthRepo.currentUid());
+  static DocumentReference reference =
+      FirebaseFirestore.instance.collection("users").doc(currentUid());
 
   static String imageFilePath = "images/${currentUid()}/profile.png";
 

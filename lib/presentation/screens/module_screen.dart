@@ -262,9 +262,9 @@ class _ModuleScreenState extends State<ModuleScreen> {
                                 context,
                                 AppRouter.quizScreen,
                                 arguments: QuizScreenArgs(
-                                  moduleId: widget.args.moduleId,
-                                  moduleName: widget.args.moduleName,
-                                ),
+                                    moduleId: widget.args.moduleId,
+                                    moduleName: widget.args.moduleName,
+                                    subjectId: widget.args.subjectId),
                               ),
                           bgColor: MyColors.progressColor,
                           txtColor: MyColors.darkColor),
