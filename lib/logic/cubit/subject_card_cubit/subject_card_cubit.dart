@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:study_pal/data/http/http_requests.dart';
 import 'package:study_pal/data/repositories/firebase_repo/firebase_content_repo.dart';
 import 'package:study_pal/data/repositories/firebase_repo/firebase_module_repo.dart';
 import 'package:study_pal/data/repositories/repository.dart';
@@ -18,7 +19,8 @@ class SubjectCardCubit extends Cubit<SubjectCardState> {
           await Repository.getModuleCountBySubId(subjectId: subjectId);
       int completedModules =
           await FirebaseModuleRepo.getFireModuleCount(subjectId: subjectId);
-      int contentCount = 3;
+      int contentCount =
+          await HttpRequests.getContentCountBySub(subjectId: subjectId);
       int completedContents =
           await FirebaseContentRepo.getCleanedContentsCountBySub(
               subjectId: subjectId);

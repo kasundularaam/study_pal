@@ -121,17 +121,13 @@ class HttpRequests {
 
   static Future<int> getContentCountBySub({required String subjectId}) async {
     try {
-      final response = await http.get(
-        Uri.parse(
-          DataProvider.contentCountBySubUrl(subjectId: subjectId),
-        ),
-      );
-      if (response.statusCode == 200) {
-        int count = int.parse(response.body);
-        return count;
-      } else {
-        throw '${response.statusCode}';
+      int contentCount = 0;
+      List<Module> modules = await getModules(subjectId: subjectId);
+      for (var i = 0; i < modules.length; i++) {
+        List<Content> contents = await getContents(moduleId: modules[i].id);
+        contentCount = contentCount + contents.length;
       }
+      return contentCount;
     } catch (e) {
       throw e;
     }
@@ -139,17 +135,13 @@ class HttpRequests {
 
   static Future<int> getQuestionCountBySub({required String subjectId}) async {
     try {
-      final response = await http.get(
-        Uri.parse(
-          DataProvider.questionCountBySubUrl(subjectId: subjectId),
-        ),
-      );
-      if (response.statusCode == 200) {
-        int count = int.parse(response.body);
-        return count;
-      } else {
-        throw '${response.statusCode}';
+      int quizCount = 0;
+      List<Module> modules = await getModules(subjectId: subjectId);
+      for (var i = 0; i < modules.length; i++) {
+        List<Question> quizes = await getQuestions(moduleId: modules[i].id);
+        quizCount = quizCount + quizes.length;
       }
+      return quizCount;
     } catch (e) {
       throw e;
     }

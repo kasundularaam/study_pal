@@ -125,8 +125,11 @@ class TodayWorkedDetails extends StatelessWidget {
                         return Center(
                           child: Text(
                             state.message,
+                            textAlign: TextAlign.center,
                             style: TextStyle(
-                                color: MyColors.textColorDark, fontSize: 14.sp),
+                              color: MyColors.textColorDark,
+                              fontSize: 12.sp,
+                            ),
                           ),
                         );
                       } else {

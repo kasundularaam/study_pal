@@ -1,9 +1,8 @@
-import 'dart:math';
-
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:study_pal/core/constants/my_colors.dart';
+import 'package:study_pal/data/http/http_requests.dart';
 import 'package:study_pal/data/models/fire_quiz.dart';
 import 'package:study_pal/data/repositories/firebase_repo/firebase_quiz_repo.dart';
 
@@ -16,9 +15,7 @@ class QsItemCubit extends Cubit<QsItemState> {
     try {
       List<FireQuize> fireQuizes =
           await FirebaseQuizRepo.getFireQuizesBySub(subjectId: subjectId);
-      // int all = await HttpRequests.getQuestionCountBySub(subjectId: subjectId);
-      Random random = Random();
-      int all = random.nextInt(8) + 4;
+      int all = await HttpRequests.getQuestionCountBySub(subjectId: subjectId);
       int done = fireQuizes.length;
       int correct = 0;
       int precentage = 0;

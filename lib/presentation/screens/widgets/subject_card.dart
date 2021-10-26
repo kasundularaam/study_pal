@@ -120,17 +120,6 @@ class SubjectCard extends StatelessWidget {
                                 )
                               ],
                             ),
-                            SizedBox(
-                              height: 2.h,
-                            ),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: Text("${state.quizCount} Quiz",
-                                  style: TextStyle(
-                                    color: MyColors.textColorDark,
-                                    fontSize: 14.sp,
-                                  )),
-                            )
                           ],
                         );
                       } else {

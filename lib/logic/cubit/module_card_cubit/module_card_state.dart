@@ -10,9 +10,11 @@ class ModuleCardLoading extends ModuleCardState {}
 class ModuleCardLoaded extends ModuleCardState {
   final int contentCount;
   final int quizCount;
+  final Color color;
   ModuleCardLoaded({
     required this.contentCount,
     required this.quizCount,
+    required this.color,
   });
 
   @override
@@ -21,15 +23,17 @@ class ModuleCardLoaded extends ModuleCardState {
 
     return other is ModuleCardLoaded &&
         other.contentCount == contentCount &&
-        other.quizCount == quizCount;
+        other.quizCount == quizCount &&
+        other.color == color;
   }
 
   @override
-  int get hashCode => contentCount.hashCode ^ quizCount.hashCode;
+  int get hashCode =>
+      contentCount.hashCode ^ quizCount.hashCode ^ color.hashCode;
 
   @override
   String toString() =>
-      'ModuleCardLoaded(contentCount: $contentCount, quizCount: $quizCount)';
+      'ModuleCardLoaded(contentCount: $contentCount, quizCount: $quizCount, color: $color)';
 }
 
 class ModuleCardFailed extends ModuleCardState {

@@ -20,7 +20,7 @@ class TodayWorksCubit extends Cubit<TodayWorksState> {
       } else {
         emit(TodayWorksNoWork(
             message:
-                "You haven't done anything yet...\nTry to keep working everyday!!"));
+                "You haven't done anything yet...\nTry to keep working\neveryday..!"));
       }
     } catch (e) {
       emit(TodayWorksFailed(errorMsg: e.toString()));

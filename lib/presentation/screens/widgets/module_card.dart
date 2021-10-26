@@ -5,8 +5,6 @@ import 'package:study_pal/core/constants/my_colors.dart';
 import 'package:study_pal/core/screen_arguments/module_screen_args.dart';
 import 'package:study_pal/logic/cubit/module_card_cubit/module_card_cubit.dart';
 import 'package:study_pal/presentation/router/app_router.dart';
-import 'package:study_pal/presentation/screens/widgets/error_msg_box.dart';
-import 'package:study_pal/presentation/screens/widgets/loading_container.dart';
 
 class ModuleCard extends StatelessWidget {
   final ModuleScreenArgs args;
@@ -17,8 +15,8 @@ class ModuleCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<ModuleCardCubit>(context)
-        .loadModuleCardDetails(moduleId: args.moduleId);
+    BlocProvider.of<ModuleCardCubit>(context).loadModuleCardDetails(
+        subjectId: args.subjectId, moduleId: args.moduleId);
     return Column(
       children: [
         GestureDetector(
@@ -34,66 +32,77 @@ class ModuleCard extends StatelessWidget {
               ),
             );
           },
-          child: Container(
-            width: 100.w,
-            padding: EdgeInsets.all(5.w),
-            decoration: BoxDecoration(
-              color: MyColors.textColorLight,
-              borderRadius: BorderRadius.circular(2.w),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  args.moduleName,
-                  style: TextStyle(
-                    color: MyColors.textColorDark,
-                    fontSize: 16.sp,
-                  ),
-                ),
-                SizedBox(
-                  height: 2.h,
-                ),
-                BlocBuilder<ModuleCardCubit, ModuleCardState>(
-                  builder: (context, state) {
-                    if (state is ModuleCardInitial) {
-                      return Text("Initial State");
-                    } else if (state is ModuleCardLoading) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          LoadingContainer(width: 30.w, height: 1.4.h),
-                          LoadingContainer(width: 15.w, height: 1.4.h),
-                        ],
-                      );
-                    } else if (state is ModuleCardLoaded) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Contents: ${state.contentCount}",
-                            style: TextStyle(
-                              color: MyColors.textColorDark,
-                              fontSize: 14.sp,
-                            ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(2.w),
+            child: BlocBuilder<ModuleCardCubit, ModuleCardState>(
+              builder: (context, state) {
+                if (state is ModuleCardLoaded) {
+                  return Container(
+                    width: 100.w,
+                    padding: EdgeInsets.all(5.w),
+                    decoration: BoxDecoration(
+                      border: Border(
+                        right: BorderSide(width: 3.w, color: state.color),
+                      ),
+                      color: MyColors.textColorLight,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          args.moduleName,
+                          style: TextStyle(
+                            color: MyColors.textColorDark,
+                            fontSize: 16.sp,
                           ),
-                          Text(
-                            "Quiz: ${state.quizCount}",
-                            style: TextStyle(
-                              color: MyColors.textColorDark,
-                              fontSize: 14.sp,
+                        ),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Contents: ${state.contentCount}",
+                              style: TextStyle(
+                                color: MyColors.textColorDark,
+                                fontSize: 14.sp,
+                              ),
                             ),
+                            Text(
+                              "Quiz: ${state.quizCount}",
+                              style: TextStyle(
+                                color: MyColors.textColorDark,
+                                fontSize: 14.sp,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+                } else {
+                  return Container(
+                    width: 100.w,
+                    padding: EdgeInsets.all(5.w),
+                    decoration: BoxDecoration(
+                      color: MyColors.lightColor,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          args.moduleName,
+                          style: TextStyle(
+                            color: MyColors.textColorDark,
+                            fontSize: 16.sp,
                           ),
-                        ],
-                      );
-                    } else if (state is ModuleCardFailed) {
-                      return ErrorMsgBox(errorMsg: state.errorMsg);
-                    } else {
-                      return Center(child: Text("unhandled state excecuted!"));
-                    }
-                  },
-                )
-              ],
+                        ),
+                      ],
+                    ),
+                  );
+                }
+              },
             ),
           ),
         ),
