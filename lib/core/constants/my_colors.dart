@@ -106,4 +106,9 @@ class MyColors {
 
   static const Color wAnsBgClr = Color(0xffFFE6E6);
   static const Color wAnsFgClr = Color(0xffD83A56);
+
+  static const Color weak = Colors.red;
+  static const Color needToBeImprove = Color(0xffFF8303);
+  static const Color good = Color(0xffFFBE00);
+  static const Color grate = Colors.green;
 }

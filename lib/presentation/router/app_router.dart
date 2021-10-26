@@ -127,8 +127,7 @@ class AppRouter {
           builder: (_) => BlocProvider(
             create: (context) => QuizNavCubit(),
             child: QuizScreen(
-              moduleId: args.moduleId,
-              moduleName: args.moduleName,
+              args: args,
             ),
           ),
         );

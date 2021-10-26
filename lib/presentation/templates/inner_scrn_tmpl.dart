@@ -8,11 +8,13 @@ class InnerScrnTmpl extends StatefulWidget {
   final String title;
   final String? subtitle;
   final Widget content;
+  final Widget? action;
   const InnerScrnTmpl({
     Key? key,
     required this.title,
     this.subtitle,
     required this.content,
+    this.action,
   }) : super(key: key);
 
   @override
@@ -82,6 +84,10 @@ class _InnerScrnTmplState extends State<InnerScrnTmpl> {
                           ],
                         ),
                       ),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: widget.action,
+                      ),
                     ],
                   ),
                 ),
@@ -96,9 +102,11 @@ class _InnerScrnTmplState extends State<InnerScrnTmpl> {
                       child: Stack(
                         children: [
                           Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Image.asset(
-                                  "assets/images/bg_bottom_art.png")),
+                            alignment: Alignment.bottomCenter,
+                            child: Image.asset(
+                              "assets/images/bg_bottom_art.png",
+                            ),
+                          ),
                           widget.content,
                         ],
                       ),

@@ -5,11 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 import 'package:study_pal/core/constants/my_colors.dart';
 import 'package:study_pal/logic/cubit/logout_cubit/logout_cubit.dart';
+import 'package:study_pal/logic/cubit/quiz_summary_cubit/quiz_summary_card_cubit.dart';
 import 'package:study_pal/logic/cubit/sub_prog_card_cubit/sub_prog_card_cubit.dart';
 import 'package:study_pal/logic/cubit/today_worls_cubit/today_works_cubit.dart';
 import 'package:study_pal/logic/cubit/work_card_list_cubit/work_card_list_cubit.dart';
 import 'package:study_pal/presentation/router/app_router.dart';
 import 'package:study_pal/presentation/screens/widgets/profile_top_card.dart';
+import 'package:study_pal/presentation/screens/widgets/quiz_stats_card.dart';
 import 'package:study_pal/presentation/screens/widgets/sub_prog_card.dart';
 import 'package:study_pal/presentation/screens/widgets/today_worked_details.dart';
 import 'package:study_pal/presentation/screens/widgets/work_card_list.dart';
@@ -50,6 +52,11 @@ class _ProfileTabState extends State<ProfileTab> {
               SizedBox(
                 height: 3.h,
               ),
+              BlocProvider(
+                create: (context) => QuizSummaryCardCubit(),
+                child: QuizStatsCard(),
+              ),
+              SizedBox(height: 2.h),
               Container(
                 child: Text(
                   "Your activities",

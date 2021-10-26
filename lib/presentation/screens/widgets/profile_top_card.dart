@@ -24,7 +24,6 @@ class ProfileTopCard extends StatelessWidget {
       child: BlurBg(
         borderRadius: BorderRadius.circular(5.w),
         child: Container(
-          width: 95.w,
           padding: EdgeInsets.all(5.w),
           decoration: BoxDecoration(
             color: MyColors.lightColor.withOpacity(0.6),

@@ -8,11 +8,19 @@ class QuizCheckInitial extends QuizCheckState {}
 class QuizCheckLoading extends QuizCheckState {}
 
 class QuizCheckSucceed extends QuizCheckState {
-  final List<FireQuize> fireQuizes;
   final List<QuizCheck> quizChecks;
+  final String grade;
+  final int attempted;
+  final int correct;
+  final int precentage;
+  final Color color;
   QuizCheckSucceed({
-    required this.fireQuizes,
     required this.quizChecks,
+    required this.grade,
+    required this.attempted,
+    required this.correct,
+    required this.precentage,
+    required this.color,
   });
 
   @override
@@ -20,16 +28,28 @@ class QuizCheckSucceed extends QuizCheckState {
     if (identical(this, other)) return true;
 
     return other is QuizCheckSucceed &&
-        listEquals(other.fireQuizes, fireQuizes) &&
-        listEquals(other.quizChecks, quizChecks);
+        listEquals(other.quizChecks, quizChecks) &&
+        other.grade == grade &&
+        other.attempted == attempted &&
+        other.correct == correct &&
+        other.precentage == precentage &&
+        other.color == color;
   }
 
   @override
-  int get hashCode => fireQuizes.hashCode ^ quizChecks.hashCode;
+  int get hashCode {
+    return quizChecks.hashCode ^
+        grade.hashCode ^
+        attempted.hashCode ^
+        correct.hashCode ^
+        precentage.hashCode ^
+        color.hashCode;
+  }
 
   @override
-  String toString() =>
-      'QuizCheckSucceed(fireQuizes: $fireQuizes, quizChecks: $quizChecks)';
+  String toString() {
+    return 'QuizCheckSucceed(quizChecks: $quizChecks, grade: $grade, attempted: $attempted, correct: $correct, precentage: $precentage, color: $color)';
+  }
 }
 
 class QuizCheckFailed extends QuizCheckState {

@@ -12,7 +12,7 @@ class FirebaseQuizRepo {
       {required List<FireQuize> fireQuizes}) async {
     try {
       fireQuizes.forEach((fireQuize) async {
-        await reference.doc(fireQuize.quizId).set(fireQuize.toMap());
+        await reference.add(fireQuize.toMap());
       });
     } catch (e) {
       throw e;
@@ -61,6 +61,21 @@ class FirebaseQuizRepo {
         }
       });
       return fireQuizesByMod;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  static Future<void> resetProgress(
+      {required String subjectId, required String moduleId}) async {
+    try {
+      QuerySnapshot snapshot = await reference
+          .where("subjectId", isEqualTo: subjectId)
+          .where("moduleId", isEqualTo: moduleId)
+          .get();
+      for (DocumentSnapshot ds in snapshot.docs) {
+        await ds.reference.delete();
+      }
     } catch (e) {
       throw e;
     }
