@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:study_pal/data/repositories/firebase_repo/firebase_content_repo.dart';
@@ -20,7 +22,8 @@ class SubjectCardCubit extends Cubit<SubjectCardState> {
       int completedContents =
           await FirebaseContentRepo.getCleanedContentsCountBySub(
               subjectId: subjectId);
-      int quizCount = 20;
+      Random random = Random();
+      int quizCount = random.nextInt(8) + 4;
       emit(SubjectCardLoaded(
           moduleCount: moduleCount,
           completedModules: completedModules,

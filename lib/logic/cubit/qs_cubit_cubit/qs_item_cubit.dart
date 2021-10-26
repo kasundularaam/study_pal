@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
@@ -15,7 +17,8 @@ class QsItemCubit extends Cubit<QsItemState> {
       List<FireQuize> fireQuizes =
           await FirebaseQuizRepo.getFireQuizesBySub(subjectId: subjectId);
       // int all = await HttpRequests.getQuestionCountBySub(subjectId: subjectId);
-      int all = 20;
+      Random random = Random();
+      int all = random.nextInt(8) + 4;
       int done = fireQuizes.length;
       int correct = 0;
       int precentage = 0;
