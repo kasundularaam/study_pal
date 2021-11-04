@@ -18,7 +18,7 @@ class ContentListScreenCubit extends Cubit<ContentListScreenState> {
       if (contentList.isNotEmpty) {
         emit(ContentListScreenLoaded(contentList: contentList));
       } else {
-        emit(ContentListScreenNoResult(message: "No Results Found"));
+        emit(ContentListScreenNoResult(message: "No Contents Found!"));
       }
     } catch (e) {
       emit(ContentListScreenFailed(errorMsg: e.toString()));

@@ -16,9 +16,9 @@ class AuthCubit extends Cubit<AuthState> {
       bool userStatus = FirebaseAuthRepo.checkUserStatus();
       String _statusMsg;
       if (userStatus) {
-        _statusMsg = "Loading your data...";
+        _statusMsg = "Loading Your Data...";
       } else {
-        _statusMsg = "Please log in befor starting";
+        _statusMsg = "Please log in befor starting..!";
       }
       emit(AuthCheckUserStatus(userStatus: userStatus, statusMsg: _statusMsg));
     } catch (e) {

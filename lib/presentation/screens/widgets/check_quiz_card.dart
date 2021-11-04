@@ -8,7 +8,7 @@ import 'package:study_pal/data/models/quiz_check_model.dart';
 class CheckQuizCard extends StatelessWidget {
   final QuizCheck quizCheck;
 
-  const  CheckQuizCard({
+  const CheckQuizCard({
     Key? key,
     required this.quizCheck,
   }) : super(key: key);
@@ -58,7 +58,7 @@ class CheckQuizCard extends StatelessWidget {
                   : Column(
                       children: [
                         Text(
-                          "given answer: ${quizCheck.checkedAnswer}",
+                          "Given Answer: ${quizCheck.checkedAnswer}",
                           style: TextStyle(
                               color: correct
                                   ? MyColors.cAnsFgClr
@@ -72,7 +72,7 @@ class CheckQuizCard extends StatelessWidget {
                       ],
                     ),
               Text(
-                "correct answer: ${quizCheck.correctAnswer}",
+                "Correct Answer: ${quizCheck.correctAnswer}",
                 style: TextStyle(
                     color: MyColors.darkColor,
                     fontSize: 14.sp,

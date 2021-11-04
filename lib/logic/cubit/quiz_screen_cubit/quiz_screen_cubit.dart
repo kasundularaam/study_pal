@@ -33,7 +33,9 @@ class QuizScreenCubit extends Cubit<QuizScreenState> {
       if (filteredList.isNotEmpty) {
         emit(QuizScreenLoaded(quizList: filteredList));
       } else {
-        emit(QuizScreenNoResults(message: "No Quizes available"));
+        emit(QuizScreenNoResults(
+            message:
+                "No Quizes Available!\nReset progress to access previous questions..."));
       }
     } catch (e) {
       emit(QuizScreenFailed(errorMessage: e.toString()));

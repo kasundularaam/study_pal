@@ -48,11 +48,7 @@ class SubProgCard extends StatelessWidget {
               ),
               BlocBuilder<SubProgCardCubit, SubProgCardState>(
                 builder: (context, state) {
-                  if (state is SubProgCardInitial) {
-                    return Text("Initial State");
-                  } else if (state is SubProgCardLoading) {
-                    return Text("Loading...");
-                  } else if (state is SubProgCardLoaded) {
+                  if (state is SubProgCardLoaded) {
                     return Align(
                       alignment: Alignment.center,
                       child: Column(
@@ -60,10 +56,16 @@ class SubProgCard extends StatelessWidget {
                             builedItemList(subjectList: state.subjectList),
                       ),
                     );
-                  } else if (state is SubProgCardFailed) {
-                    return Text("something went wrong!");
                   } else {
-                    return Text("unhandled state excecuted!");
+                    return Center(
+                      child: Text(
+                        "Loading...",
+                        style: TextStyle(
+                            color: MyColors.textColorDark,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    );
                   }
                 },
               ),

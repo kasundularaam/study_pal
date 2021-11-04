@@ -72,7 +72,7 @@ class _AddEventToConScreenState extends State<AddEventToConScreen> {
           SizedBox(
             height: 2.h,
           ),
-          Text("time",
+          Text("Time",
               style: TextStyle(color: MyColors.darkColor, fontSize: 16.sp)),
           SizedBox(
             height: 2.h,

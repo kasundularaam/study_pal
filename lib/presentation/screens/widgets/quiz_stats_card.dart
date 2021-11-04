@@ -48,28 +48,18 @@ class QuizStatsCard extends StatelessWidget {
               ),
               BlocBuilder<QuizSummaryCardCubit, QuizSummaryCardState>(
                 builder: (context, state) {
-                  if (state is QuizSummaryLoading) {
-                    return Center(
-                      child: Text(
-                        "Loading...",
-                        style: TextStyle(
-                            color: MyColors.textColorDark,
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    );
-                  } else if (state is QuizSummaryLoaded) {
+                  if (state is QuizSummaryLoaded) {
                     return Column(
                       children: buildItemList(subjects: state.subjects),
                     );
                   } else {
                     return Center(
                       child: Text(
-                        "Error...",
+                        "Loading...",
                         style: TextStyle(
                             color: MyColors.textColorDark,
                             fontSize: 12.sp,
-                            fontWeight: FontWeight.bold),
+                            fontWeight: FontWeight.w600),
                       ),
                     );
                   }

@@ -45,7 +45,7 @@ class _AddCountdownScreenState extends State<AddCountdownScreen> {
         physics: BouncingScrollPhysics(),
         children: [
           Text(
-            "Exam title",
+            "Exam Title",
             style: TextStyle(
               color: MyColors.darkColor,
               fontSize: 16.sp,
@@ -83,7 +83,7 @@ class _AddCountdownScreenState extends State<AddCountdownScreen> {
           SizedBox(
             height: 2.h,
           ),
-          Text("time",
+          Text("Time",
               style: TextStyle(color: MyColors.darkColor, fontSize: 16.sp)),
           SizedBox(
             height: 2.h,
@@ -129,7 +129,8 @@ class _AddCountdownScreenState extends State<AddCountdownScreen> {
                 SnackBar snackBar = SnackBar(content: Text(state.errorMsg));
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
               } else if (state is SetCountdownSucceed) {
-                SnackBar snackBar = SnackBar(content: Text("coundown set!"));
+                SnackBar snackBar =
+                    SnackBar(content: Text("COUNTDOWN ADDED SUCCESSFULLY!"));
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 BlocProvider.of<CountdownTabCubit>(context).loadCountdowns();
                 Navigator.pop(context);

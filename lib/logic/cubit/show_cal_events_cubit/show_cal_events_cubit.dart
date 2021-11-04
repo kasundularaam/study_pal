@@ -17,7 +17,7 @@ class ShowCalEventsCubit extends Cubit<ShowCalEventsState> {
       if (calEvents.isNotEmpty) {
         emit(ShowCalEventsLoaded(calEvents: calEvents));
       } else {
-        emit(ShowCalEventsNoResult(message: "No events found"));
+        emit(ShowCalEventsNoResult(message: "No Events"));
       }
     } catch (e) {
       emit(ShowCalEventsFailed(errorMsg: e.toString()));
@@ -47,10 +47,10 @@ class ShowCalEventsCubit extends Cubit<ShowCalEventsState> {
         if (filteredList.isNotEmpty) {
           emit(ShowCalEventsLoaded(calEvents: filteredList));
         } else {
-          emit(ShowCalEventsNoResult(message: "No results found"));
+          emit(ShowCalEventsNoResult(message: "No Results found"));
         }
       } else {
-        emit(ShowCalEventsNoResult(message: "No results found"));
+        emit(ShowCalEventsNoResult(message: "No Results found"));
       }
     } catch (e) {
       emit(ShowCalEventsFailed(errorMsg: e.toString()));
@@ -63,6 +63,7 @@ class ShowCalEventsCubit extends Cubit<ShowCalEventsState> {
       loadEvents();
     } catch (e) {
       emit(ShowCalEventsFailed(errorMsg: e.toString()));
+      loadEvents();
     }
   }
 }

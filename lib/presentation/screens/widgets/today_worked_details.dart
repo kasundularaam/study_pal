@@ -48,17 +48,7 @@ class TodayWorkedDetails extends StatelessWidget {
                   ),
                   BlocBuilder<TodayWorksCubit, TodayWorksState>(
                     builder: (context, state) {
-                      if (state is TodayWorksInitial) {
-                        return Text("Initial State");
-                      } else if (state is TodayWorksLoading) {
-                        return Center(
-                          child: Text(
-                            state.loadingMsg,
-                            style: TextStyle(
-                                color: MyColors.textColorDark, fontSize: 14.sp),
-                          ),
-                        );
-                      } else if (state is TodayWorksLoaded) {
+                      if (state is TodayWorksLoaded) {
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -111,7 +101,7 @@ class TodayWorkedDetails extends StatelessWidget {
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    "time worked today",
+                                    "Time Worked Today",
                                     style: TextStyle(
                                         color: MyColors.textColorDark,
                                         fontSize: 14.sp),
@@ -134,11 +124,14 @@ class TodayWorkedDetails extends StatelessWidget {
                         );
                       } else {
                         return Center(
-                            child: Text(
-                          "...",
-                          style: TextStyle(
-                              color: MyColors.textColorDark, fontSize: 14.sp),
-                        ));
+                          child: Text(
+                            "Loading...",
+                            style: TextStyle(
+                                color: MyColors.textColorDark,
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        );
                       }
                     },
                   ),

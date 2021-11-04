@@ -25,7 +25,7 @@ class CountdownCard extends StatelessWidget {
           onLongPress: () => showOptions(),
           child: Container(
             width: 100.w,
-            padding: EdgeInsets.all(5.w),
+            padding: EdgeInsets.symmetric(horizontal: 2.5.w, vertical: 5.w),
             decoration: BoxDecoration(
                 color: MyColors.lightColor,
                 borderRadius: BorderRadius.circular(5.w)),
@@ -34,12 +34,150 @@ class CountdownCard extends StatelessWidget {
                 BlocBuilder<CountdownCubit, CountdownState>(
                   builder: (context, state) {
                     if (state is CountdownRunning) {
-                      return Text(
-                        state.countdown,
-                        style: TextStyle(
-                            color: MyColors.primaryColor,
-                            fontSize: 30.sp,
-                            fontWeight: FontWeight.w600),
+                      return Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              height: 12.h,
+                              margin: EdgeInsets.symmetric(horizontal: 1.w),
+                              padding: EdgeInsets.all(2.w),
+                              decoration: BoxDecoration(
+                                color: MyColors.primaryColor,
+                                borderRadius: BorderRadius.circular(3.w),
+                              ),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  FittedBox(
+                                    fit: BoxFit.fitWidth,
+                                    child: Text(
+                                      state.daysStr,
+                                      style: TextStyle(
+                                          color: MyColors.lightColor,
+                                          fontSize: 30.sp,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
+                                  FittedBox(
+                                    child: Text(
+                                      "Days",
+                                      style: TextStyle(
+                                          color: MyColors.lightColor,
+                                          fontSize: 10.sp,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              height: 12.h,
+                              padding: EdgeInsets.all(2.w),
+                              margin: EdgeInsets.symmetric(horizontal: 1.w),
+                              decoration: BoxDecoration(
+                                color: MyColors.primaryColor,
+                                borderRadius: BorderRadius.circular(3.w),
+                              ),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  FittedBox(
+                                    child: Text(
+                                      state.hoursStr,
+                                      style: TextStyle(
+                                          color: MyColors.lightColor,
+                                          fontSize: 30.sp,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
+                                  FittedBox(
+                                    child: Text(
+                                      "Hours",
+                                      style: TextStyle(
+                                          color: MyColors.lightColor,
+                                          fontSize: 10.sp,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              height: 12.h,
+                              padding: EdgeInsets.all(2.w),
+                              margin: EdgeInsets.symmetric(horizontal: 1.w),
+                              decoration: BoxDecoration(
+                                color: MyColors.primaryColor,
+                                borderRadius: BorderRadius.circular(3.w),
+                              ),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  FittedBox(
+                                    child: Text(
+                                      state.minutesStr,
+                                      style: TextStyle(
+                                          color: MyColors.lightColor,
+                                          fontSize: 30.sp,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
+                                  FittedBox(
+                                    child: Text(
+                                      "Minutes",
+                                      style: TextStyle(
+                                          color: MyColors.lightColor,
+                                          fontSize: 10.sp,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              height: 12.h,
+                              padding: EdgeInsets.all(2.w),
+                              margin: EdgeInsets.symmetric(horizontal: 1.w),
+                              decoration: BoxDecoration(
+                                color: MyColors.primaryColor,
+                                borderRadius: BorderRadius.circular(3.w),
+                              ),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  FittedBox(
+                                    child: Text(
+                                      state.secondsStr,
+                                      style: TextStyle(
+                                          color: MyColors.lightColor,
+                                          fontSize: 30.sp,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
+                                  FittedBox(
+                                    child: Text(
+                                      "Seconds",
+                                      style: TextStyle(
+                                          color: MyColors.lightColor,
+                                          fontSize: 10.sp,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       );
                     } else if (state is CountdownEnded) {
                       return Container(
@@ -55,13 +193,23 @@ class CountdownCard extends StatelessWidget {
                 SizedBox(
                   height: 2.h,
                 ),
-                Text(
-                  countdown.examTitle,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: MyColors.darkColor,
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w600,
+                Container(
+                  padding: EdgeInsets.all(2.w),
+                  decoration: BoxDecoration(
+                    color: MyColors.primaryColor.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(3.w),
+                  ),
+                  child: Center(
+                    child: FittedBox(
+                      child: Text(
+                        countdown.examTitle,
+                        style: TextStyle(
+                          color: MyColors.primaryColor,
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ],

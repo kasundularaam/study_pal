@@ -33,7 +33,7 @@ class _CongratulationsTabState extends State<CongratulationsTab> {
           ),
           Center(
             child: Text(
-              "congratulations",
+              "CONGRATULATIONS",
               style: TextStyle(
                   color: MyColors.primaryColor,
                   fontSize: 18.sp,

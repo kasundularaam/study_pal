@@ -7,7 +7,6 @@ import 'package:study_pal/core/screen_arguments/subject_screen_args.dart';
 import 'package:study_pal/data/models/module_model.dart';
 import 'package:study_pal/logic/cubit/module_card_cubit/module_card_cubit.dart';
 import 'package:study_pal/logic/cubit/subject_screen_cubit/subject_screen_cubit.dart';
-import 'package:study_pal/presentation/screens/widgets/error_msg_box.dart';
 import 'package:study_pal/presentation/screens/widgets/module_card.dart';
 import 'package:study_pal/presentation/screens/widgets/my_text_field.dart';
 import 'package:study_pal/presentation/templates/inner_scrn_tmpl.dart';
@@ -50,7 +49,7 @@ class _SubjectScreenState extends State<SubjectScreen> {
               onSubmitted: (text) {},
               textInputAction: TextInputAction.search,
               isPassword: false,
-              hintText: "Search modules...",
+              hintText: "Search Modules...",
               textColor: MyColors.textColorDark,
               bgColor: MyColors.white.withOpacity(0.7),
             ),
@@ -58,11 +57,18 @@ class _SubjectScreenState extends State<SubjectScreen> {
           SizedBox(
             height: 3.h,
           ),
-          BlocBuilder<SubjectScreenCubit, SubjectScreenState>(
+          BlocConsumer<SubjectScreenCubit, SubjectScreenState>(
+            listener: (context, state) {
+              if (state is SubjectScreenNoResult) {
+                SnackBar snackBar = SnackBar(content: Text(state.message));
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              } else if (state is SubjectScreenFailed) {
+                SnackBar snackBar = SnackBar(content: Text(state.errorMsg));
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
+            },
             builder: (context, state) {
-              if (state is SubjectScreenInitial) {
-                return Text("Initial State");
-              } else if (state is SubjectScreenLoading) {
+              if (state is SubjectScreenLoading) {
                 return Center(
                     child: CircularProgressIndicator(
                   color: MyColors.progressColor,
@@ -88,12 +94,8 @@ class _SubjectScreenState extends State<SubjectScreen> {
                     );
                   },
                 );
-              } else if (state is SubjectScreenNoResult) {
-                return Center(child: ErrorMsgBox(errorMsg: state.message));
-              } else if (state is SubjectScreenFailed) {
-                return Center(child: ErrorMsgBox(errorMsg: state.errorMsg));
               } else {
-                return Text("unhandled state excecuted!");
+                return SizedBox();
               }
             },
           ),

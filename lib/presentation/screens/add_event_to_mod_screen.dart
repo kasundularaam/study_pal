@@ -33,7 +33,7 @@ class _AddEventToModScreenState extends State<AddEventToModScreen> {
   Widget build(BuildContext context) {
     title = "${widget.args.subjectName} > ${widget.args.moduleName}";
     return InnerScrnTmpl(
-      title: "Set Reinder",
+      title: "Set Reminder",
       content: ListView(
         padding: EdgeInsets.all(5.w),
         physics: BouncingScrollPhysics(),
@@ -75,7 +75,7 @@ class _AddEventToModScreenState extends State<AddEventToModScreen> {
           SizedBox(
             height: 2.h,
           ),
-          Text("time",
+          Text("Time",
               style: TextStyle(color: MyColors.darkColor, fontSize: 16.sp)),
           SizedBox(
             height: 2.h,
@@ -91,7 +91,7 @@ class _AddEventToModScreenState extends State<AddEventToModScreen> {
           SizedBox(
             height: 2.h,
           ),
-          Text("repete",
+          Text("Repeat",
               style: TextStyle(color: MyColors.darkColor, fontSize: 16.sp)),
           SizedBox(
             height: 2.h,
@@ -109,7 +109,7 @@ class _AddEventToModScreenState extends State<AddEventToModScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Remind me weekly",
+                      "Remind Me Weekly",
                       style:
                           TextStyle(color: MyColors.darkColor, fontSize: 14.sp),
                     ),
@@ -139,7 +139,7 @@ class _AddEventToModScreenState extends State<AddEventToModScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "For $weekCount weeks",
+                                "For $weekCount Weeks",
                                 style: TextStyle(
                                     color: MyColors.darkColor, fontSize: 14.sp),
                               ),

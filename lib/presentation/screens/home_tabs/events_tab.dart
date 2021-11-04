@@ -51,7 +51,7 @@ class _EventsTabState extends State<EventsTab> {
               onSubmitted: (text) {},
               textInputAction: TextInputAction.search,
               isPassword: false,
-              hintText: "Find event",
+              hintText: "Find Events",
               textColor: MyColors.lightColor,
               bgColor: MyColors.primaryColor.withOpacity(0.9),
             ),
@@ -60,9 +60,7 @@ class _EventsTabState extends State<EventsTab> {
             ),
             BlocBuilder<ShowCalEventsCubit, ShowCalEventsState>(
               builder: (context, state) {
-                if (state is ShowCalEventsInitial) {
-                  return Center(child: Text("Initial Event"));
-                } else if (state is ShowCalEventsLoading) {
+                if (state is ShowCalEventsLoading) {
                   return Center(
                     child: CircularProgressIndicator(
                       color: MyColors.progressColor,
@@ -138,22 +136,12 @@ class _EventsTabState extends State<EventsTab> {
                           calEvent: calEvent);
                     },
                   );
-                } else if (state is ShowCalEventsFailed) {
-                  return Center(
-                    child: ErrorMsgBox(
-                      errorMsg: state.errorMsg,
-                    ),
-                  );
-                } else if (state is ShowCalEventsNoResult) {
-                  return Center(
-                    child: ErrorMsgBox(
-                      errorMsg: state.message,
-                    ),
-                  );
                 } else {
                   return Center(
-                      child:
-                          ErrorMsgBox(errorMsg: "unhandled state excecuted!"));
+                    child: ErrorMsgBox(
+                      errorMsg: "No Events Found",
+                    ),
+                  );
                 }
               },
             )

@@ -8,8 +8,8 @@ class ValueValidator {
       "Email you entered is not in valid format please check again";
   static const String invalidPassword =
       "Password must contains atleast 6 characters";
-  static const String emptyPassword = "Password feild is empty";
-  static const String emptyEmail = "Email feild is empty";
+  static const String emptyPassword = "Password field is empty";
+  static const String emptyEmail = "Email field is empty";
   static const String emptyName = "Name field is empty";
   static const String shortName = "Name you entered is too short";
 

@@ -50,7 +50,7 @@ class _NewEventScreenState extends State<NewEventScreen> {
           SizedBox(
             height: 2.h,
           ),
-          Text("time",
+          Text("Time",
               style: TextStyle(color: MyColors.darkColor, fontSize: 16.sp)),
           SizedBox(
             height: 2.h,
@@ -84,7 +84,7 @@ class _NewEventScreenState extends State<NewEventScreen> {
               maxLines: null,
               style: TextStyle(color: MyColors.textColorDark, fontSize: 14.sp),
               decoration: InputDecoration(
-                hintText: "Your reminder description...",
+                hintText: "Your Reminder Description...",
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 2.h, horizontal: 5.w),
                 border: InputBorder.none,
@@ -97,7 +97,8 @@ class _NewEventScreenState extends State<NewEventScreen> {
           BlocConsumer<NewEventCubit, NewEventState>(
             listener: (context, state) {
               if (state is NewEventSucceed) {
-                SnackBar snackBar = SnackBar(content: Text("Event added!"));
+                SnackBar snackBar =
+                    SnackBar(content: Text("EVENT ADDED SUCCESSFULLY!"));
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 BlocProvider.of<ShowCalEventsCubit>(context).loadEvents();
                 Navigator.pop(context);
@@ -121,7 +122,9 @@ class _NewEventScreenState extends State<NewEventScreen> {
                         BlocProvider.of<NewEventCubit>(context).addNewEvent(
                             date: pickedDate!, time: pickedTime!, title: title);
                       } else {
-                        print("date or time not picked");
+                        BlocProvider.of<NewEventCubit>(context).emit(
+                            NewEventFailed(
+                                errorMsg: "Please pick date and time!"));
                       }
                     },
                     bgColor: MyColors.secondaryColor,

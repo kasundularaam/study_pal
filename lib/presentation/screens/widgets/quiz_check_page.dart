@@ -80,7 +80,7 @@ class QuizCheckPage extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "Quiz attempted: ${state.attempted}",
+                                      "Quiz Attempted: ${state.attempted}",
                                       style: TextStyle(
                                         color: MyColors.lightColor,
                                         fontSize: 12.sp,

@@ -21,9 +21,12 @@ class CountdownCubit extends Cubit<CountdownState> {
       String minutesStr =
           ((duration / 60) % 60).floor().toString().padLeft(2, '0');
       String secondsStr = (duration % 60).floor().toString().padLeft(2, '0');
-      String countdown = "$daysStr : $hoursStr : $minutesStr : $secondsStr";
       if (duration >= 0) {
-        emit(CountdownRunning(countdown: countdown));
+        emit(CountdownRunning(
+            daysStr: daysStr,
+            hoursStr: hoursStr,
+            minutesStr: minutesStr,
+            secondsStr: secondsStr));
       } else {
         emit(CountdownEnded());
       }

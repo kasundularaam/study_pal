@@ -113,9 +113,7 @@ class _ModuleScreenState extends State<ModuleScreen> {
                 height: 16.h,
                 child: BlocBuilder<ModuleScreenCubit, ModuleScreenState>(
                   builder: (context, state) {
-                    if (state is ModuleScreenInitial) {
-                      return Center(child: Text("Initial State"));
-                    } else if (state is ModuleScreenLoading) {
+                    if (state is ModuleScreenLoading) {
                       return Center(
                           child: CircularProgressIndicator(
                         color: MyColors.progressColor,
@@ -151,18 +149,9 @@ class _ModuleScreenState extends State<ModuleScreen> {
                           ),
                         ],
                       );
-                    } else if (state is ModuleScreenFailed) {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 5.w),
-                        child: ErrorMsgBox(errorMsg: state.errorMsg),
-                      );
-                    } else if (state is ModuleScreenNoResult) {
-                      return Center(
-                          child: ErrorMsgBox(errorMsg: state.message));
                     } else {
                       return Center(
-                        child:
-                            ErrorMsgBox(errorMsg: "unhandled state excecuted!"),
+                        child: ErrorMsgBox(errorMsg: "No Contents Found!"),
                       );
                     }
                   },
@@ -246,7 +235,7 @@ class _ModuleScreenState extends State<ModuleScreen> {
                         width: 5.w,
                       ),
                       Text(
-                        "let's practice yourself",
+                        "Let's practice yourself",
                         style: TextStyle(
                           color: MyColors.textColorDark,
                           fontSize: 14.sp,

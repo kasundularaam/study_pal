@@ -176,7 +176,7 @@ class _ContentScreenState extends State<ContentScreen> {
             height: 3.h,
           ),
           BigBtn(
-              btnText: "Let's go",
+              btnText: "Let's Go",
               onPressed: () => Navigator.pushNamed(
                     context,
                     AppRouter.workingScreen,

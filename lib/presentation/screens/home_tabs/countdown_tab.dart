@@ -9,6 +9,7 @@ import 'package:study_pal/logic/cubit/countdown_cubit/countdown_cubit.dart';
 import 'package:study_pal/logic/cubit/countdown_tab_cubit/countdown_tab_cubit.dart';
 import 'package:study_pal/presentation/router/app_router.dart';
 import 'package:study_pal/presentation/screens/widgets/countdown_card.dart';
+import 'package:study_pal/presentation/screens/widgets/error_msg_box.dart';
 import 'package:study_pal/presentation/templates/home_tabs_tmpl.dart';
 
 class CountDownTab extends StatefulWidget {
@@ -36,23 +37,23 @@ class _CountDownTabState extends State<CountDownTab> {
           size: 22.sp,
         ),
       ),
-      content: BlocBuilder<CountdownTabCubit, CountdownTabState>(
-          builder: (context, state) {
-        if (state is CountdownTabLoading) {
-          return Center(
-            child: CircularProgressIndicator(
-              color: MyColors.progressColor,
-            ),
-          );
-        } else if (state is CountdownTabLoaded) {
-          return ListView(
-            physics: BouncingScrollPhysics(),
-            padding: const EdgeInsets.all(0),
-            children: [
-              SizedBox(
-                height: 10.h,
-              ),
-              ListView.builder(
+      content: ListView(
+        physics: BouncingScrollPhysics(),
+        padding: const EdgeInsets.all(0),
+        children: [
+          SizedBox(
+            height: 10.h,
+          ),
+          BlocBuilder<CountdownTabCubit, CountdownTabState>(
+              builder: (context, state) {
+            if (state is CountdownTabLoading) {
+              return Center(
+                child: CircularProgressIndicator(
+                  color: MyColors.progressColor,
+                ),
+              );
+            } else if (state is CountdownTabLoaded) {
+              return ListView.builder(
                   padding: EdgeInsets.symmetric(horizontal: 5.w),
                   itemCount: state.countdowns.length,
                   shrinkWrap: true,
@@ -166,13 +167,17 @@ class _CountDownTabState extends State<CountDownTab> {
                         countdown: countdown,
                       ),
                     );
-                  }),
-            ],
-          );
-        } else {
-          return SizedBox();
-        }
-      }),
+                  });
+            } else {
+              return Center(
+                child: ErrorMsgBox(
+                  errorMsg: "No Exams Found",
+                ),
+              );
+            }
+          }),
+        ],
+      ),
     );
   }
 }

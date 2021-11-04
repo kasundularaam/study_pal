@@ -86,7 +86,7 @@ class _EndTabState extends State<EndTab> {
                   height: 2.h,
                 ),
                 Text(
-                  "Start time: $startTime",
+                  "Start Time: $startTime",
                   style: TextStyle(
                     color: MyColors.darkColor,
                     fontSize: 16.sp,
@@ -96,7 +96,7 @@ class _EndTabState extends State<EndTab> {
                   height: 2.h,
                 ),
                 Text(
-                  "End time: $endTime",
+                  "End Time: $endTime",
                   style: TextStyle(
                     color: MyColors.darkColor,
                     fontSize: 16.sp,
@@ -106,7 +106,7 @@ class _EndTabState extends State<EndTab> {
                   height: 2.h,
                 ),
                 Text(
-                  "Worked time: ${widget.args.clockValue}",
+                  "Worked Time: ${widget.args.clockValue}",
                   style: TextStyle(
                     color: MyColors.darkColor,
                     fontSize: 16.sp,
@@ -157,7 +157,7 @@ class _EndTabState extends State<EndTab> {
                             width: 2.w,
                           ),
                           Text(
-                            "You done",
+                            "You Done",
                             style: TextStyle(
                               color: MyColors.successClr,
                               fontSize: 16.sp,

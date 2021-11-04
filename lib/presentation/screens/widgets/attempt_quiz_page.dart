@@ -103,36 +103,34 @@ class AttemptQuizPage extends StatelessWidget {
           ),
         ),
       ),
-      content: Column(
-        children: [
-          Expanded(
-            child: ListView(
-              padding: const EdgeInsets.all(0),
-              physics: BouncingScrollPhysics(),
+      content: BlocConsumer<QuizScreenCubit, QuizScreenState>(
+        listener: (context, state) {
+          if (state is QuizScreenNoResults) {
+            SnackBar snackBar = SnackBar(content: Text(state.message));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          } else if (state is QuizScreenFailed) {
+            SnackBar snackBar = SnackBar(content: Text(state.errorMessage));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          }
+        },
+        builder: (context, state) {
+          if (state is QuizScreenLoading) {
+            return Center(
+                child: CircularProgressIndicator(
+              color: MyColors.secondaryColor,
+            ));
+          } else if (state is QuizScreenLoaded) {
+            return Column(
               children: [
-                SizedBox(
-                  height: 3.h,
-                ),
-                BlocConsumer<QuizScreenCubit, QuizScreenState>(
-                  listener: (context, state) {
-                    if (state is QuizScreenNoResults) {
-                      SnackBar snackBar =
-                          SnackBar(content: Text(state.message));
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    } else if (state is QuizScreenFailed) {
-                      SnackBar snackBar =
-                          SnackBar(content: Text(state.errorMessage));
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    }
-                  },
-                  builder: (context, state) {
-                    if (state is QuizScreenLoading) {
-                      return Center(
-                          child: CircularProgressIndicator(
-                        color: MyColors.secondaryColor,
-                      ));
-                    } else if (state is QuizScreenLoaded) {
-                      return ListView.builder(
+                Expanded(
+                  child: ListView(
+                    padding: const EdgeInsets.all(0),
+                    physics: BouncingScrollPhysics(),
+                    children: [
+                      SizedBox(
+                        height: 3.h,
+                      ),
+                      ListView.builder(
                           padding: EdgeInsets.symmetric(horizontal: 5.w),
                           physics: BouncingScrollPhysics(),
                           shrinkWrap: true,
@@ -159,34 +157,38 @@ class AttemptQuizPage extends StatelessWidget {
                                 },
                               ),
                             );
-                          });
-                    } else {
-                      return SizedBox();
+                          }),
+                    ],
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    if (quizChecks.isNotEmpty) {
+                      BlocProvider.of<QuizNavCubit>(context)
+                          .checkAnswers(quizChecks: quizChecks);
                     }
                   },
+                  child: Container(
+                    color: MyColors.lightColor,
+                    width: 100.w,
+                    padding: EdgeInsets.symmetric(vertical: 2.h),
+                    child: Center(
+                      child: Text(
+                        "Check",
+                        style: TextStyle(
+                            color: MyColors.primaryColor,
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                  ),
                 ),
               ],
-            ),
-          ),
-          GestureDetector(
-            onTap: () => BlocProvider.of<QuizNavCubit>(context)
-                .checkAnswers(quizChecks: quizChecks),
-            child: Container(
-              color: MyColors.lightColor,
-              width: 100.w,
-              padding: EdgeInsets.symmetric(vertical: 2.h),
-              child: Center(
-                child: Text(
-                  "Check",
-                  style: TextStyle(
-                      color: MyColors.primaryColor,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w600),
-                ),
-              ),
-            ),
-          ),
-        ],
+            );
+          } else {
+            return SizedBox();
+          }
+        },
       ),
     );
   }

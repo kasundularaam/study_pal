@@ -70,3 +70,5 @@ class CountdownTabEdit extends CountdownTabState {
   @override
   String toString() => 'CountdownTabEdit(countdown: $countdown)';
 }
+
+class CountdownTabNoResults extends CountdownTabState {}

@@ -45,7 +45,6 @@ class QsItemCubit extends Cubit<QsItemState> {
           color: color,
           precentage: precentage));
     } catch (e) {
-      print("ERROR [${e.toString()}]");
       emit(QsItemFailed());
     }
   }

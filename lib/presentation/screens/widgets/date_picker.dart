@@ -51,7 +51,7 @@ class _MDatePickerState extends State<MDatePicker> {
                           TextStyle(color: widget.txtColor, fontSize: 14.sp)));
             } else {
               return Center(
-                  child: Text("Pick a date",
+                  child: Text("Pick a Date",
                       style:
                           TextStyle(color: widget.txtColor, fontSize: 14.sp)));
             }
