@@ -48,16 +48,16 @@ class QuizCheckCubit extends Cubit<QuizCheckState> {
 
       precentage = ((correct / attempted) * 100).round();
       if (precentage < 35) {
-        grade = "WEAK";
+        grade = "It's Ok, Let's try again";
         color = MyColors.weak;
       } else if (precentage >= 35 && precentage < 65) {
-        grade = "NEED TO IMPROVE";
+        grade = "Almost There";
         color = MyColors.needToBeImprove;
       } else if (precentage >= 65 && precentage < 75) {
-        grade = "GOOD";
+        grade = "Good, You're getting there";
         color = MyColors.good;
       } else {
-        grade = "GRATE";
+        grade = "Great!! Keep up the good work";
         color = MyColors.grate;
       }
 

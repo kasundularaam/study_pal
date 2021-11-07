@@ -44,7 +44,7 @@ class _CongratulationsTabState extends State<CongratulationsTab> {
             height: 3.h,
           ),
           Text(
-            "You have successfully completed \n${widget.contentName}.\nkeep working everyday...\nGOOD LUCK!!",
+            "You have successfully completed \n${widget.contentName}\nkeep working everyday...\nGOOD LUCK!!",
             style: TextStyle(
               color: MyColors.darkColor,
               fontSize: 13.sp,

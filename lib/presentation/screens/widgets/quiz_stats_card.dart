@@ -37,7 +37,7 @@ class QuizStatsCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Quize Summary",
+                "Quiz Summary",
                 style: TextStyle(
                     color: MyColors.textColorDark,
                     fontSize: 16.sp,
