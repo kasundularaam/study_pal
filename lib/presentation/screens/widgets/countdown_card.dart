@@ -185,7 +185,7 @@ class CountdownCard extends StatelessWidget {
                       );
                     } else {
                       return Container(
-                        child: Text("Loaing..."),
+                        child: Text("Loading..."),
                       );
                     }
                   },

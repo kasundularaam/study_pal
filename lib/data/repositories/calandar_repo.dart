@@ -11,14 +11,13 @@ class CalandarRepo {
   static const scopes = const [CalendarApi.calendarScope];
   static const clId =
       "571275540498-sqd60o24nneq5u5id8e9s0rdb29uq6rd.apps.googleusercontent.com";
+
   static Future<String?> addEventForAContent({required Event event}) async {
     try {
       var clientId = new ClientId(clId, "");
       AuthClient authClient =
           await clientViaUserConsent(clientId, scopes, userPrompt);
       var calendar = CalendarApi(authClient);
-      CalendarList calendarList = await calendar.calendarList.list();
-      print("CALENDAR LIST: $calendarList");
       String calendarId = "primary";
       Event returningEvent = await calendar.events.insert(event, calendarId);
       if (returningEvent.status == "confirmed") {
@@ -26,6 +25,26 @@ class CalandarRepo {
         return returningEvent.id;
       } else {
         log("Unable to add event in google calendar");
+        return null;
+      }
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  static Future<String?> addExamCountdown({required Event event}) async {
+    try {
+      var clientId = new ClientId(clId, "");
+      AuthClient authClient =
+          await clientViaUserConsent(clientId, scopes, userPrompt);
+      var calendar = CalendarApi(authClient);
+      String calendarId = "primary";
+      Event returningEvent = await calendar.events.insert(event, calendarId);
+      if (returningEvent.status == "confirmed") {
+        log('Event added in google calendar');
+        return returningEvent.id;
+      } else {
+        log("Unable to add countdown in google calendar");
         return null;
       }
     } catch (e) {
@@ -42,8 +61,6 @@ class CalandarRepo {
       AuthClient authClient =
           await clientViaUserConsent(clientId, scopes, userPrompt);
       var calendar = CalendarApi(authClient);
-      CalendarList calendarList = await calendar.calendarList.list();
-      print("CALENDAR LIST: $calendarList");
       String calendarId = "primary";
 
       int weekIntForFire = 1;
